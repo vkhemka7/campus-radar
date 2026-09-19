@@ -1,4 +1,7 @@
-import { MOCK_EVENTS, type CampusEvent } from "@/lib/events";
+import { type CampusEvent } from "@/lib/events";
+import { getEvents } from "@/lib/get-events";
+
+export const dynamic = "force-dynamic";
 
 function formatEventTime(isoDateTime: string, timezone: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -76,7 +79,9 @@ function EventCard({ event }: { event: CampusEvent }) {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const result = await getEvents();
+
   return (
     <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-12 font-sans dark:bg-black">
       <main className="w-full max-w-2xl">
@@ -90,15 +95,33 @@ export default function Home() {
           Career events around campus, in one place — so relevant opportunities
           can find you instead of you hunting through calendars.
         </p>
-        <p className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100">
-          Development mock data only. These are fake example events for building
-          the page, not real campus listings.
-        </p>
-        <section className="mt-8 space-y-4" aria-label="Mock upcoming events">
-          {MOCK_EVENTS.map((event) => (
-            <EventCard key={event.sourceUrl} event={event} />
-          ))}
-        </section>
+        {result.ok ? (
+          <>
+            <p className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100">
+              Events are loaded from the CampusRadar database. Current rows are
+              development seed data, not live campus listings.
+            </p>
+            <section className="mt-8 space-y-4" aria-label="Upcoming events">
+              {result.events.length === 0 ? (
+                <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
+                  No events are stored in the database yet. After you run the
+                  seed SQL in Supabase, refresh this page.
+                </p>
+              ) : (
+                result.events.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))
+              )}
+            </section>
+          </>
+        ) : (
+          <p
+            className="mt-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
+            role="alert"
+          >
+            {result.error}
+          </p>
+        )}
       </main>
     </div>
   );
