@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { type CampusEvent } from "@/lib/events";
-import { EVENT_RESULT_LIMIT, getEvents } from "@/lib/get-events";
+import { EVENT_RESULT_LIMIT, getEvents, type BrowsingEvent } from "@/lib/get-events";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +16,7 @@ function formatEventTime(isoDateTime: string, timezone: string) {
   }).format(new Date(isoDateTime));
 }
 
-function EventCard({ event }: { event: CampusEvent }) {
+function EventCard({ event, relevance }: BrowsingEvent) {
   return (
     <article className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
       <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
@@ -26,6 +25,11 @@ function EventCard({ event }: { event: CampusEvent }) {
       <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
         {event.title}
       </h2>
+      {relevance.classification === "relevant" ? (
+        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          Why included: {relevance.reasons.slice(0, 2).map((reason) => reason.explanation).join(" ")}
+        </p>
+      ) : null}
       {event.company ? (
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
           {event.company}
@@ -97,7 +101,11 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const params = await searchParams;
   const search = typeof params.q === "string" ? params.q.trim() : "";
   const days = params.days === "7" ? 7 : params.days === "30" ? 30 : undefined;
-  const result = await getEvents({ search, days });
+  const view = params.view === "all" ? "all" : "career";
+  const result = await getEvents({ search, days, view });
+  const allParams = new URLSearchParams({ view: "all" });
+  if (search) allParams.set("q", search);
+  if (days) allParams.set("days", String(days));
 
   return (
     <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-12 font-sans dark:bg-black">
@@ -113,6 +121,13 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           can find you instead of you hunting through calendars.
         </p>
         <form action="/" method="get" className="mt-6 flex flex-wrap items-end gap-3">
+          <label className="flex flex-col gap-1 text-sm">
+            View
+            <select key={view} name="view" defaultValue={view} className="rounded-lg border border-zinc-300 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950">
+              <option value="career">Career &amp; Industry</option>
+              <option value="all">All Events</option>
+            </select>
+          </label>
           <label className="flex min-w-0 flex-1 flex-col gap-1 text-sm">
             Search event titles
             <input
@@ -140,8 +155,14 @@ export default async function Home({ searchParams }: PageProps<"/">) {
           <button type="submit" className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-950">
             Search
           </button>
-          <Link href="/" className="py-2 text-sm underline">Clear filters</Link>
+          <Link href={`/?view=${view}`} className="py-2 text-sm underline">Clear filters</Link>
         </form>
+        {view === "career" ? (
+          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+            Career &amp; Industry uses simple text rules and may miss useful events.{" "}
+            <Link href={`/?${allParams}`} className="underline">View all upcoming events</Link>
+          </p>
+        ) : null}
         {result.ok ? (
           <>
             <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
@@ -150,13 +171,15 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             <section className="mt-8 space-y-4" aria-label="Upcoming and ongoing events">
               {result.events.length === 0 ? (
                 <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
-                  {search || days
+                  {view === "career"
+                    ? "No Career & Industry matches. Try All Events to browse without the career filter."
+                    : search || days
                     ? "No upcoming or ongoing events match your filters. Try another search or clear the filters."
                     : "No upcoming or ongoing events are available right now. Check back soon."}
                 </p>
               ) : (
-                result.events.map((event) => (
-                  <EventCard key={event.id} event={event} />
+                result.events.map(({ event, relevance }) => (
+                  <EventCard key={event.id} event={event} relevance={relevance} />
                 ))
               )}
             </section>

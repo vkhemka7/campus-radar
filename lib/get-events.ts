@@ -1,3 +1,4 @@
+import { classifyEvent, type EventRelevance } from "@/lib/event-relevance";
 import { type CampusEvent } from "@/lib/events";
 import { createSupabaseClient } from "@/lib/supabase";
 
@@ -18,8 +19,10 @@ type EventRow = {
   discovered_at: string;
 };
 
+export type BrowsingEvent = { event: CampusEvent; relevance: EventRelevance };
+
 export type GetEventsResult =
-  | { ok: true; events: CampusEvent[] }
+  | { ok: true; events: BrowsingEvent[] }
   | { ok: false; error: string };
 
 function toCampusEvent(row: EventRow): CampusEvent {
@@ -44,6 +47,7 @@ function toCampusEvent(row: EventRow): CampusEvent {
 export const EVENT_RESULT_LIMIT = 30;
 
 export type EventFilters = {
+  view?: "career" | "all";
   search?: string;
   days?: 7 | 30;
 };
@@ -58,40 +62,49 @@ export async function getEvents(filters: EventFilters = {}): Promise<GetEventsRe
 
   const now = new Date();
   const cutoff = now.toISOString();
-  let query = clientResult.supabase
-    .from("events")
-    .select(
-      "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, external_id, discovered_at",
-    )
-    .eq("source", "Illinois Webtools")
-    // A past start remains visible only while its listed end is in the future.
-    // When end === start (unknown duration), it expires at its start time.
-    .or(`start_time.gte.${cutoff},end_time.gt.${cutoff}`);
+  const batchSize = filters.view === "all" ? EVENT_RESULT_LIMIT : 100;
+  const events: BrowsingEvent[] = [];
+  for (let offset = 0; ; offset += batchSize) {
+    let query = clientResult.supabase
+      .from("events")
+      .select(
+        "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, external_id, discovered_at",
+      )
+      .eq("source", "Illinois Webtools")
+      // A past start remains visible only while its listed end is in the future.
+      // When end === start (unknown duration), it expires at its start time.
+      .or(`start_time.gte.${cutoff},end_time.gt.${cutoff}`);
 
-  const search = filters.search?.trim();
-  if (search) {
-    const escaped = search.replace(/[\\%_]/g, "\\$&");
-    query = query.ilike("title", `%${escaped}%`);
+    const search = filters.search?.trim();
+    if (search) {
+      const escaped = search.replace(/[\\%_]/g, "\\$&");
+      query = query.ilike("title", `%${escaped}%`);
+    }
+    if (filters.days === 7 || filters.days === 30) {
+      const until = new Date(now.getTime() + filters.days * 24 * 60 * 60 * 1000);
+      query = query.lt("start_time", until.toISOString());
+    }
+
+    const { data, error } = await query
+      .order("start_time", { ascending: true })
+      .order("id", { ascending: true })
+      .range(offset, offset + batchSize - 1);
+
+    if (error) {
+      console.error("Could not load events from the database:", error);
+      return { ok: false, error: "Events could not be loaded. Please try again later." };
+    }
+
+    const rows = (data ?? []) as EventRow[];
+
+    for (const row of rows) {
+      const event = toCampusEvent(row);
+      const relevance = classifyEvent(event);
+      if (filters.view === "all" || relevance.classification === "relevant") {
+        events.push({ event, relevance });
+        if (events.length === EVENT_RESULT_LIMIT) return { ok: true, events };
+      }
+    }
+    if (filters.view === "all" || rows.length < batchSize) return { ok: true, events };
   }
-  if (filters.days === 7 || filters.days === 30) {
-    const until = new Date(now.getTime() + filters.days * 24 * 60 * 60 * 1000);
-    query = query.lt("start_time", until.toISOString());
-  }
-
-  const { data, error } = await query
-    .order("start_time", { ascending: true })
-    .order("id", { ascending: true })
-    .limit(EVENT_RESULT_LIMIT);
-
-  if (error) {
-    console.error("Could not load events from the database:", error);
-    return { ok: false, error: "Events could not be loaded. Please try again later." };
-  }
-
-  const rows = (data ?? []) as EventRow[];
-
-  return {
-    ok: true,
-    events: rows.map(toCampusEvent),
-  };
 }

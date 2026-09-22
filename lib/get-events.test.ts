@@ -34,7 +34,7 @@ afterEach(() => {
 
 describe("event browsing query", () => {
   test("restricts to the real source, orders deterministically, and limits to 30", async () => {
-    expect(await getEvents()).toEqual({ ok: true, events: [] });
+    expect(await getEvents({ view: "all" })).toEqual({ ok: true, events: [] });
     const params = requestParams();
     expect(params.get("source")).toBe("eq.Illinois Webtools");
     expect(params.get("order")).toBe("start_time.asc,id.asc");
@@ -44,7 +44,7 @@ describe("event browsing query", () => {
   });
 
   test("uses future starts OR strictly future ends without inventing a duration", async () => {
-    await getEvents();
+    await getEvents({ view: "all" });
     expect(requestParams().get("or")).toBe(
       `(start_time.gte.${now},end_time.gt.${now})`,
     );
@@ -53,7 +53,7 @@ describe("event browsing query", () => {
   });
 
   test.each([7, 30] as const)("applies a %i-day upper bound while retaining ongoing events", async (days) => {
-    await getEvents({ days, search: "  workshop  " });
+    await getEvents({ view: "all", days, search: "  workshop  " });
     const params = requestParams();
     expect(params.get("title")).toBe("ilike.%workshop%");
     expect(params.get("start_time")).toBe(
@@ -81,10 +81,10 @@ describe("event browsing query", () => {
       source_url: "https://calendars.illinois.edu/detail/2654/1",
       source: "Illinois Webtools", external_id: "1@illinois.edu", discovered_at: now,
     }]), { status: 200 }));
-    const result = await getEvents();
+    const result = await getEvents({ view: "all" });
     expect(result.ok).toBe(true);
     if (result.ok) {
-      expect(result.events[0]).toMatchObject({
+      expect(result.events[0]?.event).toMatchObject({
         id: "event-1", startTime: now, endTime: now,
         description: "Full description", externalId: "1@illinois.edu",
       });
@@ -93,7 +93,7 @@ describe("event browsing query", () => {
 
   test("logs database details but returns a generic error", async () => {
     fetchMock.mockResolvedValue(new Response(JSON.stringify({ message: "internal database detail" }), { status: 400 }));
-    expect(await getEvents()).toEqual({
+    expect(await getEvents({ view: "all" })).toEqual({
       ok: false, error: "Events could not be loaded. Please try again later.",
     });
     expect(console.error).toHaveBeenCalled();
@@ -101,10 +101,64 @@ describe("event browsing query", () => {
 
   test("handles missing configuration without displaying setup instructions", async () => {
     vi.mocked(createSupabaseClient).mockReturnValue({ ok: false, error: "Missing configuration detail" });
-    expect(await getEvents()).toEqual({
+    expect(await getEvents({ view: "all" })).toEqual({
       ok: false, error: "Events could not be loaded. Please try again later.",
     });
     expect(fetchMock).not.toHaveBeenCalled();
     expect(console.error).toHaveBeenCalled();
+  });
+});
+
+function row(id: string, title: string) {
+  return {
+    id, title, company: "", description: "", category: "",
+    start_time: now, end_time: now, timezone: "America/Chicago",
+    location: "Siebel", registration_url: "", source_url: "https://example.com/event",
+    source: "Illinois Webtools", external_id: id, discovered_at: now,
+  };
+}
+function response(rows: ReturnType<typeof row>[]) {
+  return new Response(JSON.stringify(rows), { status: 200 });
+}
+
+describe("career view and all-events fallback", () => {
+  test("defaults to career and scans past a full batch of nonmatches", async () => {
+    fetchMock.mockResolvedValueOnce(response(Array.from({ length: 100 }, (_, i) => row(String(i), "Office Hours"))))
+      .mockResolvedValueOnce(response([row("career", "Career Fair")]));
+    const result = await getEvents();
+    expect(result.ok && result.events.map(({ event }) => event.id)).toEqual(["career"]);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+    const second = new URL(String(fetchMock.mock.calls[1][0])).searchParams;
+    expect(second.get("offset")).toBe("100");
+    expect(second.get("limit")).toBe("100");
+    expect(second.get("order")).toBe("start_time.asc,id.asc");
+    expect(second.get("or")).toBe(`(start_time.gte.${now},end_time.gt.${now})`);
+    expect(second.get("source")).toBe("eq.Illinois Webtools");
+  });
+  test("stops at 30 relevant events in database order", async () => {
+    fetchMock.mockResolvedValueOnce(response(Array.from({ length: 100 }, (_, i) => row(String(i), "Career Fair"))));
+    const result = await getEvents();
+    expect(result.ok && result.events.map(({ event }) => event.id)).toEqual(Array.from({ length: 30 }, (_, i) => String(i)));
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+  test("all view retains every classification", async () => {
+    fetchMock.mockResolvedValueOnce(response([row("a", "Career Fair"), row("b", "Office Hours"), row("c", "Research Talk")]));
+    const result = await getEvents({ view: "all" });
+    expect(result.ok && result.events.map(({ relevance }) => relevance.classification)).toEqual(["relevant", "not_relevant", "uncertain"]);
+  });
+  test("second batch failure returns an error instead of partial results", async () => {
+    fetchMock.mockResolvedValueOnce(response([row("a", "Career Fair"), ...Array.from({ length: 99 }, (_, i) => row(String(i), "Office Hours"))]))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ message: "database error" }), { status: 400 }));
+    expect(await getEvents()).toEqual({ ok: false, error: "Events could not be loaded. Please try again later." });
+  });
+  test("search and date filters persist across career batches", async () => {
+    fetchMock.mockResolvedValueOnce(response(Array.from({ length: 100 }, (_, i) => row(String(i), "Office Hours"))))
+      .mockResolvedValueOnce(response([]));
+    await getEvents({ search: "workshop", days: 7 });
+    for (const [url] of fetchMock.mock.calls) {
+      const params = new URL(String(url)).searchParams;
+      expect(params.get("title")).toBe("ilike.%workshop%");
+      expect(params.get("start_time")).toBe("lt.2026-09-29T18:00:00.000Z");
+    }
   });
 });
