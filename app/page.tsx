@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { type CampusEvent } from "@/lib/events";
-import { getEvents } from "@/lib/get-events";
+import { EVENT_RESULT_LIMIT, getEvents } from "@/lib/get-events";
 
 export const dynamic = "force-dynamic";
 
@@ -25,12 +26,21 @@ function EventCard({ event }: { event: CampusEvent }) {
       <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
         {event.title}
       </h2>
-      <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
-        {event.company}
-      </p>
-      <p className="mt-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-        {event.description}
-      </p>
+      {event.company ? (
+        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
+          {event.company}
+        </p>
+      ) : null}
+      {event.description ? (
+        <details className="group mt-3 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+          <summary className="cursor-pointer">
+            <span className="line-clamp-3 group-open:hidden">{event.description}</span>
+            <span className="font-medium underline group-open:hidden">Read description</span>
+            <span className="hidden font-medium underline group-open:inline">Hide description</span>
+          </summary>
+          <p className="mt-2 whitespace-pre-line break-words">{event.description}</p>
+        </details>
+      ) : null}
       <dl className="mt-4 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
         <div>
           <dt className="inline font-medium text-zinc-800 dark:text-zinc-200">
@@ -45,7 +55,9 @@ function EventCard({ event }: { event: CampusEvent }) {
             Ends:{" "}
           </dt>
           <dd className="inline">
-            {formatEventTime(event.endTime, event.timezone)}
+            {event.startTime === event.endTime
+              ? "Not listed on the source calendar"
+              : formatEventTime(event.endTime, event.timezone)}
           </dd>
         </div>
         <div>
@@ -62,12 +74,14 @@ function EventCard({ event }: { event: CampusEvent }) {
         </div>
       </dl>
       <div className="mt-4 flex flex-wrap gap-4 text-sm font-medium">
-        <a
-          href={event.registrationUrl}
-          className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
-        >
-          Registration
-        </a>
+        {event.registrationUrl ? (
+          <a
+            href={event.registrationUrl}
+            className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
+          >
+            Registration
+          </a>
+        ) : null}
         <a
           href={event.sourceUrl}
           className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
@@ -79,8 +93,11 @@ function EventCard({ event }: { event: CampusEvent }) {
   );
 }
 
-export default async function Home() {
-  const result = await getEvents();
+export default async function Home({ searchParams }: PageProps<"/">) {
+  const params = await searchParams;
+  const search = typeof params.q === "string" ? params.q.trim() : "";
+  const days = params.days === "7" ? 7 : params.days === "30" ? 30 : undefined;
+  const result = await getEvents({ search, days });
 
   return (
     <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-12 font-sans dark:bg-black">
@@ -95,17 +112,47 @@ export default async function Home() {
           Career events around campus, in one place — so relevant opportunities
           can find you instead of you hunting through calendars.
         </p>
+        <form action="/" method="get" className="mt-6 flex flex-wrap items-end gap-3">
+          <label className="flex min-w-0 flex-1 flex-col gap-1 text-sm">
+            Search event titles
+            <input
+              key={search}
+              type="search"
+              name="q"
+              defaultValue={search}
+              placeholder="Search titles"
+              className="rounded-lg border border-zinc-300 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
+            Date range
+            <select
+              key={days ?? "all"}
+              name="days"
+              defaultValue={days ?? ""}
+              className="rounded-lg border border-zinc-300 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950"
+            >
+              <option value="">Any upcoming</option>
+              <option value="7">Next 7 days</option>
+              <option value="30">Next 30 days</option>
+            </select>
+          </label>
+          <button type="submit" className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-950">
+            Search
+          </button>
+          <Link href="/" className="py-2 text-sm underline">Clear filters</Link>
+        </form>
         {result.ok ? (
           <>
-            <p className="mt-4 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100">
-              Events are loaded from the CampusRadar database. Current rows are
-              development seed data, not live campus listings.
+            <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+              Showing up to {EVENT_RESULT_LIMIT} events, soonest first. Includes events happening now.
             </p>
-            <section className="mt-8 space-y-4" aria-label="Upcoming events">
+            <section className="mt-8 space-y-4" aria-label="Upcoming and ongoing events">
               {result.events.length === 0 ? (
                 <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
-                  No events are stored in the database yet. After you run the
-                  seed SQL in Supabase, refresh this page.
+                  {search || days
+                    ? "No upcoming or ongoing events match your filters. Try another search or clear the filters."
+                    : "No upcoming or ongoing events are available right now. Check back soon."}
                 </p>
               ) : (
                 result.events.map((event) => (

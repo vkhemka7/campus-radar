@@ -18,7 +18,9 @@ create table if not exists public.events (
   registration_url text not null,
   source_url text not null unique,
   source text not null,
-  discovered_at timestamptz not null
+  external_id text not null,
+  discovered_at timestamptz not null default now(),
+  constraint events_source_external_id_key unique (source, external_id)
 );
 
 alter table public.events enable row level security;

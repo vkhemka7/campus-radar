@@ -1,0 +1,49 @@
+BEGIN:VCALENDAR
+PRODID:-//University of Illinois//Web Services Calendar//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:20260919T214827Z
+DTSTART:20260923T180000
+DTEND:20260923T180000
+SUMMARY:Google Interview Prep Workshop
+TZID:America/Chicago
+CREATED:20260918T210000Z
+LAST-MODIFIED:20260918T210000Z
+DESCRIPTION:
+LOCATION:1404 Siebel Center for Computer Science
+CATEGORIES:Conference/Workshop
+ORGANIZER:erink@illinois.edu
+URL:https://calendars.illinois.edu/detail/2654/33563354?key=2000010120000
+ 10133563354
+UID:33563354@illinois.edu
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260919T214827Z
+DTSTART:20260921T170000
+DTEND:20260921T200000
+SUMMARY:Peer Mentoring Center
+TZID:America/Chicago
+CREATED:20260828T210000Z
+LAST-MODIFIED:20260828T210000Z
+DESCRIPTION:Siebel School undergraduate students! Join us at the Peer Men
+ toring Center which helps students succeed both in and outside the class
+ room.
+LOCATION:Siebel 1214
+CATEGORIES:Social/Informal Event
+URL:https://calendars.illinois.edu/detail/2654/33560593?key=example
+UID:33560593@illinois.edu
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260919T214827Z
+DTSTART;TZID=America/Chicago:20260924T173000
+DTEND;TZID=America/Chicago:20260924T173000
+SUMMARY:Verkada Tech Talk
+DESCRIPTION:A mock folded description with a comma\, semicolon\; and sla
+ sh.
+LOCATION:2405 Siebel Center for Computer Science
+CATEGORIES:Informational
+URL:https://calendars.illinois.edu/detail/2654/33561103
+UID:33561103@illinois.edu
+END:VEVENT
+END:VCALENDAR

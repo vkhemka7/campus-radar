@@ -19,5 +19,6 @@ export type CampusEvent = {
   registrationUrl: string;
   sourceUrl: string;
   source: string;
+  externalId: string;
   discoveredAt: string;
 };

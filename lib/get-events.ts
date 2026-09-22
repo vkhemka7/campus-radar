@@ -14,6 +14,7 @@ type EventRow = {
   registration_url: string;
   source_url: string;
   source: string;
+  external_id: string;
   discovered_at: string;
 };
 
@@ -35,29 +36,56 @@ function toCampusEvent(row: EventRow): CampusEvent {
     registrationUrl: row.registration_url,
     sourceUrl: row.source_url,
     source: row.source,
+    externalId: row.external_id,
     discoveredAt: row.discovered_at,
   };
 }
 
-export async function getEvents(): Promise<GetEventsResult> {
+export const EVENT_RESULT_LIMIT = 30;
+
+export type EventFilters = {
+  search?: string;
+  days?: 7 | 30;
+};
+
+export async function getEvents(filters: EventFilters = {}): Promise<GetEventsResult> {
   const clientResult = createSupabaseClient();
 
   if (!clientResult.ok) {
-    return clientResult;
+    console.error("Could not configure event database:", clientResult.error);
+    return { ok: false, error: "Events could not be loaded. Please try again later." };
   }
 
-  const { data, error } = await clientResult.supabase
+  const now = new Date();
+  const cutoff = now.toISOString();
+  let query = clientResult.supabase
     .from("events")
     .select(
-      "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, discovered_at",
+      "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, external_id, discovered_at",
     )
-    .order("start_time", { ascending: true });
+    .eq("source", "Illinois Webtools")
+    // A past start remains visible only while its listed end is in the future.
+    // When end === start (unknown duration), it expires at its start time.
+    .or(`start_time.gte.${cutoff},end_time.gt.${cutoff}`);
+
+  const search = filters.search?.trim();
+  if (search) {
+    const escaped = search.replace(/[\\%_]/g, "\\$&");
+    query = query.ilike("title", `%${escaped}%`);
+  }
+  if (filters.days === 7 || filters.days === 30) {
+    const until = new Date(now.getTime() + filters.days * 24 * 60 * 60 * 1000);
+    query = query.lt("start_time", until.toISOString());
+  }
+
+  const { data, error } = await query
+    .order("start_time", { ascending: true })
+    .order("id", { ascending: true })
+    .limit(EVENT_RESULT_LIMIT);
 
   if (error) {
-    return {
-      ok: false,
-      error: `Could not load events from the database: ${error.message}`,
-    };
+    console.error("Could not load events from the database:", error);
+    return { ok: false, error: "Events could not be loaded. Please try again later." };
   }
 
   const rows = (data ?? []) as EventRow[];

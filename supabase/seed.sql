@@ -16,6 +16,7 @@ insert into public.events (
   registration_url,
   source_url,
   source,
+  external_id,
   discovered_at
 ) values
   (
@@ -30,6 +31,7 @@ insert into public.events (
     'https://example.com/mock/google-interview-prep',
     'https://example.com/mock/sources/google-interview-prep',
     'Mock UIUC Engineering Calendar',
+    'seed:google-interview-prep',
     timestamptz '2026-09-19 12:00:00 America/Chicago'
   ),
   (
@@ -44,6 +46,7 @@ insert into public.events (
     'https://example.com/mock/jane-street-tech-talk',
     'https://example.com/mock/sources/jane-street-tech-talk',
     'Mock CS Department Events',
+    'seed:jane-street-tech-talk',
     timestamptz '2026-09-19 12:05:00 America/Chicago'
   ),
   (
@@ -58,6 +61,7 @@ insert into public.events (
     'https://example.com/mock/capital-one-info-session',
     'https://example.com/mock/sources/capital-one-info-session',
     'Mock Engineering Career Services',
+    'seed:capital-one-info-session',
     timestamptz '2026-09-19 12:10:00 America/Chicago'
   )
 on conflict (source_url) do nothing;
