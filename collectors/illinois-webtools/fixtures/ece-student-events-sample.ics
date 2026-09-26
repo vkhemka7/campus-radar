@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+PRODID:-//University of Illinois//Web Services Calendar//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DTSTAMP:20260923T011055Z
+DTSTART:20260924T173000
+DTEND:20260924T183000
+SUMMARY:Tech Talk: Apple
+TZID:America/Chicago
+CREATED:20260922T010000Z
+LAST-MODIFIED:20260922T010000Z
+DESCRIPTION:
+LOCATION:ECEB 1013 & 1015
+CATEGORIES:Informational
+ORGANIZER:jlfriel@illinois.edu
+URL:https://calendars.illinois.edu/detail/6805/33563482?key=2000010120000
+ 10133563482
+UID:33563482@illinois.edu
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260923T011055Z
+DTSTART:20260928T173000
+DTEND:20260928T190000
+SUMMARY:Information Session: L3HARRIS
+TZID:America/Chicago
+CREATED:20260923T010000Z
+LAST-MODIFIED:20260923T010000Z
+DESCRIPTION:L3Harris’ MMG Division\, based in Waco\, Texas\, specializes 
+ in complex aircraft modifications\, modernization\, ISR and airborne mis
+ sion systems integration\, and depot fleet maintenance. Their team works
+  across a wide range of platforms\, including the 747\, C-130\, AT-802\,
+  and P-8. The company is currently hiring for internships and entry-leve
+ l positions\, making this a great opportunity to learn more about their 
+ work\, meet their team\, and explore potential career opportunities. Who
+  should attend?  Undergraduate and graduate students in:Aerospace Engine
+ eringElectrical & Computer EngineeringMechanical EngineeringWe hope to s
+ ee you there!
+LOCATION:Campus Instructional Facility
+CATEGORIES:Informational
+ORGANIZER:jlfriel@illinois.edu
+URL:https://calendars.illinois.edu/detail/6805/33563719?key=2000010120000
+ 10133563719
+UID:33563719@illinois.edu
+END:VEVENT
+END:VCALENDAR

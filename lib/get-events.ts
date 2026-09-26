@@ -1,4 +1,5 @@
 import { classifyEvent, type EventRelevance } from "@/lib/event-relevance";
+import { selectEventRepresentative } from "@/lib/event-deduplication";
 import { type CampusEvent } from "@/lib/events";
 import { createSupabaseClient } from "@/lib/supabase";
 
@@ -17,9 +18,15 @@ type EventRow = {
   source: string;
   external_id: string;
   discovered_at: string;
+  event_occurrence_sources: { occurrence_id: string } | { occurrence_id: string }[] | null;
 };
 
-export type BrowsingEvent = { event: CampusEvent; relevance: EventRelevance };
+export type BrowsingEvent = {
+  occurrenceId: string;
+  event: CampusEvent;
+  provenance: CampusEvent[];
+  relevance: EventRelevance;
+};
 
 export type GetEventsResult =
   | { ok: true; events: BrowsingEvent[] }
@@ -52,6 +59,17 @@ export type EventFilters = {
   days?: 7 | 30;
 };
 
+function combinedRelevance(events: CampusEvent[]): EventRelevance {
+  const results = events.map(classifyEvent);
+  const classification = results.some((result) => result.classification === "relevant")
+    ? "relevant"
+    : results.some((result) => result.classification === "uncertain") ? "uncertain" : "not_relevant";
+  const reasons = results.flatMap((result) => result.reasons).filter((reason, index, all) =>
+    all.findIndex((candidate) => candidate.ruleId === reason.ruleId
+      && candidate.field === reason.field && candidate.matchedText === reason.matchedText) === index);
+  return { classification, reasons };
+}
+
 export async function getEvents(filters: EventFilters = {}): Promise<GetEventsResult> {
   const clientResult = createSupabaseClient();
 
@@ -62,13 +80,13 @@ export async function getEvents(filters: EventFilters = {}): Promise<GetEventsRe
 
   const now = new Date();
   const cutoff = now.toISOString();
-  const batchSize = filters.view === "all" ? EVENT_RESULT_LIMIT : 100;
-  const events: BrowsingEvent[] = [];
+  const batchSize = 100;
+  const rows: EventRow[] = [];
   for (let offset = 0; ; offset += batchSize) {
     let query = clientResult.supabase
       .from("events")
       .select(
-        "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, external_id, discovered_at",
+        "id, title, company, description, category, start_time, end_time, timezone, location, registration_url, source_url, source, external_id, discovered_at, event_occurrence_sources(occurrence_id)",
       )
       .eq("source", "Illinois Webtools")
       // A past start remains visible only while its listed end is in the future.
@@ -95,16 +113,42 @@ export async function getEvents(filters: EventFilters = {}): Promise<GetEventsRe
       return { ok: false, error: "Events could not be loaded. Please try again later." };
     }
 
-    const rows = (data ?? []) as EventRow[];
-
-    for (const row of rows) {
-      const event = toCampusEvent(row);
-      const relevance = classifyEvent(event);
-      if (filters.view === "all" || relevance.classification === "relevant") {
-        events.push({ event, relevance });
-        if (events.length === EVENT_RESULT_LIMIT) return { ok: true, events };
-      }
-    }
-    if (filters.view === "all" || rows.length < batchSize) return { ok: true, events };
+    const batch = (data ?? []) as EventRow[];
+    rows.push(...batch);
+    if (batch.length < batchSize) break;
   }
+
+  const byOccurrence = new Map<string, CampusEvent[]>();
+  for (const row of rows) {
+    // The UNIQUE event_id FK makes PostgREST embed this as an object/null.
+    // Accept array-shaped responses too, retaining corruption detection.
+    const embedded = row.event_occurrence_sources;
+    const mappings = Array.isArray(embedded) ? embedded : embedded === null ? [] : [embedded];
+    // Collection and reconciliation are separate commits. Keep already mapped
+    // events available during that window without inventing a temporary ID.
+    if (mappings.length === 0) {
+      console.error(`Event ${row.id} is awaiting occurrence reconciliation.`);
+      continue;
+    }
+    if (mappings.length !== 1) {
+      console.error(`Event ${row.id} does not have exactly one occurrence mapping.`);
+      return { ok: false, error: "Events could not be loaded. Please try again later." };
+    }
+    const occurrenceId = mappings[0]?.occurrence_id;
+    if (typeof occurrenceId !== "string" || !occurrenceId) {
+      console.error(`Event ${row.id} has an invalid occurrence identity.`);
+      return { ok: false, error: "Events could not be loaded. Please try again later." };
+    }
+    const provenance = byOccurrence.get(occurrenceId) ?? [];
+    provenance.push(toCampusEvent(row));
+    byOccurrence.set(occurrenceId, provenance);
+  }
+  const events = [...byOccurrence].map(([occurrenceId, provenance]) => ({
+    occurrenceId,
+    event: selectEventRepresentative(provenance),
+    provenance,
+    relevance: combinedRelevance(provenance),
+  })).filter(({ relevance }) => filters.view === "all" || relevance.classification === "relevant")
+    .slice(0, EVENT_RESULT_LIMIT);
+  return { ok: true, events };
 }

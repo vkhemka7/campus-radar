@@ -1,0 +1,20 @@
+Checking deployed RPC privileges and transactions...
+RPC HTTP 200: occurrence_reconciliation_snapshot
+RPC HTTP 401: occurrence_reconciliation_snapshot
+RPC HTTP 401: reconcile_occurrence_plan
+RPC HTTP 403: assign_event_occurrence
+RPC HTTP 409: reconcile_occurrence_plan
+RPC HTTP 400: reconcile_occurrence_plan
+PASS: established identities cannot be reassigned
+RPC HTTP 200: occurrence_reconciliation_snapshot
+PASS: anon denied, legacy bypass denied, stale plan rejected, snapshot unchanged
+--- independent continuation 2026-09-26 ---
+RPC HTTP 200: occurrence_reconciliation_snapshot
+RPC HTTP 401: occurrence_reconciliation_snapshot
+RPC HTTP 401: reconcile_occurrence_plan
+RPC HTTP 403: assign_event_occurrence
+RPC HTTP 409: reconcile_occurrence_plan
+RPC HTTP 400: reconcile_occurrence_plan
+PASS: established identities cannot be reassigned
+RPC HTTP 200: occurrence_reconciliation_snapshot
+PASS: anon denied, legacy bypass denied, stale plan rejected, snapshot unchanged

@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "collect:siebel": "tsx --env-file=.env.local scripts/collect-siebel.ts"
+    "collect:siebel": "tsx --env-file=.env.local scripts/collect-webtools.ts --calendar 2654",
+    "collect:webtools": "tsx --env-file=.env.local scripts/collect-webtools.ts",
+    "reconcile:occurrences": "tsx --env-file=.env.local scripts/reconcile-event-occurrences.ts",
+    "verify:occurrences": "tsx --env-file=.env.local scripts/verify-event-occurrences.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",

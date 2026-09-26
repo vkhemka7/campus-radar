@@ -1,0 +1,27 @@
+{"rawEvents":210}
+{"occurrences":0,"mappings":0,"unmapped":210,"invalid":0,"duplicateMappings":0}
+{"firstPass":{"sourceEvents":210,"assignedEvents":210,"existingMappings":0,"joinedOccurrences":0,"createdOccurrences":209}}
+{"rawEvents":210}
+{"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+{"secondPass":{"sourceEvents":210,"assignedEvents":0,"existingMappings":210,"joinedOccurrences":0,"createdOccurrences":0}}
+{"rawEvents":210}
+{"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+{"rawEvents":210}
+{"identityDigest":"1c0bcb461cc85bd5071aae891f1b93d98e6e3b2aabe7707542c4dae06156e411","orphanOccurrences":0,"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+{"firstPass":{"sourceEvents":210,"assignedEvents":0,"existingMappings":210,"joinedOccurrences":0,"createdOccurrences":0}}
+{"rawEvents":210}
+{"identityDigest":"1c0bcb461cc85bd5071aae891f1b93d98e6e3b2aabe7707542c4dae06156e411","orphanOccurrences":0,"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+{"secondPass":{"sourceEvents":210,"assignedEvents":0,"existingMappings":210,"joinedOccurrences":0,"createdOccurrences":0}}
+{"rawEvents":210}
+{"identityDigest":"1c0bcb461cc85bd5071aae891f1b93d98e6e3b2aabe7707542c4dae06156e411","orphanOccurrences":0,"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+PASS: two-pass idempotence, identical occurrence/mapping snapshots, unchanged raw IDs
+PASS: preserved 210 established event-to-occurrence IDs
+{"view":"career","visibleOccurrences":21}
+{"view":"all","visibleOccurrences":30}
+--- independent continuation 2026-09-26 ---
+{"rawEvents":210}
+{"identityDigest":"1c0bcb461cc85bd5071aae891f1b93d98e6e3b2aabe7707542c4dae06156e411","orphanOccurrences":0,"occurrences":209,"mappings":210,"unmapped":0,"invalid":0,"duplicateMappings":0}
+PASS: preserved 210 established event-to-occurrence IDs
+{"view":"career","visibleOccurrences":21}
+{"view":"all","visibleOccurrences":30}
+PASS: production HTML / 21 articles, /?view=all 30 articles, no error alert

@@ -8,6 +8,7 @@ export type IcsEvent = {
   dtstart: string;
   dtend: string;
   tzid: string;
+  recurrenceId: string;
 };
 
 function unfoldIcs(ics: string): string[] {
@@ -88,6 +89,7 @@ export function parseIcsEvents(ics: string): IcsEvent[] {
           dtstart: current.DTSTART?.value ?? "",
           dtend: current.DTEND?.value ?? "",
           tzid,
+          recurrenceId: current["RECURRENCE-ID"]?.value ?? "",
         });
       }
 

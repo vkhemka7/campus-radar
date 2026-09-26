@@ -60,7 +60,7 @@ export function normalizeIllinoisWebtoolsEvent(
   }
 
   return {
-    external_id: event.uid,
+    external_id: event.recurrenceId ? `${event.uid}::${event.recurrenceId}` : event.uid,
     title: event.summary,
     company: "",
     description: event.description,

@@ -16,7 +16,8 @@ function formatEventTime(isoDateTime: string, timezone: string) {
   }).format(new Date(isoDateTime));
 }
 
-function EventCard({ event, relevance }: BrowsingEvent) {
+function EventCard({ event, provenance, relevance }: BrowsingEvent) {
+  const registrationUrls = [...new Set(provenance.map(({ registrationUrl }) => registrationUrl).filter(Boolean))];
   return (
     <article className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
       <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
@@ -74,24 +75,28 @@ function EventCard({ event, relevance }: BrowsingEvent) {
           <dt className="inline font-medium text-zinc-800 dark:text-zinc-200">
             Source:{" "}
           </dt>
-          <dd className="inline">{event.source}</dd>
+          <dd className="inline">{[...new Set(provenance.map(({ source }) => source))].join(", ")}</dd>
         </div>
       </dl>
       <div className="mt-4 flex flex-wrap gap-4 text-sm font-medium">
-        {event.registrationUrl ? (
+        {registrationUrls.map((url, index) => (
           <a
-            href={event.registrationUrl}
+            key={url}
+            href={url}
             className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
           >
-            Registration
+            Registration{registrationUrls.length > 1 ? ` ${index + 1}` : ""}
           </a>
-        ) : null}
-        <a
-          href={event.sourceUrl}
-          className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
-        >
-          Original source
-        </a>
+        ))}
+        {provenance.map((sourceEvent, index) => (
+          <a
+            key={`${sourceEvent.source}:${sourceEvent.externalId}`}
+            href={sourceEvent.sourceUrl}
+            className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
+          >
+            Original source{provenance.length > 1 ? ` ${index + 1}` : ""}
+          </a>
+        ))}
       </div>
     </article>
   );
@@ -178,8 +183,8 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                     : "No upcoming or ongoing events are available right now. Check back soon."}
                 </p>
               ) : (
-                result.events.map(({ event, relevance }) => (
-                  <EventCard key={event.id} event={event} relevance={relevance} />
+                result.events.map((occurrence) => (
+                  <EventCard key={occurrence.occurrenceId} {...occurrence} />
                 ))
               )}
             </section>
