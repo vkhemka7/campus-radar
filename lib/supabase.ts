@@ -16,6 +16,10 @@ export type SupabaseConfigSuccess = {
  * Uses the publishable key (not a secret/service_role key). That key maps to
  * the Postgres `anon` role when no user is signed in, so Row Level Security
  * still applies.
+ *
+ * This client never reads or writes a user session. Public event browsing and
+ * the audit scripts stay on it. Signed-in Server Actions use
+ * createRequestSupabaseClient in lib/supabase-server.ts.
  */
 export function createSupabaseClient():
   | SupabaseConfigSuccess
