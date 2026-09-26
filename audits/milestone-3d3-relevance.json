@@ -1,0 +1,5160 @@
+{
+  "auditedAt": "2026-09-23T21:55:40.716Z",
+  "total": 207,
+  "oldCounts": {
+    "relevant": 16,
+    "uncertain": 98,
+    "not_relevant": 93
+  },
+  "newCounts": {
+    "relevant": 33,
+    "uncertain": 81,
+    "not_relevant": 93
+  },
+  "changes": [
+    {
+      "id": "18129db6-193d-45f8-838b-df3d72cfd018",
+      "externalId": "33563639@illinois.edu",
+      "title": "Founders Week fireside chat",
+      "startTime": "2026-10-01T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563639",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "founders week fireside chat",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "1b1313ba-f8e1-4fcc-ba27-42e975db06da",
+      "externalId": "33562269@illinois.edu",
+      "title": "Explore Teaching and Summer Opportunities with MTR",
+      "startTime": "2026-10-01T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33562269",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "summer fellowships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2aaa37c6-5457-4608-8aa9-5f03a2ecade7",
+      "externalId": "33561685@illinois.edu",
+      "title": "SBIR/STTR Webinar: Cracking the Code: NIGMS SBIR Priorities and What It Takes to Get Funded",
+      "startTime": "2026-09-29T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33561685",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "sttr webinar",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2e7ff436-566b-44d6-af13-dd6efbd469c8",
+      "externalId": "33562395@illinois.edu",
+      "title": "Fireside chat with Dan Caruso",
+      "startTime": "2026-09-28T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562395",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-learning",
+            "field": "description",
+            "matchedText": "Caruso will share insights on his career as an entrepreneur and discuss the future tech frontier, including quantum computing, space technology and the evolving landscape of entrepreneurship",
+            "explanation": "Startup-focused learning, advice, pitching, or networking."
+          }
+        ]
+      }
+    },
+    {
+      "id": "31f91d37-9a8b-4c27-8dc6-33c5ab6268bb",
+      "externalId": "33539687@illinois.edu",
+      "title": "Champaign Blockchain Meetup - December",
+      "startTime": "2026-12-18T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539687",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3f674497-8027-4464-88c5-3f62530e2719",
+      "externalId": "33562692@illinois.edu",
+      "title": "Founders Week fireside chat",
+      "startTime": "2026-10-01T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562692",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "founders week fireside chat",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "6f6b089c-8c8b-4358-b9e9-120c7a49e5df",
+      "externalId": "33519110@illinois.edu",
+      "title": "“Startup Incorporation: The What, When, & How” with Alan Singleton",
+      "startTime": "2026-09-22T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33519110",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "startup incorporation",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "87dc40b8-6961-4824-910c-28882daca498",
+      "externalId": "33539398@illinois.edu",
+      "title": "Data + AI User Group - December",
+      "startTime": "2026-12-11T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539398",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ab0cbac4-ae47-4e7b-be38-cbc0a9262a8e",
+      "externalId": "33555584@illinois.edu",
+      "title": "LAS - Summer Research Internships at Oak Ridge National Laboratory",
+      "startTime": "2026-09-22T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33555584",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bbc8735a-22cc-4a99-a8ca-6311f48a003d",
+      "externalId": "33539686@illinois.edu",
+      "title": "Champaign Blockchain Meetup - November",
+      "startTime": "2026-11-20T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539686",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bcfada50-4a1a-4876-b3bd-cf05c114ec50",
+      "externalId": "33539685@illinois.edu",
+      "title": "Champaign Blockchain Meetup - October",
+      "startTime": "2026-10-16T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539685",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bf60c0e7-fab5-4ad6-b1ae-7f777fbbbe19",
+      "externalId": "33563719@illinois.edu",
+      "title": "Information Session: L3HARRIS",
+      "startTime": "2026-09-28T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6805/33563719",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "hiring for",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb3957ee-974f-42bd-88a8-22112a75ffcb",
+      "externalId": "33555587@illinois.edu",
+      "title": "LAS - Info session with Walsh Group: Summer 2027 Internships for Las Majors",
+      "startTime": "2026-09-23T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33555587",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e66d11aa-bec3-4769-b8cf-856b423cb968",
+      "externalId": "33539396@illinois.edu",
+      "title": "Data + AI User Group - November",
+      "startTime": "2026-11-13T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539396",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e920ce58-f97e-4a17-830f-4974e3e44593",
+      "externalId": "33538309@illinois.edu",
+      "title": "Data + AI User Group - October",
+      "startTime": "2026-10-09T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33538309",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9dbe0b9-3fea-4dfd-844b-474015a1b1c7",
+      "externalId": "33557470@illinois.edu",
+      "title": "LAS - AlphaSights Coffee Chat",
+      "startTime": "2026-09-25T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33557470",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "feb52cc6-020d-40fd-9cd1-32462d9ca0c4",
+      "externalId": "33557768@illinois.edu",
+      "title": "After Hours in Chicago - Fall 2026",
+      "startTime": "2026-10-01T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33557768",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-reception",
+            "field": "description",
+            "matchedText": "An informal career reception in Chicago for CS and ECE students and companies to connect, network, and socialize",
+            "explanation": "Career reception connecting participants with companies."
+          }
+        ]
+      }
+    }
+  ],
+  "results": [
+    {
+      "id": "00528c36-ed29-403a-b384-ae8e4874ec31",
+      "externalId": "33560616@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-29T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560616",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "01b684f6-bdfa-4e13-aa48-6d33b43f3cab",
+      "externalId": "33559740@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-12-18T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559740",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "04c009db-3464-4631-b648-4c29f14533fe",
+      "externalId": "33563588@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-12-02T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563588",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "0531eb09-1389-41a1-8a74-f681d569a608",
+      "externalId": "33562494@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-12-21T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562494",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "067d46c2-46df-44c8-8906-8e9fbd833047",
+      "externalId": "33562754@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-12-04T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562754",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "06e8b010-b762-4d03-8394-b13ae89df0f1",
+      "externalId": "33562490@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-10-26T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562490",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "0e9623ac-83ba-493b-8b7c-83083fc65349",
+      "externalId": "33562491@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-11-09T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562491",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "0f1a4721-db69-4b15-99f6-992a0d5864ab",
+      "externalId": "33562342@illinois.edu",
+      "title": "Human-Computer Interaction Talk Series: Michelle Jensen, \\\"Starting Where Students Are: Learning & Integrating Computer Security.\\\"",
+      "startTime": "2026-10-21T20:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562342",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "11be420b-57ea-4a96-b879-407adf481a1b",
+      "externalId": "33558499@illinois.edu",
+      "title": "Research Park Flu Shot Clinic",
+      "startTime": "2026-10-07T19:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33558499",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "127098cd-0572-48be-b011-4e26e9b9f4c8",
+      "externalId": "33541184@illinois.edu",
+      "title": "Abhishek Bhattacharjee, Princeton University",
+      "startTime": "2027-01-22T22:15:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33541184",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "13931558-100d-4f70-86ef-26eae696ebf7",
+      "externalId": "33562745@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-11-19T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562745",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "1444038f-1858-47f6-965c-4b25a964b87a",
+      "externalId": "33560600@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-01T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560600",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "1586c08f-a992-46ea-8d27-0279ff3372ab",
+      "externalId": "33559264@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-10-29T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559264",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "15b2570b-4167-443e-aa97-78649088c366",
+      "externalId": "33563354@illinois.edu",
+      "title": "Google Interview Prep Workshop",
+      "startTime": "2026-09-23T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563354",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview prep",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview prep",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "168302c0-c4da-419e-ba7f-2e46885c03aa",
+      "externalId": "33537929@illinois.edu",
+      "title": "First Friday Breakfast - December",
+      "startTime": "2026-12-04T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33537929",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "168d3aae-4c7d-4706-a3b6-9be8ee33cc64",
+      "externalId": "33562478@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-10-27T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562478",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "18129db6-193d-45f8-838b-df3d72cfd018",
+      "externalId": "33563639@illinois.edu",
+      "title": "Founders Week fireside chat",
+      "startTime": "2026-10-01T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563639",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "founders week fireside chat",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "18ee1a96-d07f-4167-8f9a-e726ebd65eac",
+      "externalId": "33555041@illinois.edu",
+      "title": "Dean Pospisil, University of Illinois Urbana-Champaign",
+      "startTime": "2026-09-25T21:15:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33555041",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "1a7b3057-715e-4d3f-bde9-4052e900dc9f",
+      "externalId": "33563355@illinois.edu",
+      "title": "Capital One Product Discovery Case Interview Workshop",
+      "startTime": "2026-09-28T23:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563355",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview workshop",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview workshop",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "1b1313ba-f8e1-4fcc-ba27-42e975db06da",
+      "externalId": "33562269@illinois.edu",
+      "title": "Explore Teaching and Summer Opportunities with MTR",
+      "startTime": "2026-10-01T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33562269",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "summer fellowships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "232f27ca-398e-4a81-a48a-91a107b2c9c0",
+      "externalId": "33563585@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-10-21T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563585",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2444b8d7-1d64-4301-b132-f5406f9d857b",
+      "externalId": "33559270@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-12-10T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559270",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "25c9888f-b4c7-4dbb-b6bc-9e98d04b3d6d",
+      "externalId": "33562708@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-11-02T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562708",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "26493962-1030-4b67-88a8-9f34c594b68e",
+      "externalId": "33546590@illinois.edu",
+      "title": "Illinois Gies College of Business Fall 2026 Virtual Job Fair",
+      "startTime": "2026-09-23T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/1551/33546590",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "job fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "job fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2810e5f1-c16b-44c0-b5ca-dc11570cabcc",
+      "externalId": "33562753@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-11-20T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562753",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2aaa37c6-5457-4608-8aa9-5f03a2ecade7",
+      "externalId": "33561685@illinois.edu",
+      "title": "SBIR/STTR Webinar: Cracking the Code: NIGMS SBIR Priorities and What It Takes to Get Funded",
+      "startTime": "2026-09-29T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33561685",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "sttr webinar",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2b80f072-02e9-4791-86fd-30f3a8360732",
+      "externalId": "33560601@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-05T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560601",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "2b835146-de21-4373-9db3-8cc5487c5b79",
+      "externalId": "33562734@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-12-16T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562734",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2c1dd505-f5ee-425a-83dc-c7046a2d1ae5",
+      "externalId": "33562731@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-11-04T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562731",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "2e7ff436-566b-44d6-af13-dd6efbd469c8",
+      "externalId": "33562395@illinois.edu",
+      "title": "Fireside chat with Dan Caruso",
+      "startTime": "2026-09-28T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562395",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-learning",
+            "field": "description",
+            "matchedText": "Caruso will share insights on his career as an entrepreneur and discuss the future tech frontier, including quantum computing, space technology and the evolving landscape of entrepreneurship",
+            "explanation": "Startup-focused learning, advice, pitching, or networking."
+          }
+        ]
+      }
+    },
+    {
+      "id": "31a79e26-381e-456d-941a-6463264a1879",
+      "externalId": "33560624@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-12T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560624",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "31f91d37-9a8b-4c27-8dc6-33c5ab6268bb",
+      "externalId": "33539687@illinois.edu",
+      "title": "Champaign Blockchain Meetup - December",
+      "startTime": "2026-12-18T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539687",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "336a8a3d-10e8-4289-956e-65626d1cf0c9",
+      "externalId": "33560602@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-06T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560602",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "353d6d15-bccc-464c-9cbe-1dbb35c083aa",
+      "externalId": "33560629@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-23T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560629",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "3542ab51-b322-4e94-8100-379aa840f21a",
+      "externalId": "33560634@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-01T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560634",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "38cc312c-cad1-45fa-aff6-47e38b41dfc1",
+      "externalId": "33563587@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-11-18T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563587",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3ad922ca-544e-42b4-a60d-856d722bdab8",
+      "externalId": "33562421@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-10-29T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562421",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3ca3a418-06ee-4e76-a008-9ae9332cd601",
+      "externalId": "33563088@illinois.edu",
+      "title": "Human-Computer Interaction Talk Series: Dr. Yung-Ju (Stanley) Chang, \\\"Building Intelligence Around Limited Human Attention: Our Research Trajectory Toward Attention-Aware Agentic System.\\\"",
+      "startTime": "2026-09-30T20:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563088",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "3cd2bcb4-ec21-4863-8be0-5fa6ccc34420",
+      "externalId": "33563584@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-10-07T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563584",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3d3de7c6-769c-446f-b20d-1cb546b13e9a",
+      "externalId": "33540988@illinois.edu",
+      "title": "Jason MacLean, University of Chicago",
+      "startTime": "2026-10-16T21:15:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33540988",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "3df48451-748f-48d4-a781-e13afaa8ddb3",
+      "externalId": "33559735@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-11-13T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559735",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3e5ab47d-adb6-45d0-9868-89b8e5434948",
+      "externalId": "33562481@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-12-08T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562481",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3f674497-8027-4464-88c5-3f62530e2719",
+      "externalId": "33562692@illinois.edu",
+      "title": "Founders Week fireside chat",
+      "startTime": "2026-10-01T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562692",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "founders week fireside chat",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "3f9c0dd0-4d6f-4dde-bf52-da830d384922",
+      "externalId": "33560632@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-26T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560632",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "3fab49fd-0f29-4a0c-a378-3541bdd8ed13",
+      "externalId": "33550719@illinois.edu",
+      "title": "ACES + LAS 2026 Career Fair",
+      "startTime": "2026-09-24T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/1551/33550719",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "402dcf78-4f3f-4f97-8b90-0ac426d03746",
+      "externalId": "33559260@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-10-01T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559260",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "4112336e-1462-42f2-a9b4-049a7a06a574",
+      "externalId": "33559734@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-11-06T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559734",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "41ccaedd-b1e3-4518-acd4-83bd621ca845",
+      "externalId": "33552091@illinois.edu",
+      "title": "Illinois ACES + LAS Career Fair",
+      "startTime": "2026-09-24T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33552091",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "4228ff71-92f6-4ef4-9776-68a18912db18",
+      "externalId": "33562751@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-10-23T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562751",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "446c1643-3dfd-42b1-b024-b8b14e455757",
+      "externalId": "33559738@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-12-04T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559738",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "44e8f465-8342-422d-86f9-26e52ab06a08",
+      "externalId": "33560627@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-18T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560627",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "45a5a0d7-2d1b-475b-9247-bab4a6acfd25",
+      "externalId": "33560626@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-17T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560626",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "462aab21-6524-4cab-907b-d547a392ff70",
+      "externalId": "33560112@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-10-23T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560112",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "46396047-f997-441b-8dd0-5ed264e74327",
+      "externalId": "33560118@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-12-04T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560118",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "46a2f9a2-e1ad-49c9-aff7-e2fafef9e9ba",
+      "externalId": "33560595@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-23T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560595",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "46f09faf-0a04-4d63-b27b-eaa5de978691",
+      "externalId": "33562419@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-10-01T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562419",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "46f765d2-af20-40c3-8640-2aa2ebe4bb61",
+      "externalId": "33560114@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-11-06T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560114",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "489453fb-0831-4771-b0e9-e75af4df20b4",
+      "externalId": "33560611@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-21T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560611",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "48aeef62-c688-42cc-9e08-10c8ba899fec",
+      "externalId": "33563589@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-12-16T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563589",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "4b5c3df5-6692-4bf6-b051-863f2e93192f",
+      "externalId": "33559263@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-10-22T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559263",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "4c48e1bf-ee41-4783-9c73-6df17e65864d",
+      "externalId": "33560606@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-13T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560606",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "4c957618-c8ec-4b06-87be-11d33c4a5422",
+      "externalId": "33562746@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-12-03T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562746",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "4db013f3-8d3a-4886-b545-67144260dc5e",
+      "externalId": "33562739@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-12-02T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562739",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "4ea01244-6d56-417d-940c-86f8e1d1ea8e",
+      "externalId": "33523823@illinois.edu",
+      "title": "Champaign-Urbana AgTech Breakfast",
+      "startTime": "2026-10-21T13:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33523823",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "5331e999-9901-415b-a29c-092809b1d0ab",
+      "externalId": "33562415@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-11-13T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562415",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "53c58e30-8ade-4eeb-92d7-29e3b7012a33",
+      "externalId": "33560622@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-10T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560622",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "55c05f4d-0f23-4f55-a2e6-6047732787b9",
+      "externalId": "33560111@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-10-16T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560111",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "56acc41c-57c2-41ea-947a-c9d00f9312c6",
+      "externalId": "33562711@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-12-14T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562711",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "573eb288-ec2a-4316-bb66-28c77ac361e1",
+      "externalId": "33562716@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-11-03T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562716",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "584c1aea-49c1-434b-9fe0-073ddc321610",
+      "externalId": "33560113@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-10-30T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560113",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "5b17af76-dbde-4dde-9556-1e0b3c6fa2c5",
+      "externalId": "33559259@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-09-24T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559259",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "5c7b5fa9-d7f3-4f12-aa52-821183538424",
+      "externalId": "33562422@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-11-12T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562422",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "5f44d613-bf86-407c-9696-9ad4c816c29b",
+      "externalId": "33560636@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-03T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560636",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "5fbc5208-609b-4cd3-bfe7-09b0bb744dc7",
+      "externalId": "33562733@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-12-02T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562733",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "605228fe-7d6a-43c1-8960-24a8ce1bff83",
+      "externalId": "33560598@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-29T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560598",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "60aae05c-9076-4bf2-85c9-f43cd43ffab3",
+      "externalId": "33561105@illinois.edu",
+      "title": "COLLOQUIUM: Yilun Du",
+      "startTime": "2026-10-12T20:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33561105",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "60cde8e7-79d6-4cd2-9715-2adc10904906",
+      "externalId": "33558853@illinois.edu",
+      "title": "LAS - Feldco Coffee Chat",
+      "startTime": "2026-09-23T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33558853",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "internships",
+            "field": "description",
+            "matchedText": "internship opportunities",
+            "explanation": "Information about internship opportunities."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "internships",
+            "field": "description",
+            "matchedText": "internship opportunities",
+            "explanation": "Information about internship opportunities."
+          },
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "internship",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "63ee8c78-9acc-4879-9e77-637596c56f09",
+      "externalId": "33562732@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-11-18T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562732",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "681fcd81-1e79-4b87-8493-3d6a62dc99f6",
+      "externalId": "33562710@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-11-30T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562710",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "6b53a98c-d968-4ac6-9dc9-3180a1229ac1",
+      "externalId": "33560605@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-12T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560605",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "6e7b5a50-72ad-4822-9cf9-4fa088f9e6bb",
+      "externalId": "33559730@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-10-09T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559730",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "6f6b089c-8c8b-4358-b9e9-120c7a49e5df",
+      "externalId": "33519110@illinois.edu",
+      "title": "“Startup Incorporation: The What, When, & How” with Alan Singleton",
+      "startTime": "2026-09-22T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33519110",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "startup-program",
+            "field": "title",
+            "matchedText": "startup incorporation",
+            "explanation": "Explicit startup, entrepreneurship, or venture-building program."
+          }
+        ]
+      }
+    },
+    {
+      "id": "7185a15a-6689-4b88-a8e8-1a7edb1131f8",
+      "externalId": "33560615@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-28T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560615",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "7323ce94-6629-46f3-9fae-7d5eea5c38bf",
+      "externalId": "33562412@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-10-02T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562412",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "73567623-541a-4c63-b60d-69b86a945ce9",
+      "externalId": "33560117@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-11-27T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560117",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "73d17680-ab1f-4ac3-b149-07cf7f9bb97e",
+      "externalId": "33560633@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-30T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560633",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "77e7ccf2-9a73-4469-8d05-a05562f4ea53",
+      "externalId": "33559262@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-10-15T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559262",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "7b40e5de-1493-4da9-9ba6-761ef38e4b80",
+      "externalId": "33562750@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-10-09T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562750",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "7ca2d000-7f36-4873-a8fb-00b4c08bafa2",
+      "externalId": "33560614@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-27T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560614",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "80d8c54a-e444-4d6f-9213-e5cc07ab99b0",
+      "externalId": "33561124@illinois.edu",
+      "title": "COLLOQUIUM: Hao Wang, \\\"Bayesian Deep Learning: From Reliable Neural Networks to Interpretable Foundation Models\\\"",
+      "startTime": "2026-10-05T20:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33561124",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "823bf8d6-4df2-4de4-982b-25693b59a791",
+      "externalId": "33560596@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-24T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560596",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "865c1e1c-a5a7-4cdb-9f48-678e21699dc8",
+      "externalId": "33562720@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-09-23T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562720",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "87dc40b8-6961-4824-910c-28882daca498",
+      "externalId": "33539398@illinois.edu",
+      "title": "Data + AI User Group - December",
+      "startTime": "2026-12-11T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539398",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "87e56abd-8883-4a30-931b-d8c2a892c4be",
+      "externalId": "33563586@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-11-04T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563586",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "88a35b31-42c8-48a9-9205-f7d83a3f5fa4",
+      "externalId": "33559271@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-12-17T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559271",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "89435e09-23f7-494e-b058-3548757be2a3",
+      "externalId": "33559728@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-09-25T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559728",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "8d1a0457-0c61-47fa-88c0-2dca616919dc",
+      "externalId": "33562492@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-11-23T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562492",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "8d3eae17-a9f6-4b32-86eb-75ea05cb384f",
+      "externalId": "33560619@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-04T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560619",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "8dc5afcc-6749-4a36-805d-b36dd73b7c08",
+      "externalId": "33562413@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-10-16T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562413",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "8e46040f-01b7-4745-91dd-0b5b2e609160",
+      "externalId": "33561104@illinois.edu",
+      "title": "Cubist Lobby Day",
+      "startTime": "2026-10-22T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33561104",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "8eb0f2d7-f466-496f-b354-ad2d14d60a78",
+      "externalId": "33563629@illinois.edu",
+      "title": "American Academy of Arts and Sciences Celebration",
+      "startTime": "2026-10-14T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563629",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "9036c8a7-f47f-4742-9ce2-4244d1eed9dd",
+      "externalId": "33562477@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-10-13T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562477",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "90c35dfd-5e65-41fe-a853-61f450fed712",
+      "externalId": "33562718@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-12-01T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562718",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "914a1105-c7c2-445c-ad95-3570f54c0ebc",
+      "externalId": "33560608@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-15T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560608",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "92ac06f3-204a-483b-ad86-a8f2c819fa5b",
+      "externalId": "33560599@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-30T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560599",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "93086ec4-79ca-43e6-ab6c-4018eb8c509d",
+      "externalId": "33563482@illinois.edu",
+      "title": "Tech Talk: Apple",
+      "startTime": "2026-09-24T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6805/33563482",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "93841237-f294-4eb9-8c67-945c22996e9d",
+      "externalId": "33562489@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-10-12T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562489",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "94a6ffff-8252-4378-a223-ae5f5f23257d",
+      "externalId": "33559267@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-11-19T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559267",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "973fe177-c577-465b-99bb-452ee0c9020a",
+      "externalId": "33562741@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-09-24T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562741",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "9bbc79ed-1744-4d31-8976-16ff6d89ab3b",
+      "externalId": "33559266@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-11-12T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559266",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "9d93959b-82bd-4d45-88ff-d5b9cad8c341",
+      "externalId": "33562417@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-12-11T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562417",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "9da133f7-658d-4892-80b4-748bd46eb669",
+      "externalId": "33562476@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-09-29T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562476",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "9de0ad94-38b1-4476-bcca-e958bd023be0",
+      "externalId": "33559739@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-12-11T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559739",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "9de8d3ee-3486-44ef-ae30-ffd38eec29c7",
+      "externalId": "33560625@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-16T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560625",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "9ecce632-cf28-4eb0-bd40-13fe6dbb12a9",
+      "externalId": "33560610@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-20T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560610",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "9f582e1a-e929-4a13-84d0-edbb6b9a3484",
+      "externalId": "33560612@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-22T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560612",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "9febcb34-8183-419a-9e14-50d4b28931a0",
+      "externalId": "33562709@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-11-16T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562709",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "a0986649-cc0c-4c08-a457-b160e5ac11a8",
+      "externalId": "33562707@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-10-19T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562707",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "a305368b-58fc-4725-9af1-2b0e7dd5d765",
+      "externalId": "33557844@illinois.edu",
+      "title": "Navigating Google's Latest Updates for Business Growth",
+      "startTime": "2026-09-30T18:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33557844",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "a37a129a-428c-4f82-b192-e0a5abefd65a",
+      "externalId": "33562736@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-10-21T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562736",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "a73be310-239a-45ce-bd8f-cc6a12e786ab",
+      "externalId": "33559731@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-10-16T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559731",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "a9561be8-91ae-4380-a171-93cf381a427d",
+      "externalId": "33560640@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-10T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560640",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "a9b66ef9-bdd6-41ae-bd62-d93c46c0157b",
+      "externalId": "33560628@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-19T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560628",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "aaf5191b-82a5-495a-ae82-7c5dc949264e",
+      "externalId": "33562719@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-12-15T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562719",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ab0cbac4-ae47-4e7b-be38-cbc0a9262a8e",
+      "externalId": "33555584@illinois.edu",
+      "title": "LAS - Summer Research Internships at Oak Ridge National Laboratory",
+      "startTime": "2026-09-22T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33555584",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ab714618-a5d0-445a-b332-4fe09ca359cc",
+      "externalId": "33562712@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-09-22T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562712",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ac87c7cc-ca75-43c1-8198-2636c748d46b",
+      "externalId": "33546698@illinois.edu",
+      "title": "Fire at Five: Happy Hour and Bonfire - Spooky Pet Paw-Palooza",
+      "startTime": "2026-10-29T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33546698",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "ad01f311-5c52-428f-9192-277b5e269dd0",
+      "externalId": "33559269@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-12-03T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559269",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "ad166824-066b-463b-96a9-6e276f2cd048",
+      "externalId": "33560109@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-10-02T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560109",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ae46980e-814c-4a81-a943-ee8fbd4bf934",
+      "externalId": "33560620@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-05T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560620",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "aebcf30f-03f9-438d-8552-c712cf0a0f45",
+      "externalId": "33562755@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-12-18T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562755",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b2113a16-6a98-4e80-8c20-ba788480f5d7",
+      "externalId": "33560617@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-02T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560617",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "b2839941-3222-4a3a-aeb0-1e6c1ef88dea",
+      "externalId": "33559265@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-11-05T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559265",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "b2acbbe1-4fbe-4b18-ba33-3d52f7c212d5",
+      "externalId": "33562337@illinois.edu",
+      "title": "Human-Computer Interaction Talk Series: Dr. Shm Garanganao Almeda, \\\"The Design of Technology by, and for, Artistic Worlds.\\\"",
+      "startTime": "2026-09-23T20:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562337",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "b437d392-f44b-4732-9b4e-b3b0d7dbb43e",
+      "externalId": "33553793@illinois.edu",
+      "title": "The Grainger Engineering Fall 2026 Career Fair (VIRTUAL)",
+      "startTime": "2026-10-07T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/1551/33553793",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b70cb9e7-1cc6-4944-b827-1261ebce96af",
+      "externalId": "33563282@illinois.edu",
+      "title": "MechSE Alumni Social Hour in Chicago",
+      "startTime": "2026-10-16T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563282",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "b88f0159-d946-47c6-82c2-3d2501aa60f9",
+      "externalId": "33560603@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-07T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560603",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "b89bb109-3ffa-4822-a2e7-85ac45224446",
+      "externalId": "33560115@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-11-13T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560115",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "b9053280-7eef-4da7-9468-282ab989afae",
+      "externalId": "33562747@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-12-17T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562747",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bbc8735a-22cc-4a99-a8ca-6311f48a003d",
+      "externalId": "33539686@illinois.edu",
+      "title": "Champaign Blockchain Meetup - November",
+      "startTime": "2026-11-20T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539686",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bc1f6491-35b6-475d-ae65-571a9e534ccd",
+      "externalId": "33560597@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-28T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560597",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "bc8f8380-5e8d-49b3-a83b-c8542e5f16a1",
+      "externalId": "33560630@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-24T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560630",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "bcfada50-4a1a-4876-b3bd-cf05c114ec50",
+      "externalId": "33539685@illinois.edu",
+      "title": "Champaign Blockchain Meetup - October",
+      "startTime": "2026-10-16T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539685",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "blockchain meetup",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bd46ea4a-7c10-4cac-b0de-d9aa017e6cfa",
+      "externalId": "33523824@illinois.edu",
+      "title": "Champaign-Urbana AgTech Breakfast",
+      "startTime": "2026-12-02T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33523824",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "bd7a0056-3326-41f6-b05a-6f1bab98c097",
+      "externalId": "33562480@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-11-24T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562480",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "bf60c0e7-fab5-4ad6-b1ae-7f777fbbbe19",
+      "externalId": "33563719@illinois.edu",
+      "title": "Information Session: L3HARRIS",
+      "startTime": "2026-09-28T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6805/33563719",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "hiring for",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "c26bc409-3e3c-477b-b7ca-485b2775b62a",
+      "externalId": "33562425@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Yongjoo Park",
+      "startTime": "2026-09-23T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562425",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "c3255f6f-fdd0-431d-9ce6-73b814a1d30e",
+      "externalId": "33561103@illinois.edu",
+      "title": "Verkada Tech Talk",
+      "startTime": "2026-09-24T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33561103",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "c4621d67-151d-44b2-a278-270800e2a9e7",
+      "externalId": "33553657@illinois.edu",
+      "title": "Hire Illini Career and Internship Fair 2027",
+      "startTime": "2027-02-24T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/1551/33553657",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "internship fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "internship fair",
+            "explanation": "Career, job, or internship fair."
+          },
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internship",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "c555ee92-7a6a-41d0-8ee3-7a4c56f3854b",
+      "externalId": "33560613@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-26T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560613",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "c629b0f0-0a85-4946-9102-c8e6d33aadd8",
+      "externalId": "33560618@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-03T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560618",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "c869cd81-48bb-4660-b35c-bfa42cfdc291",
+      "externalId": "33560609@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-19T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560609",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "c972877a-29be-4712-a5bb-1c86cf3a6b9a",
+      "externalId": "33562717@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-11-17T16:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562717",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb3957ee-974f-42bd-88a8-22112a75ffcb",
+      "externalId": "33555587@illinois.edu",
+      "title": "LAS - Info session with Walsh Group: Summer 2027 Internships for Las Majors",
+      "startTime": "2026-09-23T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33555587",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cf2204ad-6174-4b78-9c03-762e34ec0044",
+      "externalId": "33562420@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-10-15T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562420",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cfb615b4-8f5a-41f2-8e5b-2894226d2de8",
+      "externalId": "33563356@illinois.edu",
+      "title": "Capital One Technical Case Interview Workshop",
+      "startTime": "2026-09-28T23:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563356",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview workshop",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "interview-preparation",
+            "field": "title",
+            "matchedText": "interview workshop",
+            "explanation": "Offers interview preparation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d19896f5-5433-4be2-96a9-9eb7fb6a7315",
+      "externalId": "33562728@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-09-23T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562728",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d213f7ae-0327-45ea-a324-f6f181e6faf9",
+      "externalId": "33562390@illinois.edu",
+      "title": "CAP Seminar Series: Dr. Nandita Vijaykumar, \\\"Architecting Efficient and Scalable Systems for Physical Intelligence and Visual Computing.\\\"",
+      "startTime": "2026-09-22T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562390",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "d26aed39-d0ea-43cc-89d8-413fc75753fb",
+      "externalId": "33560607@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-14T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560607",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "d27b2a4a-5037-462b-a5b4-25d9475350f0",
+      "externalId": "33562742@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-10-08T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562742",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d4c3af9f-a19e-4bd2-b44d-a2e8ff86a48f",
+      "externalId": "33537800@illinois.edu",
+      "title": "First Friday Breakfast - October",
+      "startTime": "2026-10-02T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33537800",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "d5b2180d-f5af-4791-957f-dfbfb8ae40f9",
+      "externalId": "33560116@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-11-20T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560116",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d5f5f0c2-5ba9-4975-ac89-7e9af66adf0b",
+      "externalId": "33562479@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Max Fowler",
+      "startTime": "2026-11-10T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562479",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d604d443-ce10-4115-b7ac-85037a9f0741",
+      "externalId": "33553537@illinois.edu",
+      "title": "Research Park Career Fair",
+      "startTime": "2027-02-25T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33553537",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "d81d194e-7b43-4a4e-b54f-eb6b0a963289",
+      "externalId": "33559261@illinois.edu",
+      "title": "CS CARES Coffee Social",
+      "startTime": "2026-10-08T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559261",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "d86763ad-b5b2-4e0b-bf5d-f225588edc85",
+      "externalId": "33562416@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-11-27T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562416",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "db68b084-7f71-44eb-8bb7-376fe77e44bd",
+      "externalId": "33562706@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Mattox Beckman",
+      "startTime": "2026-10-05T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562706",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dc614b39-e814-4a29-9547-fc42c24db840",
+      "externalId": "33563360@illinois.edu",
+      "title": "Capital One Coffee, Careers & Connections",
+      "startTime": "2026-09-29T16:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563360",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-connections",
+            "field": "title",
+            "matchedText": "careers & connections",
+            "explanation": "Explicit career connections or professional networking event."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-connections",
+            "field": "title",
+            "matchedText": "careers & connections",
+            "explanation": "Explicit career connections or professional networking event."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dcfe3abc-a2c7-4906-a9ad-5bf84e891601",
+      "externalId": "33560110@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-10-09T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560110",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "dd3f1984-83cd-4d7f-b486-e915bae38bd8",
+      "externalId": "33562414@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Talia Ringer",
+      "startTime": "2026-10-30T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562414",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "de44533c-f4f6-4df1-be0a-60cdf0b1d9fc",
+      "externalId": "33560594@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-09-22T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560594",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "e1b1f958-249d-4ce7-af7b-055603652e70",
+      "externalId": "33560635@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-02T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560635",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "e29084ec-6cc4-4ef3-913a-d17ef1e040f0",
+      "externalId": "33562737@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-11-04T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562737",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e293b364-943f-442d-aeee-590bca46eaf1",
+      "externalId": "33562735@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-10-07T14:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562735",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e3f01038-8e06-4603-908f-55e9f9888db7",
+      "externalId": "33553540@illinois.edu",
+      "title": "Illinois Hire Illini Career and Internship Fair",
+      "startTime": "2027-02-24T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33553540",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "internship fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "internship fair",
+            "explanation": "Career, job, or internship fair."
+          },
+          {
+            "ruleId": "opportunity",
+            "field": "title",
+            "matchedText": "internship",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e4c9621d-d5ce-49a5-a58e-173fc700dd49",
+      "externalId": "33562493@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-12-07T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562493",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e5d96e50-1c91-4fa4-a874-4b9592ece4df",
+      "externalId": "33562748@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-09-25T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562748",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e669301d-ef49-467e-858a-dc97f8d4b7c8",
+      "externalId": "33562424@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-12-10T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562424",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e66d11aa-bec3-4769-b8cf-856b423cb968",
+      "externalId": "33539396@illinois.edu",
+      "title": "Data + AI User Group - November",
+      "startTime": "2026-11-13T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33539396",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e6bae932-0f4f-4911-975b-9b2ad5159ae6",
+      "externalId": "33562730@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-10-21T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562730",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e84c036a-5e82-44be-a95b-7ccbd974566f",
+      "externalId": "33560637@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-07T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560637",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "e87c302c-8bb7-4e00-9938-c01621a78b6c",
+      "externalId": "33559737@illinois.edu",
+      "title": "Office Hours w/ School Director Nancy Amato",
+      "startTime": "2026-11-27T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33559737",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e920ce58-f97e-4a17-830f-4974e3e44593",
+      "externalId": "33538309@illinois.edu",
+      "title": "Data + AI User Group - October",
+      "startTime": "2026-10-09T17:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33538309",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-community",
+            "field": "title",
+            "matchedText": "data + ai user group",
+            "explanation": "Technical community participation or practical technical skill-building."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e9919d68-88ce-4930-b5f5-ae4ff1f52fe0",
+      "externalId": "33562752@illinois.edu",
+      "title": "IN PERSON: CS CARES Office Hour: Carl Evans",
+      "startTime": "2026-11-06T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562752",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "e9f21dfc-e4a7-4b8f-9d5a-6d097036d46f",
+      "externalId": "33562743@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-10-22T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562743",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ea06b8d8-e0dd-49de-8a00-8720b8cdcc1c",
+      "externalId": "33562488@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Steve Herzog",
+      "startTime": "2026-09-28T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562488",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ebe9dcce-3e22-44be-8ab9-6f4976d98310",
+      "externalId": "33560623@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-11T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560623",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "ecb56f20-7175-48ad-9849-67e7953fcb7d",
+      "externalId": "33562740@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-12-16T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562740",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f04537c0-8a67-49b5-9213-c1567f4e8ffd",
+      "externalId": "33562729@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Jeff Erickson",
+      "startTime": "2026-10-07T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562729",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f2434830-3ebd-4f3e-835b-fa3a5ede4225",
+      "externalId": "33562423@illinois.edu",
+      "title": "ONLINE: CS CARES Office Hour: Yael Gertner",
+      "startTime": "2026-11-26T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562423",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f2c42590-8160-40ee-8c4e-3e6519da4ffc",
+      "externalId": "33560621@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-09T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560621",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "f35db1e0-bedc-492b-bba9-781e80936e05",
+      "externalId": "33562744@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Ruta Mehta",
+      "startTime": "2026-11-05T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562744",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f3787e73-f2a4-48aa-afb2-932f0272176b",
+      "externalId": "33560631@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-11-25T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560631",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "f47bbd0b-4e94-4484-a58a-886be79231bd",
+      "externalId": "33562738@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: CJ Coleman",
+      "startTime": "2026-11-18T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562738",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f4dc74e6-25c7-4368-aeba-36d43da17f93",
+      "externalId": "33560604@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-10-08T22:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560604",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "f61562f7-db9b-46ea-adc1-f04970fc175c",
+      "externalId": "33561863@illinois.edu",
+      "title": "Grainger Engineering Alumni Night at Topgolf",
+      "startTime": "2026-10-17T20:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33561863",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "f626afdf-7b32-4303-ab2c-dff043944df7",
+      "externalId": "33560119@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-12-11T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560119",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f67bd151-7916-43ab-9e54-160c2cbd3f3d",
+      "externalId": "33562715@illinois.edu",
+      "title": "HYBRID: CS CARES Office Hour: Robin Kravets",
+      "startTime": "2026-10-20T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33562715",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hour",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7caeca0-acbe-4311-94ff-2b8d05160816",
+      "externalId": "33560639@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-09T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560639",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "f9660f95-bcd8-4df7-8c90-07cd03642d92",
+      "externalId": "33560108@illinois.edu",
+      "title": "Director of Graduate Studies Office Hours",
+      "startTime": "2026-09-25T18:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560108",
+      "old": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "not_relevant",
+        "reasons": [
+          {
+            "ruleId": "routine-activity",
+            "field": "title",
+            "matchedText": "office hours",
+            "explanation": "Routine office hours, meeting, or administrative activity without an explicit career purpose in the title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9dbe0b9-3fea-4dfd-844b-474015a1b1c7",
+      "externalId": "33557470@illinois.edu",
+      "title": "LAS - AlphaSights Coffee Chat",
+      "startTime": "2026-09-25T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/6499/33557470",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "opportunity",
+            "field": "description",
+            "matchedText": "internships",
+            "explanation": "An actionable internship, fellowship, research, or employment opportunity."
+          }
+        ]
+      }
+    },
+    {
+      "id": "faec4764-d067-438c-9c64-d7489880c3f5",
+      "externalId": "33552514@illinois.edu",
+      "title": "2027 Research Park Career Fair",
+      "startTime": "2027-02-16T21:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/1551/33552514",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-fair",
+            "field": "title",
+            "matchedText": "career fair",
+            "explanation": "Career, job, or internship fair."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fd8fc91e-b2c9-4c95-99c1-77a942632044",
+      "externalId": "33563484@illinois.edu",
+      "title": "Machine Learning Seminar: Jeonghwan Kim, \\\"Learning to See, Integrate, and Act: Visual Grounding for Multimodal Foundation Models.\\\"",
+      "startTime": "2026-09-25T19:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563484",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "fd916367-89e5-4a10-946d-d5629847ac62",
+      "externalId": "33560638@illinois.edu",
+      "title": "Peer Mentoring Center",
+      "startTime": "2026-12-08T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33560638",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    },
+    {
+      "id": "fe042b97-9d16-4236-9661-6e553a5aa0b8",
+      "externalId": "33563358@illinois.edu",
+      "title": "Capital One Tech Talk Panel",
+      "startTime": "2026-09-29T23:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33563358",
+      "old": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "technical-talk-title",
+            "field": "title",
+            "matchedText": "tech talk",
+            "explanation": "Technical talk indicated by the event title."
+          }
+        ]
+      }
+    },
+    {
+      "id": "feb52cc6-020d-40fd-9cd1-32462d9ca0c4",
+      "externalId": "33557768@illinois.edu",
+      "title": "After Hours in Chicago - Fall 2026",
+      "startTime": "2026-10-01T22:30:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/2654/33557768",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "relevant",
+        "reasons": [
+          {
+            "ruleId": "career-reception",
+            "field": "description",
+            "matchedText": "An informal career reception in Chicago for CS and ECE students and companies to connect, network, and socialize",
+            "explanation": "Career reception connecting participants with companies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ff6c04a4-54b6-4c53-b6ca-c00651d1cd7d",
+      "externalId": "33537921@illinois.edu",
+      "title": "First Friday Breakfast - November",
+      "startTime": "2026-11-06T15:00:00+00:00",
+      "sourceUrl": "https://calendars.illinois.edu/detail/5115/33537921",
+      "old": {
+        "classification": "uncertain",
+        "reasons": []
+      },
+      "new": {
+        "classification": "uncertain",
+        "reasons": []
+      }
+    }
+  ]
+}
