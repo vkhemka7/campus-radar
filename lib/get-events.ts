@@ -54,7 +54,7 @@ function toCampusEvent(row: EventRow): CampusEvent {
 export const EVENT_RESULT_LIMIT = 30;
 
 export type EventFilters = {
-  view?: "career" | "all";
+  view?: "career" | "all" | "for-you";
   search?: string;
   days?: 7 | 30;
 };
@@ -143,12 +143,14 @@ export async function getEvents(filters: EventFilters = {}): Promise<GetEventsRe
     provenance.push(toCampusEvent(row));
     byOccurrence.set(occurrenceId, provenance);
   }
-  const events = [...byOccurrence].map(([occurrenceId, provenance]) => ({
+  const occurrences = [...byOccurrence].map(([occurrenceId, provenance]) => ({
     occurrenceId,
     event: selectEventRepresentative(provenance),
     provenance,
     relevance: combinedRelevance(provenance),
-  })).filter(({ relevance }) => filters.view === "all" || relevance.classification === "relevant")
-    .slice(0, EVENT_RESULT_LIMIT);
+  })).filter(({ relevance }) => filters.view === "all" || filters.view === "for-you" || relevance.classification === "relevant");
+  // For You scores this pool, drops Not Interested, and applies its own limit.
+  // Career and All stay soonest-first and capped here.
+  const events = filters.view === "for-you" ? occurrences : occurrences.slice(0, EVENT_RESULT_LIMIT);
   return { ok: true, events };
 }

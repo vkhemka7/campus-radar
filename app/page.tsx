@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { OccurrenceStateControls } from "@/app/components/occurrence-state-controls";
-import { getViewer } from "@/lib/current-user";
-import { EVENT_RESULT_LIMIT, getEvents, type BrowsingEvent } from "@/lib/get-events";
+import { readCareerInterests, readSelectedInterestSlugs } from "@/lib/career-interests";
+import { getViewer, type Viewer } from "@/lib/current-user";
+import { rankForYou, type ForYouRecommendation } from "@/lib/for-you";
+import { EVENT_RESULT_LIMIT, getEvents, type BrowsingEvent, type GetEventsResult } from "@/lib/get-events";
 import { readOccurrenceStates, type OccurrenceStatus } from "@/lib/occurrence-states";
 import { createRequestSupabaseClient } from "@/lib/supabase-server";
 
@@ -12,22 +14,29 @@ type SavedStates =
   | { kind: "loaded"; states: Map<string, OccurrenceStatus> }
   | { kind: "unavailable" };
 
-/** Reads the signed-in user's states for the displayed occurrences. Anonymous visitors skip this. */
-async function loadSavedStates(occurrenceIds: string[]): Promise<SavedStates> {
-  const viewer = await getViewer();
+/** Reads the signed-in user's states. Anonymous visitors skip this. */
+async function loadSavedStates(viewer: Viewer, occurrenceIds: string[]): Promise<SavedStates> {
   if (viewer.status !== "authenticated") return { kind: "anonymous" };
   if (occurrenceIds.length === 0) return { kind: "loaded", states: new Map() };
 
   const client = await createRequestSupabaseClient();
   if (!client.ok) return { kind: "unavailable" };
-  const { data, error } = await client.supabase
-    .from("user_occurrence_states")
-    .select("occurrence_id, status")
-    .eq("user_id", viewer.user.id)
-    .in("occurrence_id", occurrenceIds);
-  const states = error ? null : readOccurrenceStates(data);
+  const rows: unknown[] = [];
+  for (let offset = 0; offset < occurrenceIds.length; offset += 100) {
+    const { data, error } = await client.supabase
+      .from("user_occurrence_states")
+      .select("occurrence_id, status")
+      .eq("user_id", viewer.user.id)
+      .in("occurrence_id", occurrenceIds.slice(offset, offset + 100));
+    if (error) {
+      console.error("Could not load saved event states:", error);
+      return { kind: "unavailable" };
+    }
+    rows.push(...(data ?? []));
+  }
+  const states = readOccurrenceStates(rows);
   if (!states) {
-    console.error("Could not load saved event states:", error);
+    console.error("Could not load saved event states: invalid rows");
     return { kind: "unavailable" };
   }
   return { kind: "loaded", states };
@@ -49,9 +58,11 @@ function formatEventTime(isoDateTime: string, timezone: string) {
 function EventCard({
   occurrence: { occurrenceId, event, provenance, relevance },
   saved,
+  recommendation,
 }: {
   occurrence: BrowsingEvent;
   saved: SavedStates;
+  recommendation?: string;
 }) {
   const registrationUrls = [...new Set(provenance.map(({ registrationUrl }) => registrationUrl).filter(Boolean))];
   return (
@@ -62,7 +73,11 @@ function EventCard({
       <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
         {event.title}
       </h2>
-      {relevance.classification === "relevant" ? (
+      {recommendation ? (
+        <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+          Why recommended: {recommendation}
+        </p>
+      ) : relevance.classification === "relevant" ? (
         <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
           Why included: {relevance.reasons.slice(0, 2).map((reason) => reason.explanation).join(" ")}
         </p>
@@ -141,16 +156,137 @@ function EventCard({
   );
 }
 
+type ForYouState =
+  | { kind: "interests-error" }
+  | { kind: "needs-interests" }
+  | { kind: "events-error"; message: string }
+  | { kind: "ready"; recommendations: ForYouRecommendation[]; saved: SavedStates };
+
+async function loadForYou(viewer: Viewer & { status: "authenticated" }, search: string, days: 7 | 30 | undefined): Promise<ForYouState> {
+  const client = await createRequestSupabaseClient();
+  if (!client.ok) return { kind: "interests-error" };
+  const [catalogResult, selectedResult] = await Promise.all([
+    client.supabase.from("career_interests").select("slug, label, sort_order"),
+    client.supabase.from("profile_career_interests").select("interest_slug").eq("user_id", viewer.user.id),
+  ]);
+  const catalog = catalogResult.error ? null : readCareerInterests(catalogResult.data);
+  const selected = selectedResult.error ? null : readSelectedInterestSlugs(selectedResult.data);
+  if (!catalog || !selected) {
+    console.error("Could not load career interests:", catalogResult.error ?? selectedResult.error);
+    return { kind: "interests-error" };
+  }
+  const savedSlugs = selected.filter((slug) => catalog.some((interest) => interest.slug === slug));
+  if (savedSlugs.length === 0) return { kind: "needs-interests" };
+
+  const result = await getEvents({ view: "for-you", search, days });
+  if (!result.ok) return { kind: "events-error", message: result.error };
+  const saved = await loadSavedStates(viewer, result.events.map(({ occurrenceId }) => occurrenceId));
+  const notInterested = saved.kind === "loaded"
+    ? new Set([...saved.states].filter(([, status]) => status === "not_interested").map(([occurrenceId]) => occurrenceId))
+    : undefined;
+  return {
+    kind: "ready",
+    recommendations: rankForYou(result.events, catalog, savedSlugs, { excludeOccurrenceIds: notInterested }),
+    saved,
+  };
+}
+
+function ForYouResults({
+  forYou,
+  saved,
+  careerHref,
+}: {
+  forYou: ForYouState;
+  saved: SavedStates;
+  careerHref: string;
+}) {
+  if (forYou.kind === "interests-error") {
+    return (
+      <p role="alert" className="mt-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100">
+        Career interests could not be loaded. Try again.
+      </p>
+    );
+  }
+  if (forYou.kind === "events-error") {
+    return (
+      <p role="alert" className="mt-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100">
+        {forYou.message}
+      </p>
+    );
+  }
+  if (forYou.kind === "needs-interests") {
+    return (
+      <p className="mt-4 rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
+        Choose career interests to see a For You ranking.{" "}
+        <Link href="/account/interests" className="font-medium text-zinc-950 underline dark:text-zinc-50">
+          Edit career interests
+        </Link>
+        . Career &amp; Industry and All Events stay available.
+      </p>
+    );
+  }
+
+  return (
+    <>
+      {forYou.recommendations.length > 0 ? (
+        <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
+          Showing up to {EVENT_RESULT_LIMIT} events. Interest matches come first.
+        </p>
+      ) : null}
+      {saved.kind === "unavailable" ? (
+        <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">
+          Your saved event plans could not be loaded. Events are still shown below.
+        </p>
+      ) : null}
+      <section className="mt-8 space-y-4" aria-label="Events for you">
+        {forYou.recommendations.length === 0 ? (
+          <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
+            No upcoming events matched your interests.{" "}
+            <Link href={careerHref} className="font-medium text-zinc-950 underline dark:text-zinc-50">
+              Browse Career &amp; Industry
+            </Link>{" "}
+            with the same search and date filters.
+          </p>
+        ) : (
+          forYou.recommendations.map((item) => (
+            <EventCard
+              key={item.occurrence.occurrenceId}
+              occurrence={item.occurrence}
+              saved={saved}
+              recommendation={item.explanation}
+            />
+          ))
+        )}
+      </section>
+    </>
+  );
+}
+
+function filterHref(view: "career" | "all" | "for-you", search: string, days: 7 | 30 | undefined) {
+  const params = new URLSearchParams({ view });
+  if (search) params.set("q", search);
+  if (days) params.set("days", String(days));
+  return `/?${params}`;
+}
+
 export default async function Home({ searchParams }: PageProps<"/">) {
   const params = await searchParams;
   const search = typeof params.q === "string" ? params.q.trim() : "";
   const days = params.days === "7" ? 7 : params.days === "30" ? 30 : undefined;
-  const view = params.view === "all" ? "all" : "career";
-  const result = await getEvents({ search, days, view });
-  const saved = await loadSavedStates(result.ok ? result.events.map(({ occurrenceId }) => occurrenceId) : []);
-  const allParams = new URLSearchParams({ view: "all" });
-  if (search) allParams.set("q", search);
-  if (days) allParams.set("days", String(days));
+  const requested = params.view === "all" ? "all" : params.view === "for-you" ? "for-you" : "career";
+  const viewer = await getViewer();
+  const signedIn = viewer.status === "authenticated";
+  const view = requested === "for-you" && !signedIn ? "career" : requested;
+  const forYou = view === "for-you" && viewer.status === "authenticated" ? await loadForYou(viewer, search, days) : null;
+  const result: GetEventsResult | null = forYou ? null : await getEvents({
+    search,
+    days,
+    view: view === "for-you" ? "career" : view,
+  });
+  const saved = forYou?.kind === "ready"
+    ? forYou.saved
+    : await loadSavedStates(viewer, result?.ok ? result.events.map(({ occurrenceId }) => occurrenceId) : []);
+  const careerHref = filterHref("career", search, days);
 
   return (
     <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-12 font-sans dark:bg-black">
@@ -171,6 +307,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             <select key={view} name="view" defaultValue={view} className="rounded-lg border border-zinc-300 bg-white px-3 py-2 dark:border-zinc-700 dark:bg-zinc-950">
               <option value="career">Career &amp; Industry</option>
               <option value="all">All Events</option>
+              {signedIn ? <option value="for-you">For You</option> : null}
             </select>
           </label>
           <label className="flex min-w-0 flex-1 flex-col gap-1 text-sm">
@@ -205,10 +342,16 @@ export default async function Home({ searchParams }: PageProps<"/">) {
         {view === "career" ? (
           <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
             Career &amp; Industry uses simple text rules and may miss useful events.{" "}
-            <Link href={`/?${allParams}`} className="underline">View all upcoming events</Link>
+            <Link href={filterHref("all", search, days)} className="underline">View all upcoming events</Link>
+          </p>
+        ) : view === "for-you" ? (
+          <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+            For You puts saved-interest matches first. A career opportunity is a general career event, not an interest match.
           </p>
         ) : null}
-        {result.ok ? (
+        {forYou ? (
+          <ForYouResults forYou={forYou} saved={saved} careerHref={careerHref} />
+        ) : result?.ok ? (
           <>
             <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
               Showing up to {EVENT_RESULT_LIMIT} events, soonest first. Includes events happening now.
@@ -246,7 +389,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             className="mt-4 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
             role="alert"
           >
-            {result.error}
+            {result?.error ?? "Events could not be loaded. Please try again later."}
           </p>
         )}
       </main>

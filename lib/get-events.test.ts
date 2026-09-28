@@ -215,6 +215,29 @@ describe("career view and all-events fallback", () => {
       .mockResolvedValueOnce(new Response(JSON.stringify({ message: "database error" }), { status: 400 }));
     expect(await getEvents()).toEqual({ ok: false, error: "Events could not be loaded. Please try again later." });
   });
+  test("for-you returns every classification without the 30-row cut", async () => {
+    const rows = [
+      ...Array.from({ length: 35 }, (_, index) => row(String(index).padStart(2, "0"), "Office Hours")),
+      row("ml", "Machine Learning Seminar"),
+      row("fair", "Career Fair"),
+    ];
+    fetchMock.mockResolvedValueOnce(response(rows));
+    const result = await getEvents({ view: "for-you", search: "workshop", days: 7 });
+    expect(result.ok && result.events).toHaveLength(37);
+    if (result.ok) {
+      expect(result.events.map(({ relevance }) => relevance.classification)).toEqual([
+        ...Array.from({ length: 35 }, () => "not_relevant"),
+        "uncertain",
+        "relevant",
+      ]);
+    }
+    const params = requestParams();
+    expect(params.get("title")).toBe("ilike.%workshop%");
+    expect(params.get("start_time")).toBe("lt.2026-09-29T18:00:00.000Z");
+    expect(params.get("source")).toBe("eq.Illinois Webtools");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   test("search and date filters persist across career batches", async () => {
     fetchMock.mockResolvedValueOnce(response(Array.from({ length: 100 }, (_, i) => row(String(i), "Office Hours"))))
       .mockResolvedValueOnce(response([]));
