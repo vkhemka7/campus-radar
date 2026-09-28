@@ -14,9 +14,13 @@ export type SupabaseSessionConfigSuccess = {
 const missingConfig =
   "Missing database configuration. Add SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY to .env.local, then restart the Next.js dev server.";
 
-/** True when the request already carries a Supabase auth cookie. */
+/**
+ * True when the request carries a Supabase session cookie.
+ * PKCE verifier cookies are stored at signup before a session exists, so they
+ * do not count. Public pages keep skipping Auth until a session cookie is set.
+ */
 export function hasSupabaseAuthCookie(names: readonly string[]): boolean {
-  return names.some((name) => name.startsWith("sb-"));
+  return names.some((name) => name.startsWith("sb-") && !name.includes("-code-verifier"));
 }
 
 /**

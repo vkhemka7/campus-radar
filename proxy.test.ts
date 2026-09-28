@@ -63,6 +63,41 @@ describe("session proxy", () => {
     expect(response.headers.get("cache-control")).toContain("no-store");
   });
 
+  test("leaves a signup verifier cookie on the public path", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";
+    const response = await proxy(request("sb-project-auth-token-code-verifier=verifier"));
+    expect(response.status).toBe(200);
+    expect(response.headers.get("location")).toBeNull();
+    expect(createServerClient).not.toHaveBeenCalled();
+  });
+
+  test("forwards an email confirmation link before refreshing a session", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";
+    const response = await proxy(
+      new NextRequest("http://localhost:3000/?code=abc", {
+        headers: { cookie: "sb-project-auth-token=old" },
+      }),
+    );
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe("http://localhost:3000/auth/confirm?code=abc");
+    expect(createServerClient).not.toHaveBeenCalled();
+  });
+
+  test("does not refresh a session on the confirmation route", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";
+    const response = await proxy(
+      new NextRequest("http://localhost:3000/auth/confirm?code=abc", {
+        headers: { cookie: "sb-project-auth-token=old" },
+      }),
+    );
+    expect(response.status).toBe(200);
+    expect(response.headers.get("location")).toBeNull();
+    expect(createServerClient).not.toHaveBeenCalled();
+  });
+
   test("continues when session refresh throws", async () => {
     process.env.SUPABASE_URL = "https://example.supabase.co";
     process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";

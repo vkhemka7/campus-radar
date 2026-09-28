@@ -28,6 +28,9 @@ describe("Supabase session client", () => {
     expect(hasSupabaseAuthCookie(["theme"])).toBe(false);
     expect(hasSupabaseAuthCookie(["sb-project-auth-token"])).toBe(true);
     expect(hasSupabaseAuthCookie(["sb-project-auth-token.0"])).toBe(true);
+    expect(hasSupabaseAuthCookie(["sb-project-auth-token-code-verifier"])).toBe(false);
+    expect(hasSupabaseAuthCookie(["sb-project-auth-token-flow-abc12345-code-verifier"])).toBe(false);
+    expect(hasSupabaseAuthCookie(["sb-project-auth-token", "sb-project-auth-token-code-verifier"])).toBe(true);
   });
 
   test("returns a configuration error without contacting Auth", () => {

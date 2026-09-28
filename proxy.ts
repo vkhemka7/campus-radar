@@ -1,12 +1,19 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { authCallbackRedirectTarget } from "@/lib/auth";
 import { createSupabaseServerClient, hasSupabaseAuthCookie } from "@/lib/supabase-session";
 
 /**
  * Refreshes a Supabase session cookie before the page renders.
- * Requests with no auth cookie skip Auth entirely so public browsing stays
+ * Requests with no session cookie skip Auth entirely so public browsing stays
  * on the stateless event client.
+ * Email-confirmation links are forwarded to /auth/confirm before any session
+ * refresh. That page does not spend the token; the visitor confirms with a button.
  */
 export async function proxy(request: NextRequest) {
+  const callback = authCallbackRedirectTarget(request.nextUrl);
+  if (callback) return NextResponse.redirect(new URL(callback, request.url));
+  if (request.nextUrl.pathname === "/auth/confirm") return NextResponse.next({ request });
+
   let response = NextResponse.next({ request });
   const cookieNames = request.cookies.getAll().map((cookie) => cookie.name);
   if (!hasSupabaseAuthCookie(cookieNames)) return response;
