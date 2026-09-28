@@ -2,6 +2,9 @@ import {
   ILLINOIS_WEBTOOLS_SOURCE,
   SIEBEL_MASTER_CALENDAR_ID,
 } from "@/lib/illinois-webtools/constants";
+import { absoluteHttpUrl } from "@/lib/illinois-webtools/html-fragment";
+import { WEBTOOLS_TIME_ZONE } from "@/lib/illinois-webtools/html-schedule";
+import { htmlEventIdToExternalId, webtoolsDetailSourceUrl } from "@/lib/illinois-webtools/identity";
 import { type IcsEvent } from "@/lib/illinois-webtools/parse-ics";
 import { parseIcsDateTime } from "@/lib/illinois-webtools/time";
 
@@ -91,4 +94,50 @@ export function normalizeIllinoisWebtoolsEvents(
   }
 
   return [...byExternalId.values()];
+}
+
+/**
+ * Map a parsed HTML event onto the existing Webtools row.
+ * Sponsor is intentionally not an input: it is the hosting unit, so `company` stays empty.
+ */
+export function normalizeHtmlWebtoolsEvent(input: {
+  eventId: string;
+  title: string;
+  description: string;
+  category: string;
+  location: string;
+  registrationUrl: string;
+  originatingCalendarId: string | null;
+  listCalendarId: string;
+  start: Date;
+  end: Date;
+}): NormalizedIllinoisEvent | null {
+  const externalId = htmlEventIdToExternalId(input.eventId);
+  const sourceUrl = externalId
+    ? webtoolsDetailSourceUrl(input.originatingCalendarId ?? input.listCalendarId, input.eventId)
+    : null;
+  if (
+    !externalId ||
+    !sourceUrl ||
+    !input.title.trim() ||
+    Number.isNaN(input.start.getTime()) ||
+    Number.isNaN(input.end.getTime())
+  ) {
+    return null;
+  }
+
+  return {
+    external_id: externalId,
+    title: input.title.trim(),
+    company: "",
+    description: input.description,
+    category: input.category,
+    start_time: input.start.toISOString(),
+    end_time: input.end.toISOString(),
+    timezone: WEBTOOLS_TIME_ZONE,
+    location: input.location,
+    registration_url: absoluteHttpUrl(input.registrationUrl) ?? "",
+    source_url: sourceUrl,
+    source: ILLINOIS_WEBTOOLS_SOURCE,
+  };
 }
