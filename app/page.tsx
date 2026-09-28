@@ -1,7 +1,37 @@
 import Link from "next/link";
+import { OccurrenceStateControls } from "@/app/components/occurrence-state-controls";
+import { getViewer } from "@/lib/current-user";
 import { EVENT_RESULT_LIMIT, getEvents, type BrowsingEvent } from "@/lib/get-events";
+import { readOccurrenceStates, type OccurrenceStatus } from "@/lib/occurrence-states";
+import { createRequestSupabaseClient } from "@/lib/supabase-server";
 
 export const dynamic = "force-dynamic";
+
+type SavedStates =
+  | { kind: "anonymous" }
+  | { kind: "loaded"; states: Map<string, OccurrenceStatus> }
+  | { kind: "unavailable" };
+
+/** Reads the signed-in user's states for the displayed occurrences. Anonymous visitors skip this. */
+async function loadSavedStates(occurrenceIds: string[]): Promise<SavedStates> {
+  const viewer = await getViewer();
+  if (viewer.status !== "authenticated") return { kind: "anonymous" };
+  if (occurrenceIds.length === 0) return { kind: "loaded", states: new Map() };
+
+  const client = await createRequestSupabaseClient();
+  if (!client.ok) return { kind: "unavailable" };
+  const { data, error } = await client.supabase
+    .from("user_occurrence_states")
+    .select("occurrence_id, status")
+    .eq("user_id", viewer.user.id)
+    .in("occurrence_id", occurrenceIds);
+  const states = error ? null : readOccurrenceStates(data);
+  if (!states) {
+    console.error("Could not load saved event states:", error);
+    return { kind: "unavailable" };
+  }
+  return { kind: "loaded", states };
+}
 
 function formatEventTime(isoDateTime: string, timezone: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -16,7 +46,13 @@ function formatEventTime(isoDateTime: string, timezone: string) {
   }).format(new Date(isoDateTime));
 }
 
-function EventCard({ event, provenance, relevance }: BrowsingEvent) {
+function EventCard({
+  occurrence: { occurrenceId, event, provenance, relevance },
+  saved,
+}: {
+  occurrence: BrowsingEvent;
+  saved: SavedStates;
+}) {
   const registrationUrls = [...new Set(provenance.map(({ registrationUrl }) => registrationUrl).filter(Boolean))];
   return (
     <article className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
@@ -98,6 +134,9 @@ function EventCard({ event, provenance, relevance }: BrowsingEvent) {
           </a>
         ))}
       </div>
+      {saved.kind === "loaded" ? (
+        <OccurrenceStateControls occurrenceId={occurrenceId} status={saved.states.get(occurrenceId) ?? null} />
+      ) : null}
     </article>
   );
 }
@@ -108,6 +147,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
   const days = params.days === "7" ? 7 : params.days === "30" ? 30 : undefined;
   const view = params.view === "all" ? "all" : "career";
   const result = await getEvents({ search, days, view });
+  const saved = await loadSavedStates(result.ok ? result.events.map(({ occurrenceId }) => occurrenceId) : []);
   const allParams = new URLSearchParams({ view: "all" });
   if (search) allParams.set("q", search);
   if (days) allParams.set("days", String(days));
@@ -173,6 +213,18 @@ export default async function Home({ searchParams }: PageProps<"/">) {
             <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-400">
               Showing up to {EVENT_RESULT_LIMIT} events, soonest first. Includes events happening now.
             </p>
+            {saved.kind === "anonymous" ? (
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <Link href="/login" className="font-medium text-zinc-950 underline dark:text-zinc-50">
+                  Log in
+                </Link>{" "}
+                to mark events as Interested, Going, or Not Interested.
+              </p>
+            ) : saved.kind === "unavailable" ? (
+              <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">
+                Your saved event plans could not be loaded. Events are still shown below.
+              </p>
+            ) : null}
             <section className="mt-8 space-y-4" aria-label="Upcoming and ongoing events">
               {result.events.length === 0 ? (
                 <p className="rounded-xl border border-zinc-200 bg-white p-5 text-sm leading-6 text-zinc-600 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300">
@@ -184,7 +236,7 @@ export default async function Home({ searchParams }: PageProps<"/">) {
                 </p>
               ) : (
                 result.events.map((occurrence) => (
-                  <EventCard key={occurrence.occurrenceId} {...occurrence} />
+                  <EventCard key={occurrence.occurrenceId} occurrence={occurrence} saved={saved} />
                 ))
               )}
             </section>
