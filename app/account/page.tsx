@@ -78,7 +78,13 @@ export default async function AccountPage() {
           </div>
         ) : null}
       </dl>
-      <p className="mt-6 text-sm">
+      <p className="mt-6 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
+        <Link href="/account/interests" className="font-medium text-zinc-950 underline dark:text-zinc-50">
+          Career interests
+        </Link>
+        <span className="text-zinc-600 dark:text-zinc-400"> — choose the areas you want saved on your account.</span>
+      </p>
+      <p className="mt-3 text-sm">
         <Link href="/" className="font-medium text-zinc-950 underline dark:text-zinc-50">
           Back to events
         </Link>
