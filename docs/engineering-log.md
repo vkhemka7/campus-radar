@@ -267,15 +267,15 @@ Title phrases per slug; stronger phrases on description/category/company only af
 
 ---
 
-## Webtools HTML ingestion preparation and validation
+## Webtools HTML ingestion preparation, validation, and production cutover
 
-**When:** 2026-09-28 (`f2ee7e8`)
+**When:** 2026-09-28 (preparation: `f2ee7e8`; Phase 3 production cutover follows documentation checkpoint `dbe6853`)
 
 **Problem**
-Production collection depends on Outlook ICS URLs. An HTML list/detail path was needed that can later replace those feeds without inventing new `external_id` values or writing unverified rows.
+Production collection depended on Outlook ICS URLs. An HTML list/detail path was needed to replace those feeds without inventing new `external_id` values or writing unverified rows.
 
 **Decision**
-Implement public HTML parsers and a no-write dry run against the five existing calendars. Keep ICS collection as the writer. Do not add AE Corporate Relations or Entrepreneurship sources (calendars 7541 and 6327).
+Prepare public HTML parsers and a no-write dry run against the five existing calendars, initially retaining ICS as the writer. After validating the dry-run gate, switch production collection to that HTML pipeline. Do not add AE Corporate Relations or Entrepreneurship sources (calendars 7541 and 6327).
 
 **Why**
 HTML identity helpers map a numeric event id to the existing `{eventId}@illinois.edu` form so a later upsert would update the same row. Recurrence-qualified `::` ids are left unchanged. The fetch helper refuses `/ical`, `/icalOutlook`, `/export`, `/outlook`, `/eventXML`, and `/userRole`.
@@ -301,4 +301,42 @@ Fixtures and tests for parsers, windows, fetch allowlisting, comparison, and the
 | Hour-wide timezone shifts | 0 |
 | Gate | `READY_FOR_CUTOVER` |
 
-The remaining schedule failure is HireIllini `33553793` (`Oct 7, 2026 11:00` on both list and detail, so meridiem is not inferred). Production HTML cutover has not happened. `npm run collect:webtools` still fetches ICS.
+The preparation dry run left HireIllini `33553793` unresolved (`Oct 7, 2026 11:00` on both list and detail, so meridiem is not inferred). ICS remained the production writer at that preparation checkpoint.
+
+**Production cutover implementation**
+
+- `collectWebtools` now uses the same bounded HTML discovery, allowlisted fetcher, parsers, and normalization. The configured source set is unchanged; ICS URLs were removed from active configuration. ICS parser code, fixtures, and parser tests remain.
+- Read every stored Webtools row with exact-count pagination before writing, so conflicting source-URL identities under other external IDs are detected. Reuse the dry-run identity/time/metadata gate. Any failed calendar list or blocked gate prevents all upserts; isolated detail failures skip only those events and make the command exit nonzero.
+- Production disables only the stored-coverage gate because absence is not deletion evidence and single-calendar runs intentionally discover a subset. The read-only dry run retains its original coverage check. No path deletes stored-only events.
+- Keep `(source, external_id)`, raw IDs, discovery timestamps, and stored source URLs. Fill blank HTML fields from stored enrichment; accept HTML registration URLs without inferring company from Sponsor.
+- The CLI reports collection counts before reconciling successful upserts, including valid events from a partial detail run. Reconciliation algorithms, schema, and user-state semantics are unchanged.
+
+**Production verification / Result**
+
+One `npm run collect:webtools` run on 2026-09-28 used the existing server-only configuration after tests, TypeScript, lint, and the webpack build passed. A read-only baseline and post-run audit compared raw identity fields, mappings, and registration URLs; a SELECT-only SQL audit compared user-state counts, references, and a digest of complete state rows.
+
+| Measure | Production cutover result |
+| --- | --- |
+| Calendars attempted / list discovery succeeded / failed | 5 / 5 / 0 |
+| List requests / unique detail attempts | 35 / 181 |
+| Discovered / normalized / upserted / skipped | 181 / 180 / 180 / 1 |
+| Identity conflicts | 0 |
+| Hour-wide start / end shifts | 0 / 0 |
+| Raw events before → after | 210 → 218 (Webtools: 207 → 215) |
+| Occurrences before → after | 209 → 217 |
+| Mappings before → after | 210 → 218 |
+| Reconciliation | 8 assigned, 8 new occurrences, 0 joins to existing occurrences |
+| Unmapped / invalid / duplicate mappings / orphan occurrences | 0 / 0 / 0 / 0 |
+| Lost raw rows / changed existing identity fields / changed established mappings | 0 / 0 / 0 |
+| Previously HTML-only events | All 8 inserted and mapped |
+| Registration enrichment | 30 existing rows gained URLs; 4 new rows have URLs; 0 stored URLs lost |
+| Existing company changes | 0 |
+| User occurrence states | 4 → 4; identical full-row digest; 0 invalid occurrence or profile references |
+
+The command exited 1 to report the one skipped schedule: `33553793` still lacked unambiguous meridiem and its stored row was unchanged. The pre-upsert gate returned `READY_FOR_CUTOVER` with no blockers. All 180 validated candidates were upserted (172 existing rows and 8 new rows), and reconciliation completed.
+
+The live list contained three fewer IDs than the earlier dry run: `33563355`, `33563719`, and `33563356` were no longer discovered. All three stored rows were retained, as were the previously stored-only events. The two schedule changes matched the prior dry-run findings: `33561105` moved from October 12 to January 20, and `33541184` shifted 15 minutes earlier. There was no additional schedule drift or unexpected row-count growth.
+
+Collector integration tests now cover HTML-only requests, the unchanged source set, identity conflicts (including other stored external IDs sharing a source URL), source-URL preservation, registration enrichment, Sponsor exclusion, sparse-field preservation, failed details and missing meridiem, incomplete lists, 100-row fail-closed behavior, systemic hour shifts, exact-count pagination, no deletion, and CLI reconciliation after successful upserts. Existing ICS parser and HTML parser/discovery/dry-run tests remain. Validation: 293 tests across 23 files, `npx tsc --noEmit`, `npm run lint`, and `npm run build` (`next build --webpack`) passed.
+
+Result: the five production calendars now collect through HTML list/detail pages, with stable event and occurrence identities preserved. Phase 3 is ready for commit review. No source expansion, schema changes, or Phase 4 work is included.

@@ -17,24 +17,21 @@ It does not send notification email, add events to Google Calendar, or use a mac
 - Public homepage of upcoming and ongoing Illinois Webtools events (Career & Industry, All Events, title search, next 7 or 30 days)
 - Rule-based career relevance, with short explanations on Career & Industry cards
 - Five collected calendars: Siebel (2654), HireIllini Career Fairs (1551), Research Park (5115), LAS Career Services (6499), ECE Student Events (6805)
-- Production collection via Outlook ICS feeds (`/icalOutlook/{id}.ics`), upserted on `(source, external_id)`
+- Production collection via public HTML list/detail pages, upserted on `(source, external_id)`
 - Stable occurrence grouping so one happening is one card even when multiple source rows exist
 - Email/password accounts, confirmation, session cookies, and an account page
 - Controlled career-interest catalog (students pick from that list only)
 - Interested / Going / Not Interested on each occurrence for signed-in users
 - For You ranking from saved interests (signed-in users only)
 
-**Prepared, not cut over**
-
-HTML list/detail ingestion is implemented, tested, and compared against stored ICS rows by a no-write dry run. The live collector still fetches ICS. Switching production collection to HTML is not done. AE Corporate Relations and Entrepreneurship sources have not been added.
+Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures are reported with a nonzero exit status even when valid events are upserted and reconciled. AE Corporate Relations and Entrepreneurship sources have not been added.
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-  ics["Illinois Webtools ICS feeds"]
   html["Public list/detail HTML"]
-  collect["ICS parse, normalize, upsert"]
+  collect["HTML discover, validate, upsert"]
   dry["HTML discover + dry-run compare"]
   events["Supabase events"]
   recon["Occurrence reconciliation"]
@@ -44,7 +41,7 @@ flowchart TD
   foryou["rankForYou"]
   ui["Next.js UI"]
 
-  ics --> collect --> events
+  html --> collect --> events
   collect --> recon --> occ
   html -.-> dry
   dry -.->|"read-only compare"| events
@@ -61,11 +58,11 @@ The website reads events with the publishable (anon) Supabase key. Collection an
 
 | Layer | What it is | Stable key |
 | --- | --- | --- |
-| Raw / source event | One distinct source/external-ID row | `(source, external_id)` — Illinois Webtools uses `{eventId}@illinois.edu`, or `{uid}::{recurrenceId}` when ICS supplies a recurrence id |
+| Raw / source event | One distinct source/external-ID row | `(source, external_id)` — Illinois Webtools uses `{eventId}@illinois.edu`, with existing ICS recurrence-qualified `{uid}::{recurrenceId}` rows left unchanged |
 | Occurrence | One happening shown as one card | `event_occurrences.id`, with each raw row mapped exactly once |
 | User state | That student's plan for the happening | `(user_id, occurrence_id)` → `interested`, `going`, or `not_interested` |
 
-The same Webtools UID can appear on more than one calendar. Collection merges those appearances into one raw row, using configured calendar precedence and filling blank fields. Distinct external IDs remain separate raw rows with their provenance (source URL, registration, description). Reconciliation groups rows that share a start time plus a canonical URL, or the same normalized non-generic title, end time, and compatible location. Established occurrence identities are never automatically merged or split. User marks attach to the occurrence so they survive extra source rows and field updates.
+The same Webtools event ID can appear on more than one calendar or date window. Collection fetches its detail page once and upserts one raw row. Existing stored source URLs and nonempty enrichment survive sparse HTML; HTML registration URLs can enrich stored rows. Sponsor is not mapped to company. Distinct external IDs remain separate raw rows with their provenance (source URL, registration, description). Reconciliation groups rows that share a start time plus a canonical URL, or the same normalized non-generic title, end time, and compatible location. Established occurrence identities are never automatically merged or split. User marks attach to the occurrence so they survive extra source rows and field updates.
 
 ## Personalization
 
@@ -130,8 +127,6 @@ npm run build
 
 ## Current status
 
-Checkpoint `f2ee7e8` — *Prepare Webtools HTML ingestion and validate cutover*.
+Phase 3 switches the existing five production calendars to HTML list/detail collection. ICS parsers and fixtures remain for compatibility tests; automated production collection no longer fetches ICS.
 
-HTML Webtools ingestion is validated for cutover. Production still uses the ICS collector until that switch is made.
-
-See [docs/engineering-log.md](docs/engineering-log.md) for how the system evolved and why those layers exist.
+See [docs/engineering-log.md](docs/engineering-log.md) for the live cutover verification and the decisions behind the system.

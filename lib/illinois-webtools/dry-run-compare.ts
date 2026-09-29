@@ -325,6 +325,8 @@ function selectorWipe(storedNonEmpty: number, htmlEmpty: number): boolean {
 export function compareWebtoolsHtmlDryRun(input: {
   discovery: HtmlDiscovery;
   rows: StoredWebtoolsRow[];
+  /** Production may collect a subset of calendars and never deletes absent rows. */
+  checkStoredCoverage?: boolean;
 }): DryRunReport {
   const { discovery } = input;
   const rows = input.rows.filter((row) => row.externalId || row.sourceUrl);
@@ -549,7 +551,7 @@ export function compareWebtoolsHtmlDryRun(input: {
     blockers.push(`${htmlOnlyCount} HTML-only events against ${matched} matches`);
   }
   const storedBase = matched + unexplainedStored;
-  if (unexplainedStored >= 15 && storedBase > 0 && unexplainedStored / storedBase > 0.2) {
+  if (input.checkStoredCoverage !== false && unexplainedStored >= 15 && storedBase > 0 && unexplainedStored / storedBase > 0.2) {
     blockers.push(`${unexplainedStored} stored events in the window were not in HTML`);
   }
   if (selectorWipe(descriptionStored, descriptionCleared)) blockers.push("HTML descriptions were empty for most stored descriptions");

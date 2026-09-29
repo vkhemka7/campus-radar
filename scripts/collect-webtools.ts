@@ -31,19 +31,14 @@ async function main() {
     },
   });
 
-  const result = await collectWebtools({ supabase, calendars });
-  const occurrences = await reconcileEventOccurrences(supabase);
-  for (const calendar of result.calendars) {
-    const label = `${calendar.label} (${calendar.id})`;
-    if (calendar.ok) console.log(`${label}: collected ${calendar.eventCount} events.`);
-    else console.error(`${label}: ${calendar.error}`);
+  const result = await collectWebtools({ supabase, calendars, onProgress: (message) => console.error(message) });
+  // Report collection even if reconciliation subsequently fails. No occurrence
+  // writes after a blocked/failed upsert; successful partial detail runs reconcile.
+  console.log(JSON.stringify({ collection: result }, null, 2));
+  if (result.upserted > 0) {
+    const occurrences = await reconcileEventOccurrences(supabase);
+    console.log(JSON.stringify({ occurrences }, null, 2));
   }
-  for (const overlap of result.overlaps) {
-    console.log(`Shared UID ${overlap.uid}: calendars ${overlap.calendarIds.join(", ")}`);
-  }
-  if (result.databaseError) console.error(result.databaseError);
-  console.log(`Upserted ${result.upserted} unique events. Run ${result.ok ? "succeeded" : "incomplete / failed"}.`);
-  console.log(`Occurrence reconciliation assigned ${occurrences.assignedEvents} events (${occurrences.createdOccurrences} new, ${occurrences.joinedOccurrences} existing occurrences).`);
   if (!result.ok) process.exitCode = 1;
 }
 

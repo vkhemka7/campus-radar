@@ -191,6 +191,21 @@ describe("Webtools HTML dry-run comparison", () => {
     expect(report.gate.blockers.join(" ")).toMatch(/100 rows/);
   });
 
+  test("retains dry-run coverage blocking while production can explicitly allow stored-only rows", () => {
+    const input = {
+      discovery: discovery([candidate({ eventId: "1" })]),
+      rows: Array.from({ length: 20 }, (_, index) => row({ id: `row-${index}`, externalId: `${index + 1}@illinois.edu` })),
+    };
+    expect(compareWebtoolsHtmlDryRun(input).gate).toEqual({ decision: "BLOCKED",
+      blockers: ["19 stored events in the window were not in HTML"] });
+    const production = compareWebtoolsHtmlDryRun({ ...input, checkStoredCoverage: false });
+    expect(production.gate.decision).toBe("READY_FOR_CUTOVER");
+    expect(production.identity.storedOnlyInWindow).toBe(19);
+    expect(compareWebtoolsHtmlDryRun({ ...input, checkStoredCoverage: false,
+      rows: [row({ id: "conflict", externalId: "1@illinois.edu", sourceUrl: "https://calendars.illinois.edu/detail/2654/999" })],
+    }).gate.decision).toBe("BLOCKED");
+  });
+
   test("does not import a database client or perform fetches", () => {
     const source = readFileSync("lib/illinois-webtools/dry-run-compare.ts", "utf8");
     expect(source).not.toMatch(/supabase/i);
