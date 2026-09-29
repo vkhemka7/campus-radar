@@ -66,14 +66,14 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe("production HTML collection", () => {
-  test("uses only five configured HTML lists, bounded windows, and one detail for a shared id", async () => {
+  test("uses only the seven configured HTML lists, bounded windows, and one detail for a shared id", async () => {
     const result = await run();
-    expect(WEBTOOLS_CALENDARS.map(({ id }) => id)).toEqual(["2654", "1551", "5115", "6499", "6805"]);
+    expect(WEBTOOLS_CALENDARS.map(({ id }) => id)).toEqual(["2654", "1551", "5115", "6499", "6805", "7541", "6327"]);
     expect(result).toMatchObject({ ok: true, discovered: 1, normalized: 1, upserted: 1, skipped: 0, identityConflicts: 0 });
     const urls = network.mock.calls.map(([url]) => new URL(String(url)));
     expect(new Set(urls.filter((url) => url.pathname.startsWith("/list/")).map((url) => url.pathname)))
       .toEqual(new Set(WEBTOOLS_CALENDARS.map(({ id }) => `/list/${id}`)));
-    expect(urls.filter((url) => url.pathname.startsWith("/list/"))).toHaveLength(35);
+    expect(urls.filter((url) => url.pathname.startsWith("/list/"))).toHaveLength(49);
     expect(urls.filter((url) => url.pathname.startsWith("/detail/"))).toHaveLength(1);
     expect(urls.every((url) => /^\/(list\/\d+|detail\/\d+\/\d+)$/.test(url.pathname))).toBe(true);
     expect(network.mock.calls.every(([, options]) => options?.signal instanceof AbortSignal && options.redirect === "manual")).toBe(true);
@@ -213,7 +213,7 @@ describe("production HTML collection", () => {
   });
 
   test("rejects source expansion before any network requests", async () => {
-    await expect(run([{ id: "7541", label: "Excluded" }])).rejects.toThrow("existing configured");
+    await expect(run([{ id: "9999", label: "Excluded" }])).rejects.toThrow("existing configured");
     expect(network).not.toHaveBeenCalled();
     expect(databaseFetch).not.toHaveBeenCalled();
   });
@@ -244,12 +244,12 @@ describe("collector CLI reconciliation", () => {
     vi.unstubAllEnvs(); vi.restoreAllMocks();
     vi.doUnmock("./collect"); vi.doUnmock("../event-occurrences"); vi.doUnmock("@supabase/supabase-js");
   });
-  test.each([undefined, "2654", "1551", "5115", "6499", "6805"])("selects %s and reconciles only after upsert", async (id) => {
+  test.each([undefined, "2654", "1551", "5115", "6499", "6805", "7541", "6327"])("selects %s and reconciles only after upsert", async (id) => {
     process.argv = ["node", "collect-webtools.ts", ...(id ? ["--calendar", id] : [])];
     await import("../../scripts/collect-webtools");
     await vi.waitFor(() => expect(reconcileMock).toHaveBeenCalledWith(supabase));
     expect(collectMock.mock.calls[0][0].calendars.map((calendar: { id: string }) => calendar.id))
-      .toEqual(id ? [id] : ["2654", "1551", "5115", "6499", "6805"]);
+      .toEqual(id ? [id] : ["2654", "1551", "5115", "6499", "6805", "7541", "6327"]);
     expect(collectMock.mock.invocationCallOrder[0]).toBeLessThan(reconcileMock.mock.invocationCallOrder[0]);
   });
   test("reconciles successful partial detail run and reports nonzero exit", async () => {
@@ -267,7 +267,7 @@ describe("collector CLI reconciliation", () => {
     expect(reconcileMock).not.toHaveBeenCalled();
   });
   test("rejects an excluded calendar before creating a client", async () => {
-    process.argv = ["node", "collect-webtools.ts", "--calendar", "6327"];
+    process.argv = ["node", "collect-webtools.ts", "--calendar", "9999"];
     await import("../../scripts/collect-webtools");
     await vi.waitFor(() => expect(process.exitCode).toBe(1));
     expect(clientMock).not.toHaveBeenCalled();

@@ -16,7 +16,7 @@ It does not send notification email, add events to Google Calendar, or use a mac
 
 - Public homepage of upcoming and ongoing Illinois Webtools events (Career & Industry, All Events, title search, next 7 or 30 days)
 - Rule-based career relevance, with short explanations on Career & Industry cards
-- Five collected calendars: Siebel (2654), HireIllini Career Fairs (1551), Research Park (5115), LAS Career Services (6499), ECE Student Events (6805)
+- Seven collected calendars: Siebel (2654), HireIllini Career Fairs (1551), Research Park (5115), LAS Career Services (6499), ECE Student Events (6805), AE Corporate Relations (7541), Illinois Entrepreneurship Master (6327)
 - Production collection via public HTML list/detail pages, upserted on `(source, external_id)`
 - Stable occurrence grouping so one happening is one card even when multiple source rows exist
 - Email/password accounts, confirmation, session cookies, and an account page
@@ -24,7 +24,7 @@ It does not send notification email, add events to Google Calendar, or use a mac
 - Interested / Going / Not Interested on each occurrence for signed-in users
 - For You ranking from saved interests (signed-in users only)
 
-Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures are reported with a nonzero exit status even when valid events are upserted and reconciled. AE Corporate Relations and Entrepreneurship sources have not been added.
+Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures are reported with a nonzero exit status even when valid events are upserted and reconciled.
 
 ## Architecture
 
@@ -127,6 +127,6 @@ npm run build
 
 ## Current status
 
-Phase 3 switches the existing five production calendars to HTML list/detail collection. ICS parsers and fixtures remain for compatibility tests; automated production collection no longer fetches ICS.
+Production collection uses public HTML list/detail pages across seven Webtools calendars (Siebel, HireIllini Career Fairs, Research Park, LAS Career Services, ECE Student Events, AE Corporate Relations, Illinois Entrepreneurship Master). ICS parsers and fixtures remain for compatibility tests; automated production collection no longer fetches ICS.
 
 See [docs/engineering-log.md](docs/engineering-log.md) for the live cutover verification and the decisions behind the system.

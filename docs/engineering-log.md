@@ -340,3 +340,46 @@ The live list contained three fewer IDs than the earlier dry run: `33563355`, `3
 Collector integration tests now cover HTML-only requests, the unchanged source set, identity conflicts (including other stored external IDs sharing a source URL), source-URL preservation, registration enrichment, Sponsor exclusion, sparse-field preservation, failed details and missing meridiem, incomplete lists, 100-row fail-closed behavior, systemic hour shifts, exact-count pagination, no deletion, and CLI reconciliation after successful upserts. Existing ICS parser and HTML parser/discovery/dry-run tests remain. Validation: 293 tests across 23 files, `npx tsc --noEmit`, `npm run lint`, and `npm run build` (`next build --webpack`) passed.
 
 Result: the five production calendars now collect through HTML list/detail pages, with stable event and occurrence identities preserved. Phase 3 is ready for commit review. No source expansion, schema changes, or Phase 4 work is included.
+
+---
+
+## Phase 4 Webtools source expansion
+
+**When:** 2026-09-28 (4A read-only audit; 4B configuration; 4C live seven-source collection)
+
+**Problem**
+Two additional Illinois Webtools calendars were candidates for production: AE Corporate Relations (7541) and Illinois Entrepreneurship Master (6327). They could not be added until HTML discovery, identity, and overlap with the existing five calendars were validated without writing.
+
+**Decision**
+Reuse the existing HTML list/detail collector and `{eventId}@illinois.edu` identity. Do not invent calendar-specific IDs. Do not retune the relevance classifier in the same change as source expansion.
+
+**Phase 4A (read-only)**
+Live HTML discovery for 7541 and 6327 over the same America/Chicago 180-day window as production: 3/3 and 42/42 normalized, 0 failures, 0 identity conflicts. Combined 45 unique IDs: 13 already stored (all overlap Research Park 5115), 32 genuinely new. Parser handled both sources; empty detail dates recovered from list days. Classifier observations only (not changed): `{Company} Information Session` titles on 7541 can stay `uncertain`; several entrepreneurship application/social events stay `uncertain`; Landuyt office hours are already `not_relevant`.
+
+**Phase 4B (configuration)**
+`WEBTOOLS_CALENDARS` has exactly seven entries, in order: 2654, 1551, 5115, 6499, 6805, 7541, 6327. Both new calendars use the same HTML discover → detail → normalize → validate → upsert → reconcile path. Overlapping 6327/5115 IDs keep one `(source, external_id)` row.
+
+**Phase 4C (live seven-source verification)**
+One `npm run collect:webtools` run on 2026-09-28 used the seven-calendar HTML collector. Pre-upsert gate `READY_FOR_CUTOVER`. Command exited 1 only for the known HireIllini meridiem skip `33553793` (stored row unchanged).
+
+| Measure | Live result |
+| --- | --- |
+| Calendars attempted / list succeeded / failed | 7 / 7 / 0 |
+| Unique IDs discovered / normalized / upserted / skipped | 212 / 211 / 211 / 1 |
+| Identity conflicts / hour-wide start or end shifts | 0 / 0 |
+| 7541 discovered / genuinely new | 3 / 3 |
+| 6327 discovered / overlap with 5115 / genuinely new | 42 / 13 / 29 |
+| Raw events before → after | 218 → 250 (Webtools: 215 → 247) |
+| Occurrences / mappings | 217 → 248 / 218 → 250 |
+| Reconciliation | 32 assigned, 31 new occurrences, 1 join to an existing occurrence |
+| Unmapped / invalid / duplicate mappings / orphan occurrences | 0 / 0 / 0 / 0 |
+| Lost raw rows / changed existing identity fields / changed established mappings | 0 / 0 / 0 |
+| New-event classifier (current rules) | 9 relevant / 9 uncertain / 14 not_relevant |
+| Registration | 16 of 32 new rows have URLs; 0 stored URLs lost; 0 company changes |
+
+The 13 overlapping Research Park IDs stayed on `{eventId}@illinois.edu`. Collector-key SELECT cannot read `user_occurrence_states` (by design); no baseline occurrence IDs were removed, so existing user-state foreign keys remain valid.
+
+**Validation / Result**
+Configuration and collector tests assert the seven-calendar set. After documentation: tests, `npx tsc --noEmit`, `npm run lint`, and `npm run build` (`next build --webpack`). Classifier, parser, and schema were not changed.
+
+Result: seven-source HTML collection is in production. Phase 4 is ready for commit review.
