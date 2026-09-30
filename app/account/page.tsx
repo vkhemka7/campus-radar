@@ -25,7 +25,11 @@ function formatCreatedAt(value: string) {
   }).format(date);
 }
 
-export default async function AccountPage() {
+export default async function AccountPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const viewer = await getViewer();
   if (viewer.status === "unconfigured") {
     return (
@@ -46,12 +50,22 @@ export default async function AccountPage() {
     ? await client.supabase.from("profiles").select("id, created_at").eq("id", viewer.user.id).maybeSingle()
     : { data: null, error: { message: client.error } };
   const profile = isProfile(profileResult.data) ? profileResult.data : null;
+  const notice = (await searchParams).notice;
+  const passwordUpdated = notice === "password_updated" || (Array.isArray(notice) && notice[0] === "password_updated");
 
   return (
     <AuthPage
       title="Account"
       lede="This page is rendered on the server from your session cookie. Refresh it, or return here after browsing events, and you should still be signed in."
     >
+      {passwordUpdated ? (
+        <p
+          role="status"
+          className="mt-6 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-950 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100"
+        >
+          Your password was updated.
+        </p>
+      ) : null}
       <dl className="mt-6 space-y-3 rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-950">
         <div>
           <dt className="font-medium text-zinc-800 dark:text-zinc-200">Email</dt>

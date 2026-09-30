@@ -85,6 +85,17 @@ describe("session proxy", () => {
     expect(createServerClient).not.toHaveBeenCalled();
   });
 
+  test("forwards a recovery query link to the reset route", async () => {
+    process.env.SUPABASE_URL = "https://example.supabase.co";
+    process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";
+    const response = await proxy(
+      new NextRequest("http://localhost:3000/?token_hash=hash&type=recovery"),
+    );
+    expect(response.status).toBe(307);
+    expect(response.headers.get("location")).toBe("http://localhost:3000/auth/reset?token_hash=hash&type=recovery");
+    expect(createServerClient).not.toHaveBeenCalled();
+  });
+
   test("does not refresh a session on the confirmation route", async () => {
     process.env.SUPABASE_URL = "https://example.supabase.co";
     process.env.SUPABASE_PUBLISHABLE_KEY = "publishable-key";

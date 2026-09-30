@@ -462,3 +462,33 @@ A second invocation at 14:00:23 UTC used its own UUID, returned `skipped_locked`
 
 **Result and limits**
 Phase 5B.1 verification complete; ready for commit review. Nothing committed, pushed, or scheduled. The known upstream ambiguous schedule remains a warning. Client ownership checks prevent subsequent writes after reported lease loss; they cannot cancel database requests already in flight. Crash recovery still relies on lease expiry. Temporary observation artifacts are outside the repository at `/tmp/campusradar-phase5b1/`.
+
+---
+
+## Daily Vercel collection (local implementation; activation pending)
+
+**When:** 2026-09-30
+
+Phase 5B.1 committed as `3ca8303` with its verified code unchanged. Scheduling uses two daily Vercel Cron GETs in `vercel.json`: `/api/cron/collect-webtools` at `0 11 * * *` (11:00 UTC; Hobby may invoke during that hour) and `/api/cron/send-digest` at `0 16 * * *` (16:00 UTC, after collection). Both require `Authorization: Bearer` matching `CRON_SECRET`. The collector route awaits the existing `runWebtoolsCollector`; the 600s lease and 120s heartbeat are unchanged. No GitHub Actions workflow remains.
+
+Vercel Hobby supports daily cron, not every 30 minutes. Daily discovery is a reasonable V1 freshness tradeoff: new/changed events may take until the next daily run to appear. The existing deployed project/plan could not be confirmed: no local Vercel linkage or GitHub deployment records, and browser login required a new Vercel authorization, which was not accepted. This implementation targets Hobby without purchasing anything.
+
+**Security and failure behavior**
+`CRON_SECRET` must be present and match `Authorization: Bearer <secret>` before any privileged client is created. Production-only environment variables hold the secret and Supabase credentials; nothing is exposed to the browser. The original structured summary is logged and returned without caching: success/warning/skipped_locked → HTTP 200; failure or missing configuration → HTTP 500; absent/incorrect authorization → HTTP 401. HEAD cannot invoke collection. Unexpected exceptions return a generic failure without echoing exception contents. Vercel records HTTP failures but does not automatically retry cron invocations.
+
+**Runtime constraint**
+`maxDuration=300` matches Hobby with Fluid Compute. The verified CLI run took 264 seconds, leaving only 36 seconds of headroom; serverless runtime has not been measured. A timeout can terminate without a summary or release; the unchanged lease expires naturally. Confirm Fluid Compute and observe the first authorized deployed run before treating this as reliable unattended collection. Do not deploy on a legacy 60-second function limit. No paid upgrade or collector redesign was introduced.
+
+**Activation handoff**
+In the existing Vercel project's Settings → Environment Variables, Production scope only:
+- `CRON_SECRET`: generate a random 32-byte hex value with `openssl rand -hex 32`.
+- `SUPABASE_URL`: existing CampusRadar URL (`https://pexzwkdkoncthdsmkngz.supabase.co`).
+- `SUPABASE_SECRET_KEY`: existing privileged collector key from `.env.local` / Supabase, not the publishable key.
+- `SITE_URL`: public production origin, no trailing slash (digest email links).
+- `RESEND_API_KEY` and `RESEND_FROM`: digest sender only on the server.
+Confirm project Settings → Functions has Fluid Compute enabled and allows 300s. Deploy only after approval; production deployment registers both crons from `vercel.json`. Check Settings → Cron Jobs is enabled. No extra scheduler service is needed in code. No secrets were created, no deployment/push performed, and no production run triggered in this work.
+
+**Verification**
+`npm test`: 335 tests / 28 files passed, including 12 isolated route tests with mocked collector and forbidden live fetch. TypeScript, lint, production webpack build passed. Build manifest confirms the route's 300s duration. Local production-server smoke checks with empty cron/service secrets returned GET 401 and HEAD 405, without collection. `git diff --check` passed. To verify after an approved deployment, use Cron Jobs → View Logs and inspect HTTP status and the structured summary, including lease acquire/release, validation gate, occurrence results, and warnings. Confirm the first run completes below 300s. Use the existing read-only `supabase/verify-job-leases.sql` if a timeout leaves ownership uncertain.
+
+References: https://vercel.com/docs/cron-jobs/usage-and-pricing ; https://vercel.com/docs/functions/configuring-functions/duration ; https://vercel.com/docs/cron-jobs/manage-cron-jobs

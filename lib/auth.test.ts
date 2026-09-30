@@ -11,6 +11,10 @@ import {
   parseAuthCallback,
   parseCredentials,
   signupFailureMessage,
+  parseNewPassword,
+  parseRecoveryFragment,
+  passwordUpdateFailureMessage,
+  recoveryPageModel,
 } from "@/lib/auth";
 
 function credentials(email: string, password: string) {
@@ -107,8 +111,12 @@ describe("authentication form logic", () => {
   test("forwards confirmation callbacks to the confirm route", () => {
     expect(authCallbackRedirectTarget(new URL("http://localhost:3000/?view=all"))).toBeNull();
     expect(authCallbackRedirectTarget(new URL("http://localhost:3000/auth/confirm?code=abc"))).toBeNull();
+    expect(authCallbackRedirectTarget(new URL("http://localhost:3000/auth/reset?type=recovery"))).toBeNull();
     expect(authCallbackRedirectTarget(new URL("http://localhost:3000/?code=abc&view=all"))).toBe(
       "/auth/confirm?code=abc&view=all",
+    );
+    expect(authCallbackRedirectTarget(new URL("http://localhost:3000/?token_hash=hash&type=recovery"))).toBe(
+      "/auth/reset?token_hash=hash&type=recovery",
     );
     expect(
       authCallbackRedirectTarget(new URL("http://localhost:3000/login?error_description=expired&error=access_denied")),
@@ -177,5 +185,36 @@ describe("authentication form logic", () => {
     expect(confirmationFailureNotice({ code: "unexpected_failure", message: "database unavailable" })).toBe(
       "confirmation_failed",
     );
+  });
+
+  test("parses implicit recovery hashes and new passwords", () => {
+    expect(parseRecoveryFragment("#access_token=aaa&refresh_token=bbb&type=recovery")).toEqual({
+      accessToken: "aaa",
+      refreshToken: "bbb",
+    });
+    expect(parseRecoveryFragment("#access_token=aaa&refresh_token=bbb&type=signup")).toBeNull();
+    expect(parseRecoveryFragment("")).toBeNull();
+
+    const matching = new FormData();
+    matching.set("password", "secret1");
+    matching.set("confirm_password", "secret1");
+    expect(parseNewPassword(matching)).toEqual({ ok: true, password: "secret1" });
+
+    const mismatch = new FormData();
+    mismatch.set("password", "secret1");
+    mismatch.set("confirm_password", "secret2");
+    expect(parseNewPassword(mismatch)).toMatchObject({ ok: false, state: { message: "Those passwords do not match." } });
+
+    expect(passwordUpdateFailureMessage({ code: "weak_password", message: "Password should be at least 8 characters" })).toBe(
+      "Password must be at least 8 characters.",
+    );
+    expect(recoveryPageModel(new URLSearchParams("token_hash=hash&type=recovery"))).toEqual({
+      kind: "prompt",
+      callback: { kind: "otp", tokenHash: "hash", type: "recovery" },
+    });
+    expect(recoveryPageModel(new URLSearchParams("notice=confirmation_incomplete"))).toEqual({
+      kind: "notice",
+      notice: "recovery_incomplete",
+    });
   });
 });

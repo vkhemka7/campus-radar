@@ -7,7 +7,8 @@ import { createSupabaseServerClient, hasSupabaseAuthCookie } from "@/lib/supabas
  * Requests with no session cookie skip Auth entirely so public browsing stays
  * on the stateless event client.
  * Email-confirmation links are forwarded to /auth/confirm before any session
- * refresh. That page does not spend the token; the visitor confirms with a button.
+ * refresh. Recovery query links go to /auth/reset. Those pages do not spend
+ * the token on GET. Implicit recovery hashes are handled in RecoveryHashCatcher.
  */
 export async function proxy(request: NextRequest) {
   const callback = authCallbackRedirectTarget(request.nextUrl);

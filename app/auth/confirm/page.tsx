@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { confirmEmail } from "@/app/auth/actions";
+import { redirect } from "next/navigation";
 import { AuthPage } from "@/app/components/auth-page";
 import { CONFIRMATION_NOTICES, confirmationPageModel } from "@/lib/auth";
 
@@ -15,7 +16,8 @@ export default async function ConfirmEmailPage({
 }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const model = confirmationPageModel(toSearchParams(await searchParams));
+  const params = toSearchParams(await searchParams);
+  const model = confirmationPageModel(params);
 
   if (model.kind === "notice") {
     return (
@@ -34,6 +36,9 @@ export default async function ConfirmEmailPage({
   }
 
   const callback = model.callback;
+  if (callback.kind === "otp" && callback.type === "recovery") {
+    redirect(`/auth/reset?${params.toString()}`);
+  }
   return (
     <AuthPage
       title="Confirm email"

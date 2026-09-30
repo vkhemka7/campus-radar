@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { logOut } from "@/app/auth/actions";
+import { SignOutForm } from "@/app/components/sign-out-form";
 import { getViewer } from "@/lib/current-user";
 
 export async function SiteHeader() {
@@ -18,14 +18,7 @@ export async function SiteHeader() {
               <Link href="/account" className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 dark:text-zinc-50 dark:decoration-zinc-700">
                 Account
               </Link>
-              <form action={logOut}>
-                <button
-                  type="submit"
-                  className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 dark:text-zinc-50 dark:decoration-zinc-700"
-                >
-                  Log out
-                </button>
-              </form>
+              <SignOutForm />
             </>
           ) : (
             <>

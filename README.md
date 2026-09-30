@@ -6,25 +6,28 @@ Personalized career-event discovery for University of Illinois Urbana-Champaign 
 
 Career events at UIUC are spread across department and college calendars. Students otherwise have to check those sources separately and decide what is worth attending.
 
-CampusRadar collects Illinois Webtools calendars into one store, classifies career relevance with explicit text rules, groups the same happening when it appears on more than one calendar, and shows upcoming events in a Next.js browser. Signed-in students can save career interests, get a deterministic For You ranking, and mark occurrences Interested, Going, or Not Interested.
+CampusRadar collects Illinois Webtools calendars into one store, classifies career relevance with explicit text rules, groups the same happening when it appears on more than one calendar, and shows upcoming events in a Next.js browser. Signed-in students can save career interests, get a deterministic For You ranking, mark occurrences Interested, Going, or Not Interested, add an event to Google Calendar, and receive a personalized email digest.
 
-It does not send notification email, add events to Google Calendar, or use a machine-learning recommender.
+It does not use a machine-learning recommender.
 
 ## Current capabilities
 
-**In production today**
+**V1**
 
 - Public homepage of upcoming and ongoing Illinois Webtools events (Career & Industry, All Events, title search, next 7 or 30 days)
 - Rule-based career relevance, with short explanations on Career & Industry cards
 - Seven collected calendars: Siebel (2654), HireIllini Career Fairs (1551), Research Park (5115), LAS Career Services (6499), ECE Student Events (6805), AE Corporate Relations (7541), Illinois Entrepreneurship Master (6327)
 - Production collection via public HTML list/detail pages, upserted on `(source, external_id)`
 - Stable occurrence grouping so one happening is one card even when multiple source rows exist
-- Email/password accounts, confirmation, session cookies, and an account page
+- Email/password accounts, confirmation, password recovery, session cookies, and an account page
 - Controlled career-interest catalog (students pick from that list only)
 - Interested / Going / Not Interested on each occurrence for signed-in users
 - For You ranking from saved interests (signed-in users only)
+- Add to Google Calendar links on event cards
+- Personalized email digest (Resend) with duplicate-send protection
+- Authenticated Vercel Cron for daily Webtools collection and the digest
 
-Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures are reported with a nonzero exit status even when valid events are upserted and reconciled.
+Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures produce a warning with exit 0; collection/integrity failures exit 1.
 
 ## Architecture
 
@@ -52,7 +55,7 @@ flowchart TD
   browse --> foryou --> ui
 ```
 
-The website reads events with the publishable (anon) Supabase key. Collection and occurrence writes use the secret key in CLI scripts only. HTML discovery is allowed to request `https://calendars.illinois.edu/list/{id}` and `/detail/{calendarId}/{eventId}` only.
+The website reads events with the publishable (anon) Supabase key. Collection and occurrence writes use the secret key in CLI scripts and the authenticated server-side cron route only. HTML discovery is allowed to request `https://calendars.illinois.edu/list/{id}` and `/detail/{calendarId}/{eventId}` only.
 
 ## Event identity model
 
@@ -92,9 +95,13 @@ Prerequisites: Node.js compatible with the installed Next.js release and support
    SUPABASE_URL=
    SUPABASE_PUBLISHABLE_KEY=
    SUPABASE_SECRET_KEY=
+   CRON_SECRET=
+   SITE_URL=
+   RESEND_API_KEY=
+   RESEND_FROM=
    ```
 
-   The first two are required for the website and the read-only HTML dry run. `SUPABASE_SECRET_KEY` is used by CLI collection, occurrence reconciliation, and occurrence verification (including the default read-only verification). Do not prefix any of these with `NEXT_PUBLIC_`.
+   The first two are required for the website and the read-only HTML dry run. `SUPABASE_SECRET_KEY` is used by CLI collection, occurrence reconciliation, occurrence verification, and the authenticated cron routes. `CRON_SECRET` authenticates those routes. `SITE_URL`, `RESEND_API_KEY`, and `RESEND_FROM` are required for the digest. Do not prefix any of these with `NEXT_PUBLIC_`.
 4. Apply the SQL files in `supabase/migrations/` to the project, in numeric order. Comments in those files describe RLS and grants.
 5. Run the app: `npm run dev` and open `http://localhost:3000`
 
@@ -112,7 +119,7 @@ Read-only HTML dry run (publishable key, no database writes; replaces the local 
 npx tsx --env-file=.env.local scripts/dry-run-webtools-html.ts
 ```
 
-Occurrence helpers: `npm run reconcile:occurrences`, `npm run verify:occurrences`.
+Occurrence helpers: `npm run reconcile:occurrences`, `npm run verify:occurrences`. Local digest send: `npm run digest`.
 
 ## Testing / verification
 

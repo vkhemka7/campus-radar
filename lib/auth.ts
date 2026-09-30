@@ -13,6 +13,11 @@ export type AuthFormState = {
   email: string;
 };
 
+export type PasswordResetState = {
+  status: "error";
+  message: string;
+};
+
 export type AuthFailure = {
   message: string;
   code?: string | null;
@@ -33,6 +38,10 @@ export const CONFIRMATION_NOTICES = {
   confirmation_failed:
     "That confirmation link could not be completed. Sign up again, or log in if you already confirmed your email.",
   confirmation_incomplete: "That confirmation link did not include the details needed to finish signing in.",
+  recovery_expired:
+    "This password reset link is invalid or has already been used. Request a new reset email and try again.",
+  recovery_failed: "That password reset link could not be completed. Request a new reset email and try again.",
+  recovery_incomplete: "Open the password reset link from your email to choose a new password.",
 } as const;
 
 export type ConfirmationNotice = keyof typeof CONFIRMATION_NOTICES;
@@ -137,12 +146,52 @@ export function emailConfirmationRedirect(origin: string): string | null {
 }
 
 export function authCallbackRedirectTarget(requestUrl: URL): string | null {
-  if (requestUrl.pathname === "/auth/confirm") return null;
+  if (requestUrl.pathname === "/auth/confirm" || requestUrl.pathname === "/auth/reset") return null;
   const params = requestUrl.searchParams;
   if (!params.has("code") && !params.has("token_hash") && !params.has("error_description")) return null;
-  const target = new URL("/auth/confirm", requestUrl.origin);
+  const path = params.get("type") === "recovery" ? "/auth/reset" : "/auth/confirm";
+  const target = new URL(path, requestUrl.origin);
   target.search = params.toString();
   return `${target.pathname}${target.search}`;
+}
+
+/** Dashboard recovery emails use the implicit hash; the server never sees those tokens. */
+export function parseRecoveryFragment(fragment: string): { accessToken: string; refreshToken: string } | null {
+  const raw = fragment.startsWith("#") ? fragment.slice(1) : fragment;
+  if (!raw) return null;
+  const params = new URLSearchParams(raw);
+  if (params.get("type") !== "recovery") return null;
+  const accessToken = params.get("access_token")?.trim() ?? "";
+  const refreshToken = params.get("refresh_token")?.trim() ?? "";
+  if (!accessToken || !refreshToken) return null;
+  return { accessToken, refreshToken };
+}
+
+export function parseRecoverySessionForm(
+  formData: FormData,
+): { ok: true; accessToken: string; refreshToken: string } | { ok: false } {
+  const accessToken = formData.get("access_token");
+  const refreshToken = formData.get("refresh_token");
+  if (typeof accessToken !== "string" || typeof refreshToken !== "string") return { ok: false };
+  if (!accessToken.trim() || !refreshToken.trim()) return { ok: false };
+  return { ok: true, accessToken: accessToken.trim(), refreshToken: refreshToken.trim() };
+}
+
+export function parseNewPassword(
+  formData: FormData,
+): { ok: true; password: string } | { ok: false; state: PasswordResetState } {
+  const password = formData.get("password");
+  const confirm = formData.get("confirm_password");
+  if (typeof password !== "string" || typeof confirm !== "string") {
+    return { ok: false, state: { status: "error", message: "Enter a new password and confirm it." } };
+  }
+  if (password.length < 6 || password.length > 72) {
+    return { ok: false, state: { status: "error", message: "Password must be between 6 and 72 characters." } };
+  }
+  if (password !== confirm) {
+    return { ok: false, state: { status: "error", message: "Those passwords do not match." } };
+  }
+  return { ok: true, password };
 }
 
 export function confirmationFailureNotice(error: AuthFailure): ConfirmationNotice {
@@ -152,6 +201,28 @@ export function confirmationFailureNotice(error: AuthFailure): ConfirmationNotic
     return "confirmation_expired";
   }
   return "confirmation_failed";
+}
+
+export function recoveryFailureNotice(error: AuthFailure): ConfirmationNotice {
+  const notice = confirmationFailureNotice(error);
+  if (notice === "confirmation_expired") return "recovery_expired";
+  return "recovery_failed";
+}
+
+export function passwordUpdateFailureMessage(error: AuthFailure): string {
+  const code = error.code ?? "";
+  const lower = error.message.toLowerCase();
+  if (code === "weak_password" || lower.includes("password should be at least")) {
+    const length = error.message.match(/at least (\d+) characters/i)?.[1];
+    return length ? `Password must be at least ${length} characters.` : "Choose a stronger password and try again.";
+  }
+  if (code === "over_request_rate_limit" || lower.includes("rate limit")) {
+    return "Too many attempts. Wait a moment and try again.";
+  }
+  if (code === "same_password" || lower.includes("different from the old password")) {
+    return "Choose a password that is different from your current password.";
+  }
+  return "Could not update your password. Try again.";
 }
 
 /**
@@ -164,6 +235,19 @@ export function confirmationPageModel(params: URLSearchParams): ConfirmationPage
   const callback = parseAuthCallback(params);
   if (callback.kind === "failure") return { kind: "notice", notice: callback.notice };
   return { kind: "prompt", callback };
+}
+
+export function recoveryPageModel(params: URLSearchParams): ConfirmationPageModel {
+  const model = confirmationPageModel(params);
+  if (model.kind !== "notice") return model;
+  return { kind: "notice", notice: toRecoveryNotice(model.notice) };
+}
+
+function toRecoveryNotice(notice: ConfirmationNotice): ConfirmationNotice {
+  if (notice === "confirmation_expired") return "recovery_expired";
+  if (notice === "confirmation_failed") return "recovery_failed";
+  if (notice === "confirmation_incomplete") return "recovery_incomplete";
+  return notice;
 }
 
 export function parseAuthCallback(params: URLSearchParams): AuthCallback {
@@ -182,12 +266,13 @@ export function parseAuthCallback(params: URLSearchParams): AuthCallback {
 }
 
 function confirmationLinkNotice(params: URLSearchParams): ConfirmationNotice {
+  const recovery = params.get("type") === "recovery";
   const code = (params.get("error_code") ?? "").toLowerCase();
   const description = (params.get("error_description") ?? "").toLowerCase();
   if (code === "otp_expired" || code === "flow_state_expired" || description.includes("expired")) {
-    return "confirmation_expired";
+    return recovery ? "recovery_expired" : "confirmation_expired";
   }
-  return "confirmation_failed";
+  return recovery ? "recovery_failed" : "confirmation_failed";
 }
 
 function isConfirmationNotice(value: string): value is ConfirmationNotice {
