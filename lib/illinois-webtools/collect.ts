@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { JobLeaseLostError } from "../job-lease";
 import { ILLINOIS_WEBTOOLS_SOURCE, WEBTOOLS_CALENDARS, type WebtoolsCalendar } from "./constants";
 import { discoverWebtoolsHtml, type HtmlDiscovery } from "./discover-html";
 import { compareWebtoolsHtmlDryRun, type DryRunReport, type StoredWebtoolsRow } from "./dry-run-compare";
@@ -8,6 +9,7 @@ import type { NormalizedIllinoisEvent } from "./normalize";
 type StoredEvent = NormalizedIllinoisEvent & { id: string };
 
 export type CollectionResult = {
+  /** False for unsafe/incomplete collection. Isolated detail skips leave this true. */
   ok: boolean;
   calendars: HtmlDiscovery["calendars"];
   discovered: number;
@@ -52,20 +54,23 @@ export async function collectWebtools({
   fetcher = createWebtoolsHtmlFetcher(),
   now,
   onProgress,
+  assertStillOwns,
 }: {
   supabase: SupabaseClient;
   calendars?: readonly WebtoolsCalendar[];
   fetcher?: WebtoolsHtmlFetcher;
   now?: Date;
   onProgress?: (message: string) => void;
+  assertStillOwns?: () => void;
 }): Promise<CollectionResult> {
   if (!calendars.length || new Set(calendars.map(({ id }) => id)).size !== calendars.length
     || calendars.some(({ id }) => !WEBTOOLS_CALENDARS.some((configured) => configured.id === id))) {
     throw new Error("Select only the existing configured Webtools calendars, without duplicates.");
   }
+  assertStillOwns?.();
   const discovery = await discoverWebtoolsHtml({ calendars, fetcher, now, onProgress });
   const result: CollectionResult = {
-    ok: discovery.calendars.every(({ ok }) => ok) && discovery.detailFailures.length === 0,
+    ok: discovery.calendars.every(({ ok }) => ok),
     calendars: discovery.calendars,
     discovered: discovery.uniqueEventIds,
     normalized: discovery.candidates.length,
@@ -75,6 +80,7 @@ export async function collectWebtools({
     identityConflicts: 0,
   };
   try {
+    assertStillOwns?.();
     // Read ALL Webtools rows, not just candidate external IDs: a conflicting
     // source URL under a different external ID must also block insertion.
     const stored: StoredEvent[] = [];
@@ -108,6 +114,7 @@ export async function collectWebtools({
       result.ok = false;
       return result;
     }
+    assertStillOwns?.();
     const byExternalId = new Map(stored.map((row) => [row.external_id, row]));
     const candidates = discovery.candidates.map((event): NormalizedIllinoisEvent => {
       // Discovery already used normalizeHtmlWebtoolsEvent. Keep precisely its
@@ -130,6 +137,7 @@ export async function collectWebtools({
     result.upserted = candidates.length;
     result.skipped = result.discovered - result.upserted;
   } catch (error) {
+    if (error instanceof JobLeaseLostError) throw error;
     result.ok = false;
     result.databaseError = error instanceof Error ? error.message : String(error);
   }

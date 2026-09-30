@@ -130,7 +130,7 @@ describe("production HTML collection", () => {
 
   test("skips a malformed detail while upserting valid events; never deletes", async () => {
     pages({ ids: ["33559024", "123"], badDetail: "123" });
-    expect(await run()).toMatchObject({ ok: false, discovered: 2, normalized: 1, upserted: 1, skipped: 1,
+    expect(await run()).toMatchObject({ ok: true, discovered: 2, normalized: 1, upserted: 1, skipped: 1,
       detailFailures: [{ eventId: "123", stage: "parse" }] });
     expect(writes().map(({ external_id }) => external_id)).toEqual(["33559024@illinois.edu"]);
     expect(databaseFetch.mock.calls.every(([, options]) => ["GET", "POST"].includes(String(options?.method)))).toBe(true);
@@ -139,7 +139,7 @@ describe("production HTML collection", () => {
   test("33553793 missing meridiem fails closed without replacing its stored row", async () => {
     pages({ ids: ["33559024", "33553793"], ambiguous: true });
     databaseFetch.mockResolvedValueOnce(readResponse([existing({ external_id: "33553793@illinois.edu", source_url: "https://calendars.illinois.edu/detail/1551/33553793" })]));
-    expect(await run()).toMatchObject({ ok: false, normalized: 1, upserted: 1, skipped: 1,
+    expect(await run()).toMatchObject({ ok: true, normalized: 1, upserted: 1, skipped: 1,
       detailFailures: [{ eventId: "33553793", stage: "schedule", reason: "unparsed-date" }] });
     expect(writes().some(({ external_id }) => external_id === "33553793@illinois.edu")).toBe(false);
   });
@@ -212,6 +212,17 @@ describe("production HTML collection", () => {
     expect(writes()).toEqual([]);
   });
 
+  test("refuses event writes after ownership is lost", async () => {
+    const { JobLeaseLostError } = await import("../job-lease");
+    await expect(collectWebtools({
+      supabase, calendars: WEBTOOLS_CALENDARS, now: NOW,
+      fetcher: createWebtoolsHtmlFetcher({ fetch: network, minIntervalMs: 0, sleep: async () => {} }),
+      assertStillOwns: () => { throw new JobLeaseLostError("lost"); },
+    })).rejects.toThrow("lost");
+    expect(network).not.toHaveBeenCalled();
+    expect(databaseFetch).not.toHaveBeenCalled();
+  });
+
   test("rejects source expansion before any network requests", async () => {
     await expect(run([{ id: "9999", label: "Excluded" }])).rejects.toThrow("existing configured");
     expect(network).not.toHaveBeenCalled();
@@ -222,16 +233,13 @@ describe("production HTML collection", () => {
 describe("collector CLI reconciliation", () => {
   const argv = process.argv;
   const exitCode = process.exitCode;
-  const collectMock = vi.fn();
-  const reconcileMock = vi.fn();
+  const runMock = vi.fn();
   const clientMock = vi.fn(() => supabase);
   beforeEach(() => {
     vi.resetModules();
-    collectMock.mockReset().mockResolvedValue({ ok: true, upserted: 1 });
-    reconcileMock.mockReset().mockResolvedValue({ assignedEvents: 1, createdOccurrences: 1, joinedOccurrences: 0 });
+    runMock.mockReset().mockResolvedValue({ status: "success" });
     clientMock.mockClear();
-    vi.doMock("./collect", () => ({ collectWebtools: collectMock }));
-    vi.doMock("../event-occurrences", () => ({ reconcileEventOccurrences: reconcileMock }));
+    vi.doMock("./collect-run", () => ({ runWebtoolsCollector: runMock }));
     vi.doMock("@supabase/supabase-js", () => ({ createClient: clientMock }));
     vi.stubEnv("SUPABASE_URL", "https://example.supabase.co");
     vi.stubEnv("SUPABASE_SECRET_KEY", "test-only-key");
@@ -242,35 +250,41 @@ describe("collector CLI reconciliation", () => {
   afterEach(() => {
     process.argv = argv; process.exitCode = exitCode;
     vi.unstubAllEnvs(); vi.restoreAllMocks();
-    vi.doUnmock("./collect"); vi.doUnmock("../event-occurrences"); vi.doUnmock("@supabase/supabase-js");
+    vi.doUnmock("./collect-run"); vi.doUnmock("@supabase/supabase-js");
   });
-  test.each([undefined, "2654", "1551", "5115", "6499", "6805", "7541", "6327"])("selects %s and reconciles only after upsert", async (id) => {
+  test.each([undefined, "2654", "1551", "5115", "6499", "6805", "7541", "6327"])("selects %s for the leased collector run", async (id) => {
     process.argv = ["node", "collect-webtools.ts", ...(id ? ["--calendar", id] : [])];
     await import("../../scripts/collect-webtools");
-    await vi.waitFor(() => expect(reconcileMock).toHaveBeenCalledWith(supabase));
-    expect(collectMock.mock.calls[0][0].calendars.map((calendar: { id: string }) => calendar.id))
+    await vi.waitFor(() => expect(runMock).toHaveBeenCalled());
+    expect(runMock.mock.calls[0][0].calendars.map((calendar: { id: string }) => calendar.id))
       .toEqual(id ? [id] : ["2654", "1551", "5115", "6499", "6805", "7541", "6327"]);
-    expect(collectMock.mock.invocationCallOrder[0]).toBeLessThan(reconcileMock.mock.invocationCallOrder[0]);
+    expect(process.exitCode).toBeUndefined();
   });
-  test("reconciles successful partial detail run and reports nonzero exit", async () => {
+  test("exits 0 for warning and skipped_locked and 1 for failure", async () => {
     process.argv = ["node", "collect-webtools.ts"];
-    collectMock.mockResolvedValue({ ok: false, upserted: 1 });
+    runMock.mockResolvedValue({ status: "warning" });
+    await import("../../scripts/collect-webtools");
+    await vi.waitFor(() => expect(runMock).toHaveBeenCalled());
+    expect(process.exitCode).toBeUndefined();
+    vi.resetModules();
+    vi.doMock("./collect-run", () => ({ runWebtoolsCollector: runMock }));
+    vi.doMock("@supabase/supabase-js", () => ({ createClient: clientMock }));
+    runMock.mockResolvedValue({ status: "skipped_locked" });
+    await import("../../scripts/collect-webtools");
+    await vi.waitFor(() => expect(runMock).toHaveBeenCalledTimes(2));
+    expect(process.exitCode).toBeUndefined();
+    vi.resetModules();
+    vi.doMock("./collect-run", () => ({ runWebtoolsCollector: runMock }));
+    vi.doMock("@supabase/supabase-js", () => ({ createClient: clientMock }));
+    runMock.mockResolvedValue({ status: "failure" });
     await import("../../scripts/collect-webtools");
     await vi.waitFor(() => expect(process.exitCode).toBe(1));
-    expect(reconcileMock).toHaveBeenCalledWith(supabase);
-  });
-  test("does not reconcile after blocked writes", async () => {
-    process.argv = ["node", "collect-webtools.ts"];
-    collectMock.mockResolvedValue({ ok: false, upserted: 0 });
-    await import("../../scripts/collect-webtools");
-    await vi.waitFor(() => expect(process.exitCode).toBe(1));
-    expect(reconcileMock).not.toHaveBeenCalled();
   });
   test("rejects an excluded calendar before creating a client", async () => {
     process.argv = ["node", "collect-webtools.ts", "--calendar", "9999"];
     await import("../../scripts/collect-webtools");
     await vi.waitFor(() => expect(process.exitCode).toBe(1));
     expect(clientMock).not.toHaveBeenCalled();
-    expect(collectMock).not.toHaveBeenCalled();
+    expect(runMock).not.toHaveBeenCalled();
   });
 });

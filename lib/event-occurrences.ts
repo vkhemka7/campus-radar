@@ -79,16 +79,21 @@ type ReconciliationSnapshot = {
   mappings: { event_id: string; occurrence_id: string }[];
 };
 
-export async function reconcileEventOccurrences(supabase: SupabaseClient): Promise<ReconciliationResult> {
+export async function reconcileEventOccurrences(
+  supabase: SupabaseClient,
+  assertStillOwns?: () => void,
+): Promise<ReconciliationResult> {
   // Each retry reads a single database snapshot and recomputes the whole plan.
   // No assignments commit if collection or another reconciler changed it.
   for (let attempt = 0; attempt < 3; attempt++) {
+    assertStillOwns?.();
     const { data, error } = await supabase.rpc("occurrence_reconciliation_snapshot");
     if (error) throw new Error(`Occurrence snapshot failed: ${error.message}`);
     const snapshot = data as ReconciliationSnapshot;
     const mappings = snapshot.mappings.map(({ event_id, occurrence_id }) =>
       ({ eventId: event_id, occurrenceId: occurrence_id }));
     const assignments = planOccurrenceAssignments(snapshot.events.map(toCampusEvent), mappings);
+    assertStillOwns?.();
     const result = await supabase.rpc("reconcile_occurrence_plan", {
       p_snapshot: snapshot, p_assignments: assignments,
     });

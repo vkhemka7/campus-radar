@@ -129,6 +129,22 @@ describe("occurrence reconciliation", () => {
     expect(rpc).toHaveBeenCalledTimes(6);
   });
 
+  test.each([1, 2])("blocks writes when lease loss occurs during snapshot %s", async (lostSnapshot) => {
+    let snapshots = 0;
+    const rpc = vi.fn().mockImplementation(async (name: string) => {
+      if (name === "occurrence_reconciliation_snapshot") {
+        snapshots++;
+        return { data: snapshot, error: null };
+      }
+      return { error: { code: "PT409" } };
+    });
+    await expect(reconcileEventOccurrences({ rpc } as never, () => {
+      if (snapshots === lostSnapshot) throw new Error("lease lost");
+    })).rejects.toThrow("lease lost");
+    expect(rpc.mock.calls.filter(([name]) => name === "reconcile_occurrence_plan"))
+      .toHaveLength(lostSnapshot - 1);
+  });
+
   test("fails closed on missing schema or assignment failure", async () => {
     const rpc = vi.fn().mockResolvedValue({ error: { message: "missing function" } });
     await expect(reconcileEventOccurrences({ rpc } as never)).rejects.toThrow("snapshot failed");

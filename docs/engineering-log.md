@@ -383,3 +383,82 @@ The 13 overlapping Research Park IDs stayed on `{eventId}@illinois.edu`. Collect
 Configuration and collector tests assert the seven-calendar set. After documentation: tests, `npx tsc --noEmit`, `npm run lint`, and `npm run build` (`next build --webpack`). Classifier, parser, and schema were not changed.
 
 Result: seven-source HTML collection is in production. Phase 4 is ready for commit review.
+
+---
+
+## Phase 5B.1A collector lease infrastructure
+
+**When:** 2026-09-28
+
+**Problem**
+Unattended collection must not overlap a laptop run. A session-level `pg_try_advisory_lock` cannot protect the multi-minute HTML collector: `@supabase/supabase-js` talks to PostgREST, and each REST/RPC request may use a different pooled backend. Separate acquire/release advisory RPCs would leak the lock or no-op the unlock.
+
+**Decision**
+Durable server-time lease: table `job_leases` (one row per job, seeded `collect_webtools`) and security-definer RPCs `try_acquire_job_lease`, `renew_job_lease`, `release_job_lease`. Ownership and expiry use `clock_timestamp()`. Acquire is one `UPDATE ... WHERE` free, expired, or same owner, serialized with a **transaction** advisory lock (released at the end of that HTTP call). Expired rows may be taken over. This is not job history.
+
+**Why**
+Works across separate REST connections. A crashed collector stops heartbeating and the lease expires instead of blocking forever.
+
+**Recommended timing (collector integration later)**
+600 second lease, renew every 120 seconds. Live collection is ~4–5 minutes; 10 minutes covers retries without a 30-minute static hold.
+
+**Implementation**
+`supabase/migrations/008_add_job_leases.sql`. RLS on; no table grants to anon, authenticated, or service_role. EXECUTE on the three RPCs to service_role only.
+
+**Validation**
+Static tests in `supabase/job-lease-migration.test.ts`. SQL Editor: `verify-job-leases.sql` (privileges) and `verify-job-lease-transactions.sql` (acquire/deny/renew/release/takeover inside a rolled-back transaction).
+
+**Not in this milestone (at 5B.1A)**
+Collector did not acquire the lease yet. Exit semantics were unchanged. GitHub Actions scheduling was not implemented.
+
+**Production apply (2026-09-28)**
+Target project identity matches CampusRadar `.env.local` (`pexzwkdkoncthdsmkngz`, same ref as prior occurrence-migration audits). This environment has REST keys only: no `supabase` CLI, no Postgres URI. Established workflow is the SQL Editor. `008_add_job_leases.sql` was applied there, then `verify-job-leases.sql` and `verify-job-lease-transactions.sql`. Seed row `collect_webtools` exists, `owner_id` is NULL, `lease_expires_at` is epoch, and acquire / competing-owner rejection / renew / foreign renew rejection / foreign release rejection / release / reacquire / expired takeover passed. The lease was confirmed free after verification.
+
+---
+
+## Phase 5B.1B collector lease integration
+
+**When:** 2026-09-28
+
+**Problem**
+Unattended Webtools collection still had no durable exclusion and treated isolated detail skips as a whole-run failure (`result.ok` required zero `detailFailures`). A laptop run and a later scheduled run must not overlap, and HireIllini `33553793` (missing meridiem) must warn rather than fail the job.
+
+**Decision**
+The privileged collector acquires `collect_webtools` via `try_acquire_job_lease` before list discovery, detail fetching, event reads/writes, or occurrence reconciliation. Owner identity is a per-invocation `crypto.randomUUID()` (no extra env). Lease duration 600s, heartbeat 120s, same owner on renew. Heartbeat loss fails closed before further privileged mutation. `release_job_lease` runs in `finally` after success, warning, controlled failure, and thrown failure. Force-kill still relies on expiry.
+
+Run statuses: `success` and `warning` exit 0; `failure` exit 1; `skipped_locked` exit 0 with no collection. Isolated detail/schedule skip no longer sets `CollectionResult.ok` false; validation gates are unchanged.
+
+**Implementation**
+`lib/job-lease.ts` wraps the three RPCs and an injectable heartbeat timer. `lib/illinois-webtools/collect-run.ts` orchestrates acquire → collect → reconcile → release and prints one structured summary. `scripts/collect-webtools.ts` is the CLI wrapper.
+
+**Validation**
+Unit tests for RPC mapping, heartbeat stop/loss, skip-locked, warning vs failure vs success, release after thrown failure, and CLI exit codes. No live production collector run and no GitHub Actions in this milestone.
+
+**Not in this milestone**
+GitHub Actions scheduling. Live production collection after this wiring.
+
+---
+
+## Phase 5B.1 completion verification
+
+**When:** 2026-09-30
+
+**Scope and fixes**
+Reviewed the uncommitted 5B.1A/B checkpoint at `b9c653b`. Kept `collect_webtools`, a fresh UUID per CLI invocation, 600-second leases, and 120-second heartbeats. Added ownership checks before occurrence reconciliation writes, including retries after snapshot conflicts. Preserved failures from in-flight heartbeats during shutdown instead of suppressing them. Added regression coverage for those cases and clean-run release failures. Collection errors remain primary when release also fails.
+
+**Local verification**
+`npm test`: 27 files, 323 tests passed. `npx tsc --noEmit`, `npm run lint`, and `npm run build` (Next.js webpack production build): all exit 0. `git diff --check`: passed after removing the checkpoint's trailing blank line. No unrelated implementation changes.
+
+**Production schema verification**
+Authenticated SQL Editor for project `pexzwkdkoncthdsmkngz`, production branch, matched `.env.local`. Migration 008 was already installed; no migration was reapplied. Read-only catalog checks verified all three RPC body hashes against the local migration, security-definer/postgres ownership, `search_path=public`, service-role EXECUTE, no anon/authenticated EXECUTE, RLS enabled, and no direct table privileges for anon/authenticated/service_role. The seeded lease was free before collection. Migration 008 affects only lease infrastructure, with no destructive event/occurrence/user-data operations.
+
+**One controlled production collection**
+2026-09-30 14:00:12–14:04:36 UTC; owner `7ce47a5e-3896-498a-bee8-641baa2a9aeb`. Existing CLI with a temporary external fetch observer that recorded request paths/status and lease responses, without keys or headers. One JSON summary; status `warning`, exit 0. Seven calendars succeeded; 212 discovered, 211 normalized/upserted, one known schedule warning (`33553793`, `unparsed-date`), zero identity conflicts. Gate `READY_FOR_CUTOVER`, zero blockers and zero material/hour-wide time shifts. Acquire succeeded; renewals at 14:02:13 and 14:04:14 UTC succeeded; release succeeded. A separate post-run SQL SELECT confirmed NULL owner, epoch expiry, and `lease_free=true`.
+
+Reconciliation: 258 source events, 250 existing mappings, 8 assignments, 8 new occurrences, no joins. Read-only before/after comparison: 250 → 258 events and mappings, zero lost event IDs, zero changed existing source identities or occurrence mappings, and the skipped event unchanged. `npm run verify:occurrences` exited 0: 256 occurrences, 258 mappings, zero unmapped/invalid/duplicate mappings/orphan occurrences; both public views loaded. Output scan found no configured keys.
+
+**Real overlap verification**
+A second invocation at 14:00:23 UTC used its own UUID, returned `skipped_locked`, and exited 0. Its complete database request log contained only the denied acquire RPC; no event reads/writes or reconciliation calls, and no collection progress output. It did not release the first owner's lease.
+
+**Result and limits**
+Phase 5B.1 verification complete; ready for commit review. Nothing committed, pushed, or scheduled. The known upstream ambiguous schedule remains a warning. Client ownership checks prevent subsequent writes after reported lease loss; they cannot cancel database requests already in flight. Crash recovery still relies on lease expiry. Temporary observation artifacts are outside the repository at `/tmp/campusradar-phase5b1/`.
