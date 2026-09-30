@@ -11,7 +11,8 @@
     "collect:siebel": "tsx --env-file=.env.local scripts/collect-webtools.ts --calendar 2654",
     "collect:webtools": "tsx --env-file=.env.local scripts/collect-webtools.ts",
     "reconcile:occurrences": "tsx --env-file=.env.local scripts/reconcile-event-occurrences.ts",
-    "verify:occurrences": "tsx --env-file=.env.local scripts/verify-event-occurrences.ts"
+    "verify:occurrences": "tsx --env-file=.env.local scripts/verify-event-occurrences.ts",
+    "digest": "tsx --env-file=.env.local scripts/send-digest.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
