@@ -4,6 +4,7 @@ import { readCareerInterests, readSelectedInterestSlugs } from "@/lib/career-int
 import { getViewer, type Viewer } from "@/lib/current-user";
 import { rankForYou, type ForYouRecommendation } from "@/lib/for-you";
 import { EVENT_RESULT_LIMIT, getEvents, type BrowsingEvent, type GetEventsResult } from "@/lib/get-events";
+import { googleCalendarDetails, googleCalendarEventUrl } from "@/lib/google-calendar";
 import { readOccurrenceStates, type OccurrenceStatus } from "@/lib/occurrence-states";
 import { createRequestSupabaseClient } from "@/lib/supabase-server";
 
@@ -65,6 +66,16 @@ function EventCard({
   recommendation?: string;
 }) {
   const registrationUrls = [...new Set(provenance.map(({ registrationUrl }) => registrationUrl).filter(Boolean))];
+  const calendarHref = googleCalendarEventUrl({
+    title: event.title,
+    startTime: event.startTime,
+    endTime: event.endTime,
+    location: event.location,
+    details: googleCalendarDetails([
+      ...registrationUrls,
+      ...provenance.map(({ sourceUrl }) => sourceUrl),
+    ]),
+  });
   return (
     <article className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-zinc-950">
       <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
@@ -148,6 +159,16 @@ function EventCard({
             Original source{provenance.length > 1 ? ` ${index + 1}` : ""}
           </a>
         ))}
+        {calendarHref ? (
+          <a
+            href={calendarHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-950 dark:text-zinc-50 dark:decoration-zinc-700 dark:hover:decoration-zinc-50"
+          >
+            Add to Google Calendar
+          </a>
+        ) : null}
       </div>
       {saved.kind === "loaded" ? (
         <OccurrenceStateControls occurrenceId={occurrenceId} status={saved.states.get(occurrenceId) ?? null} />
