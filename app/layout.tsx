@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CampusRadar",
+  icons: { icon: "/icon.svg" },
   description:
     "Personalized career-event discovery for college students at UIUC.",
 };
@@ -27,6 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
         <RecoveryHashCatcher />
         <SiteHeader />
         {children}

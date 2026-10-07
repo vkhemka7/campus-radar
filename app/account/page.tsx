@@ -34,10 +34,7 @@ export default async function AccountPage({
   if (viewer.status === "unconfigured") {
     return (
       <AuthPage title="Account" lede="Your account could not be loaded.">
-        <p
-          role="alert"
-          className="mt-6 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
-        >
+        <p role="alert" className="notice notice-error">
           {viewer.message}
         </p>
       </AuthPage>
@@ -47,67 +44,56 @@ export default async function AccountPage({
 
   const client = await createRequestSupabaseClient();
   const profileResult = client.ok
-    ? await client.supabase.from("profiles").select("id, created_at").eq("id", viewer.user.id).maybeSingle()
+    ? await client.supabase
+        .from("profiles")
+        .select("id, created_at")
+        .eq("id", viewer.user.id)
+        .maybeSingle()
     : { data: null, error: { message: client.error } };
   const profile = isProfile(profileResult.data) ? profileResult.data : null;
   const notice = (await searchParams).notice;
-  const passwordUpdated = notice === "password_updated" || (Array.isArray(notice) && notice[0] === "password_updated");
+  const passwordUpdated =
+    notice === "password_updated" ||
+    (Array.isArray(notice) && notice[0] === "password_updated");
 
   return (
     <AuthPage
       title="Account"
-      lede="This page is rendered on the server from your session cookie. Refresh it, or return here after browsing events, and you should still be signed in."
+      lede="Your corner of CampusRadar. Keep your interests up to date and make the feed your own."
     >
       {passwordUpdated ? (
-        <p
-          role="status"
-          className="mt-6 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-950 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-100"
-        >
+        <p role="status" className="notice notice-success">
           Your password was updated.
         </p>
       ) : null}
-      <dl className="mt-6 space-y-3 rounded-xl border border-zinc-200 bg-white p-5 text-sm dark:border-zinc-800 dark:bg-zinc-950">
+      <dl className="account-facts">
         <div>
-          <dt className="font-medium text-zinc-800 dark:text-zinc-200">Email</dt>
-          <dd className="mt-1 text-zinc-700 dark:text-zinc-300">{viewer.user.email ?? "No email on this session"}</dd>
+          <dt>Email</dt>
+          <dd>{viewer.user.email ?? "No email on this session"}</dd>
         </div>
         <div>
-          <dt className="font-medium text-zinc-800 dark:text-zinc-200">User ID</dt>
-          <dd className="mt-1 break-all font-mono text-zinc-700 dark:text-zinc-300">{viewer.user.id}</dd>
-        </div>
-        <div>
-          <dt className="font-medium text-zinc-800 dark:text-zinc-200">Profile</dt>
-          <dd className="mt-1 text-zinc-700 dark:text-zinc-300">
-            {profileResult.error
-              ? profileResult.error.message
-              : profile
-                ? `Found. Created ${formatCreatedAt(profile.created_at)}.`
-                : "No profiles row was found for this user. Signup should have created one."}
+          <dt>On your radar since</dt>
+          <dd>
+            {profile
+              ? formatCreatedAt(profile.created_at)
+              : "Your profile details are temporarily unavailable."}
           </dd>
         </div>
-        {profile ? (
-          <div>
-            <dt className="font-medium text-zinc-800 dark:text-zinc-200">Profile ID</dt>
-            <dd className="mt-1 break-all font-mono text-zinc-700 dark:text-zinc-300">{profile.id}</dd>
-          </div>
-        ) : null}
       </dl>
-      <p className="mt-6 text-sm leading-6 text-zinc-700 dark:text-zinc-300">
-        <Link href="/account/interests" className="font-medium text-zinc-950 underline dark:text-zinc-50">
-          Career interests
-        </Link>
-        <span className="text-zinc-600 dark:text-zinc-400"> — choose the areas you want saved on your account.</span>
+      <p className="account-action">
+        <Link href="/account/interests">Career interests</Link>
+        <span> — the fields that shape For You and your digest.</span>
       </p>
-      <p className="mt-3 text-sm">
-        <Link href="/" className="font-medium text-zinc-950 underline dark:text-zinc-50">
-          Back to events
-        </Link>
+      <p className="inline-links">
+        <Link href="/">Back to events</Link>
       </p>
     </AuthPage>
   );
 }
 
-function isProfile(value: unknown): value is { id: string; created_at: string } {
+function isProfile(
+  value: unknown,
+): value is { id: string; created_at: string } {
   if (!value || typeof value !== "object") return false;
   const row = value as { id?: unknown; created_at?: unknown };
   return typeof row.id === "string" && typeof row.created_at === "string";

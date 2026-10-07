@@ -12,7 +12,11 @@ import {
 } from "@/lib/digest";
 
 const catalog: CareerInterest[] = [
-  { slug: "software-engineering", label: "Software Engineering", sortOrder: 10 },
+  {
+    slug: "software-engineering",
+    label: "Software Engineering",
+    sortOrder: 10,
+  },
   { slug: "fintech", label: "Fintech", sortOrder: 80 },
 ];
 
@@ -39,15 +43,40 @@ function event(id: string, title: string, startTime: string): CampusEvent {
   };
 }
 
-function occurrence(id: string, title: string, startTime: string): BrowsingEvent {
+function occurrence(
+  id: string,
+  title: string,
+  startTime: string,
+): BrowsingEvent {
   const row = event(id, title, startTime);
-  return { occurrenceId: id, event: row, provenance: [row], relevance: classifyEvent(row) };
+  return {
+    occurrenceId: id,
+    event: row,
+    provenance: [row],
+    relevance: classifyEvent(row),
+  };
 }
 
-const software = occurrence("soft", "Software Engineering Internship Workshop", "2026-10-03T17:00:00.000Z");
-const payments = occurrence("pay", "Payments and Fintech Recruiting Session", "2026-10-04T17:00:00.000Z");
-const past = occurrence("past", "Software Engineering Internship Workshop", "2026-09-01T17:00:00.000Z");
-const fair = occurrence("fair", "Engineering Career Fair", "2026-10-05T17:00:00.000Z");
+const software = occurrence(
+  "soft",
+  "Software Engineering Internship Workshop",
+  "2026-10-03T17:00:00.000Z",
+);
+const payments = occurrence(
+  "pay",
+  "Payments and Fintech Recruiting Session",
+  "2026-10-04T17:00:00.000Z",
+);
+const past = occurrence(
+  "past",
+  "Software Engineering Internship Workshop",
+  "2026-09-01T17:00:00.000Z",
+);
+const fair = occurrence(
+  "fair",
+  "Engineering Career Fair",
+  "2026-10-05T17:00:00.000Z",
+);
 
 function tables(overrides: {
   interests?: { user_id: string; interest_slug: string }[];
@@ -67,13 +96,20 @@ function tables(overrides: {
           if (table === "career_interests") {
             return {
               data: catalog.map((interest) => ({
-                slug: interest.slug, label: interest.label, sort_order: interest.sortOrder,
+                slug: interest.slug,
+                label: interest.label,
+                sort_order: interest.sortOrder,
               })),
               error: null,
             };
           }
           if (table === "profile_career_interests") {
-            return { data: overrides.interests ?? [{ user_id: userA, interest_slug: "software-engineering" }], error: null };
+            return {
+              data: overrides.interests ?? [
+                { user_id: userA, interest_slug: "software-engineering" },
+              ],
+              error: null,
+            };
           }
           if (table === "user_occurrence_states") {
             return { data: overrides.states ?? [], error: null };
@@ -84,7 +120,8 @@ function tables(overrides: {
           return { data: null, error: { message: "unknown table" } };
         },
         insert: async (rows: { user_id: string; occurrence_id: string }[]) => {
-          if (overrides.insertError) return { error: { message: "insert failed" } };
+          if (overrides.insertError)
+            return { error: { message: "insert failed" } };
           sent.push(...rows);
           return { error: null };
         },
@@ -105,39 +142,73 @@ describe("buildUserDigestItems", () => {
   const events = [past, software, payments, fair];
 
   test("selects upcoming For You matches and caps the list", () => {
-    const items = buildUserDigestItems(events, catalog, ["software-engineering"], { now, limit: 1 });
+    const items = buildUserDigestItems(
+      events,
+      catalog,
+      ["software-engineering"],
+      { now, limit: 1 },
+    );
     expect(items.map((item) => item.occurrence.occurrenceId)).toEqual(["soft"]);
     expect(items[0]?.explanation).toContain("Software Engineering");
     expect(DIGEST_EVENT_LIMIT).toBe(8);
   });
 
   test("excludes already-sent occurrences", () => {
-    const items = buildUserDigestItems(events, catalog, ["software-engineering"], {
-      now,
-      alreadySentIds: new Set(["soft"]),
-    });
-    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain("soft");
+    const items = buildUserDigestItems(
+      events,
+      catalog,
+      ["software-engineering"],
+      {
+        now,
+        alreadySentIds: new Set(["soft"]),
+      },
+    );
+    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain(
+      "soft",
+    );
     expect(items.map((item) => item.occurrence.occurrenceId)).toContain("fair");
   });
 
   test("excludes not_interested occurrences", () => {
-    const items = buildUserDigestItems(events, catalog, ["software-engineering"], {
-      now,
-      notInterestedIds: new Set(["soft"]),
-    });
-    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain("soft");
+    const items = buildUserDigestItems(
+      events,
+      catalog,
+      ["software-engineering"],
+      {
+        now,
+        notInterestedIds: new Set(["soft"]),
+      },
+    );
+    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain(
+      "soft",
+    );
   });
 
   test("drops events that have already started", () => {
-    const items = buildUserDigestItems(events, catalog, ["software-engineering"], { now });
-    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain("past");
+    const items = buildUserDigestItems(
+      events,
+      catalog,
+      ["software-engineering"],
+      { now },
+    );
+    expect(items.map((item) => item.occurrence.occurrenceId)).not.toContain(
+      "past",
+    );
   });
 });
 
 describe("formatDigestEmail", () => {
   test("includes title, time, location, reason, and links", () => {
-    const items = buildUserDigestItems([software], catalog, ["software-engineering"], { now });
-    const { subject, text } = formatDigestEmail(items, "https://campus.example/");
+    const items = buildUserDigestItems(
+      [software],
+      catalog,
+      ["software-engineering"],
+      { now },
+    );
+    const { subject, text } = formatDigestEmail(
+      items,
+      "https://campus.example/",
+    );
     expect(subject).toBe("CampusRadar: 1 upcoming event for you");
     expect(text).toContain("Software Engineering Internship Workshop");
     expect(text).toContain("Where: Siebel");
@@ -158,7 +229,13 @@ describe("runEventDigest", () => {
       now,
       loadEvents: async () => ({ ok: true, events: [software] }),
     });
-    expect(summary).toMatchObject({ status: "success", users_processed: 1, emails_sent: 1, skipped: 0, failures: 0 });
+    expect(summary).toMatchObject({
+      status: "success",
+      users_processed: 1,
+      emails_sent: 1,
+      skipped: 0,
+      failures: 0,
+    });
     expect(sendEmail).toHaveBeenCalledOnce();
     expect(sendEmail.mock.calls[0][0].to).toBe("student@example.test");
     expect(db.sent).toEqual([{ user_id: userA, occurrence_id: "soft" }]);
@@ -174,7 +251,11 @@ describe("runEventDigest", () => {
       now,
       loadEvents: async () => ({ ok: true, events: [software] }),
     });
-    expect(summary).toMatchObject({ status: "failure", emails_sent: 0, failures: 1 });
+    expect(summary).toMatchObject({
+      status: "failure",
+      emails_sent: 0,
+      failures: 1,
+    });
     expect(db.sent).toEqual([]);
   });
 
@@ -182,7 +263,9 @@ describe("runEventDigest", () => {
     const db = tables({});
     const summary = await runEventDigest({
       supabase: db as never,
-      sendEmail: async () => { throw new Error("network"); },
+      sendEmail: async () => {
+        throw new Error("network");
+      },
       siteUrl: "https://campus.example",
       now,
       loadEvents: async () => ({ ok: true, events: [software] }),
@@ -209,7 +292,9 @@ describe("runEventDigest", () => {
   test("skips users with nothing new to send", async () => {
     const sendEmail = vi.fn();
     const db = tables({
-      states: [{ user_id: userA, occurrence_id: "soft", status: "not_interested" }],
+      states: [
+        { user_id: userA, occurrence_id: "soft", status: "not_interested" },
+      ],
       sent: [{ user_id: userA, occurrence_id: "fair" }],
     });
     const summary = await runEventDigest({
@@ -219,12 +304,17 @@ describe("runEventDigest", () => {
       now,
       loadEvents: async () => ({ ok: true, events: [software, fair, past] }),
     });
-    expect(summary).toMatchObject({ users_processed: 1, skipped: 1, emails_sent: 0 });
+    expect(summary).toMatchObject({
+      users_processed: 1,
+      skipped: 1,
+      emails_sent: 0,
+    });
     expect(sendEmail).not.toHaveBeenCalled();
   });
 
   test("continues after one failure", async () => {
-    const sendEmail = vi.fn()
+    const sendEmail = vi
+      .fn()
       .mockResolvedValueOnce({ ok: false })
       .mockResolvedValueOnce({ ok: true });
     const db = tables({
@@ -241,7 +331,11 @@ describe("runEventDigest", () => {
       now,
       loadEvents: async () => ({ ok: true, events: [software] }),
     });
-    expect(summary).toMatchObject({ users_processed: 2, emails_sent: 1, failures: 1 });
+    expect(summary).toMatchObject({
+      users_processed: 2,
+      emails_sent: 1,
+      failures: 1,
+    });
     expect(db.sent).toEqual([{ user_id: userB, occurrence_id: "soft" }]);
   });
 
@@ -250,22 +344,35 @@ describe("runEventDigest", () => {
       supabase: tables({}) as never,
       sendEmail: async () => ({ ok: true }),
       siteUrl: "https://campus.example",
-      loadEvents: async () => ({ ok: false, error: "Events could not be loaded." }),
+      loadEvents: async () => ({
+        ok: false,
+        error: "Events could not be loaded.",
+      }),
     });
-    expect(summary).toMatchObject({ status: "failure", users_processed: 0, error: "Events could not be loaded." });
+    expect(summary).toMatchObject({
+      status: "failure",
+      users_processed: 0,
+      error: "Events could not be loaded.",
+    });
   });
 });
 
 describe("sendResendEmail", () => {
   test("posts to Resend and treats non-OK as failure", async () => {
-    const fetchMock = vi.fn()
+    const fetchMock = vi
+      .fn()
       .mockResolvedValueOnce(new Response("{}", { status: 200 }))
       .mockResolvedValueOnce(new Response("nope", { status: 401 }));
     vi.stubGlobal("fetch", fetchMock);
-    expect(await sendResendEmail({
-      apiKey: "re_test", from: "CampusRadar <noreply@example.test>",
-      to: "student@example.test", subject: "Hi", text: "Body",
-    })).toEqual({ ok: true });
+    expect(
+      await sendResendEmail({
+        apiKey: "re_test",
+        from: "CampusRadar <noreply@example.test>",
+        to: "student@example.test",
+        subject: "Hi",
+        text: "Body",
+      }),
+    ).toEqual({ ok: true });
     expect(fetchMock.mock.calls[0][0]).toBe("https://api.resend.com/emails");
     expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body))).toEqual({
       from: "CampusRadar <noreply@example.test>",
@@ -273,10 +380,112 @@ describe("sendResendEmail", () => {
       subject: "Hi",
       text: "Body",
     });
-    expect(await sendResendEmail({
-      apiKey: "re_test", from: "CampusRadar <noreply@example.test>",
-      to: "student@example.test", subject: "Hi", text: "Body",
-    })).toEqual({ ok: false });
+    expect(
+      await sendResendEmail({
+        apiKey: "re_test",
+        from: "CampusRadar <noreply@example.test>",
+        to: "student@example.test",
+        subject: "Hi",
+        text: "Body",
+      }),
+    ).toEqual({ ok: false });
     vi.unstubAllGlobals();
+  });
+});
+
+describe("HTML digest", () => {
+  test("escapes source content and rejects unsafe links", () => {
+    const unsafe = occurrence(
+      "unsafe",
+      '<img src=x onerror="alert(1)"> & Careers',
+      "2026-10-03T17:00:00Z",
+    );
+    unsafe.event.sourceUrl = "javascript:alert(1)";
+    unsafe.event.company = "A&B <company>";
+    const html = formatDigestEmail(
+      [{ occurrence: unsafe, explanation: "<script>bad</script>", score: 1 }],
+      "javascript:alert(1)",
+      now,
+    ).html;
+    expect(html).toContain("&lt;img");
+    expect(html).toContain("A&amp;B &lt;company&gt;");
+    expect(html).not.toContain("<script>");
+    expect(html).not.toContain('href="javascript:');
+    expect(html).not.toMatch(/<img[\s>]/i);
+  });
+  test("keeps every safe source and registration link in the HTML digest", () => {
+    const listed = occurrence(
+      "listed",
+      "Two calendars, one happening",
+      "2026-10-03T17:00:00Z",
+    );
+    listed.event.endTime = "2026-10-03T18:00:00Z";
+    listed.provenance = [
+      listed.event,
+      {
+        ...listed.event,
+        externalId: "second",
+        sourceUrl: "https://calendars.illinois.edu/detail/5115/listed",
+        registrationUrl: "https://forms.illinois.edu/sec/listed",
+      },
+      {
+        ...listed.event,
+        externalId: "unsafe",
+        sourceUrl: "javascript:alert(1)",
+        registrationUrl: "javascript:alert(2)",
+      },
+    ];
+    const html = formatDigestEmail(
+      [{ occurrence: listed, explanation: "Matches startups.", score: 1 }],
+      "https://campus.example",
+      now,
+    ).html;
+    expect(html).toContain("View event &rarr;");
+    expect(html).toContain("View listing 2 &rarr;");
+    expect(html).toContain("Register &rarr;");
+    expect(html).toContain('href="https://forms.illinois.edu/sec/listed"');
+    expect(html).toContain('bgcolor="#fffefa"');
+    expect(html).toContain('bgcolor="#f6f5f0"');
+    expect(html).not.toContain("javascript:");
+    expect(html).toContain("3 listings brought together");
+  });
+  test("renders dated accessible tables, all eight events and preferences", () => {
+    const item = buildUserDigestItems(
+      [software],
+      catalog,
+      ["software-engineering"],
+      { now },
+    )[0];
+    const { html, text } = formatDigestEmail(
+      Array.from({ length: 8 }, () => item),
+      "https://campus.example",
+      now,
+    );
+    expect(html.match(/View event &rarr;/g)).toHaveLength(8);
+    expect(html).toContain('role="presentation"');
+    expect(html).toContain("Wednesday, September 30");
+    expect(html).toContain("8 upcoming opportunities");
+    expect(html).toContain("https://campus.example/account/interests");
+    expect(text).toContain("Software Engineering Internship Workshop");
+  });
+  test("passes HTML and text to Resend together", async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, "fetch")
+      .mockResolvedValue(new Response("{}", { status: 200 }));
+    try {
+      await sendResendEmail({
+        apiKey: "test-only",
+        from: "radar@example.test",
+        to: "student@example.test",
+        subject: "Test",
+        text: "Text fallback",
+        html: "<h1>Daily radar</h1>",
+      });
+      expect(
+        JSON.parse(String(fetchMock.mock.calls[0][1]?.body)),
+      ).toMatchObject({ text: "Text fallback", html: "<h1>Daily radar</h1>" });
+    } finally {
+      fetchMock.mockRestore();
+    }
   });
 });

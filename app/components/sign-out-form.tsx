@@ -10,11 +10,15 @@ export function SignOutForm() {
       <button
         type="submit"
         disabled={pending}
-        className="text-zinc-950 underline decoration-zinc-300 underline-offset-4 disabled:opacity-60 dark:text-zinc-50 dark:decoration-zinc-700"
+        className="header-link header-button"
       >
         {pending ? "Logging out…" : "Log out"}
       </button>
-      {state?.message ? <p role="alert" className="mt-2 text-sm text-red-700 dark:text-red-300">{state.message}</p> : null}
+      {state?.message ? (
+        <p role="alert" className="header-alert">
+          {state.message}
+        </p>
+      ) : null}
     </form>
   );
 }

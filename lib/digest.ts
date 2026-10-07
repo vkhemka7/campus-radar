@@ -1,5 +1,9 @@
+import { renderDigestHtml } from "./digest-template";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { readCareerInterests, type CareerInterest } from "@/lib/career-interests";
+import {
+  readCareerInterests,
+  type CareerInterest,
+} from "@/lib/career-interests";
 import { rankForYou, type ForYouRecommendation } from "@/lib/for-you";
 import { getEvents, type BrowsingEvent } from "@/lib/get-events";
 
@@ -18,6 +22,7 @@ export type DigestSendEmail = (input: {
   to: string;
   subject: string;
   text: string;
+  html?: string;
 }) => Promise<{ ok: boolean }>;
 
 const loadError = "Digest data could not be loaded.";
@@ -48,8 +53,9 @@ export function buildUserDigestItems(
     ...(options.alreadySentIds ?? []),
   ]);
   const upcoming = events.filter((event) => isUpcoming(event, nowMs));
-  return rankForYou(upcoming, catalog, selectedSlugs, { excludeOccurrenceIds: exclude })
-    .slice(0, options.limit ?? DIGEST_EVENT_LIMIT);
+  return rankForYou(upcoming, catalog, selectedSlugs, {
+    excludeOccurrenceIds: exclude,
+  }).slice(0, options.limit ?? DIGEST_EVENT_LIMIT);
 }
 
 function formatWhen(iso: string, timeZone: string): string {
@@ -68,7 +74,8 @@ function formatWhen(iso: string, timeZone: string): string {
 export function formatDigestEmail(
   items: readonly ForYouRecommendation[],
   siteUrl: string,
-): { subject: string; text: string } {
+  now = new Date(),
+): { subject: string; text: string; html: string } {
   const origin = siteUrl.replace(/\/$/, "");
   const browse = `${origin}/?view=for-you`;
   const blocks = items.map((item, index) => {
@@ -77,10 +84,13 @@ export function formatDigestEmail(
       event.startTime === event.endTime
         ? formatWhen(event.startTime, event.timezone)
         : `${formatWhen(event.startTime, event.timezone)} – ${formatWhen(event.endTime, event.timezone)}`;
-    const sourceUrl = provenance.find((row) => row.sourceUrl)?.sourceUrl ?? event.sourceUrl;
+    const sourceUrl =
+      provenance.find((row) => row.sourceUrl)?.sourceUrl ?? event.sourceUrl;
     const lines = [
       `${index + 1}. ${event.title}`,
       `When: ${when}`,
+      ...(event.category ? [`Category: ${event.category}`] : []),
+      ...(event.company ? [`Organization: ${event.company}`] : []),
     ];
     if (event.location) lines.push(`Where: ${event.location}`);
     lines.push(`Why: ${item.explanation}`);
@@ -89,17 +99,21 @@ export function formatDigestEmail(
     return lines.join("\n");
   });
   const count = items.length;
-  const subject = count === 1
-    ? "CampusRadar: 1 upcoming event for you"
-    : `CampusRadar: ${count} upcoming events for you`;
+  const subject =
+    count === 1
+      ? "CampusRadar: 1 upcoming event for you"
+      : `CampusRadar: ${count} upcoming events for you`;
   const text = [
-    "Here are upcoming campus events that match your saved career interests.",
+    `Your radar for ${new Intl.DateTimeFormat("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "America/Chicago" }).format(now)}.`,
+    `${count} upcoming ${count === 1 ? "opportunity" : "opportunities"} worth a look, based on your saved career interests.`,
     "",
     ...blocks,
     "",
     `See more on CampusRadar: ${browse}`,
+    `Manage interests: ${origin}/account/interests`,
+    "Clear all career interests to stop these digests.",
   ].join("\n\n");
-  return { subject, text };
+  return { subject, text, html: renderDigestHtml(items, siteUrl, now) };
 }
 
 export async function sendResendEmail(input: {
@@ -108,6 +122,7 @@ export async function sendResendEmail(input: {
   to: string;
   subject: string;
   text: string;
+  html?: string;
 }): Promise<{ ok: boolean }> {
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -121,6 +136,7 @@ export async function sendResendEmail(input: {
         to: [input.to],
         subject: input.subject,
         text: input.text,
+        ...(input.html ? { html: input.html } : {}),
       }),
     });
     return { ok: response.ok };
@@ -174,7 +190,9 @@ export async function runEventDigest(input: {
   sendEmail: DigestSendEmail;
   siteUrl: string;
   now?: Date;
-  loadEvents?: () => Promise<{ ok: true; events: BrowsingEvent[] } | { ok: false; error: string }>;
+  loadEvents?: () => Promise<
+    { ok: true; events: BrowsingEvent[] } | { ok: false; error: string }
+  >;
 }): Promise<DigestSummary> {
   const empty: DigestSummary = {
     status: "success",
@@ -189,13 +207,23 @@ export async function runEventDigest(input: {
     return { ...empty, status: "failure", error: eventsResult.error };
   }
 
-  const [catalogResult, interestResult, stateResult, sentResult] = await Promise.all([
-    input.supabase.from("career_interests").select("slug, label, sort_order"),
-    input.supabase.from("profile_career_interests").select("user_id, interest_slug"),
-    input.supabase.from("user_occurrence_states").select("user_id, occurrence_id, status"),
-    input.supabase.from("user_digest_sends").select("user_id, occurrence_id"),
-  ]);
-  if (catalogResult.error || interestResult.error || stateResult.error || sentResult.error) {
+  const [catalogResult, interestResult, stateResult, sentResult] =
+    await Promise.all([
+      input.supabase.from("career_interests").select("slug, label, sort_order"),
+      input.supabase
+        .from("profile_career_interests")
+        .select("user_id, interest_slug"),
+      input.supabase
+        .from("user_occurrence_states")
+        .select("user_id, occurrence_id, status"),
+      input.supabase.from("user_digest_sends").select("user_id, occurrence_id"),
+    ]);
+  if (
+    catalogResult.error ||
+    interestResult.error ||
+    stateResult.error ||
+    sentResult.error
+  ) {
     return { ...empty, status: "failure", error: loadError };
   }
   const catalog = readCareerInterests(catalogResult.data);
@@ -213,7 +241,9 @@ export async function runEventDigest(input: {
   const summary: DigestSummary = { ...empty };
   for (const [userId, slugs] of interests) {
     summary.users_processed += 1;
-    const selected = [...new Set(slugs)].filter((slug) => catalog.some((interest) => interest.slug === slug));
+    const selected = [...new Set(slugs)].filter((slug) =>
+      catalog.some((interest) => interest.slug === slug),
+    );
     if (selected.length === 0) {
       summary.skipped += 1;
       continue;
@@ -229,17 +259,22 @@ export async function runEventDigest(input: {
       continue;
     }
 
-    const { data: userResult, error: userError } = await input.supabase.auth.admin.getUserById(userId);
+    const { data: userResult, error: userError } =
+      await input.supabase.auth.admin.getUserById(userId);
     const email = userResult.user?.email?.trim();
     if (userError || !email) {
       summary.skipped += 1;
       continue;
     }
 
-    const { subject, text } = formatDigestEmail(items, input.siteUrl);
+    const { subject, text, html } = formatDigestEmail(
+      items,
+      input.siteUrl,
+      input.now,
+    );
     let sent: { ok: boolean };
     try {
-      sent = await input.sendEmail({ to: email, subject, text });
+      sent = await input.sendEmail({ to: email, subject, text, html });
     } catch {
       sent = { ok: false };
     }
@@ -248,9 +283,14 @@ export async function runEventDigest(input: {
       continue;
     }
 
-    const { error: insertError } = await input.supabase.from("user_digest_sends").insert(
-      items.map((item) => ({ user_id: userId, occurrence_id: item.occurrence.occurrenceId })),
-    );
+    const { error: insertError } = await input.supabase
+      .from("user_digest_sends")
+      .insert(
+        items.map((item) => ({
+          user_id: userId,
+          occurrence_id: item.occurrence.occurrenceId,
+        })),
+      );
     if (insertError) {
       summary.failures += 1;
       continue;
@@ -263,6 +303,7 @@ export async function runEventDigest(input: {
     summary.emails_sent += 1;
   }
 
-  if (summary.failures > 0 && summary.emails_sent === 0) summary.status = "failure";
+  if (summary.failures > 0 && summary.emails_sent === 0)
+    summary.status = "failure";
   return summary;
 }

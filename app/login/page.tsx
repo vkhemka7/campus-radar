@@ -21,10 +21,16 @@ export default async function LoginPage({
   if (viewer.status === "authenticated") redirect("/account");
 
   const params = await searchParams;
-  const notice = viewer.status === "unconfigured" ? viewer.message : loginNotice(params.error);
+  const notice =
+    viewer.status === "unconfigured"
+      ? viewer.message
+      : loginNotice(params.error);
 
   return (
-    <AuthPage title="Log in" lede="Use the email and password for your CampusRadar account.">
+    <AuthPage
+      title="Welcome back."
+      lede="Pick up where you left off. Your next opportunity might already be here."
+    >
       <CredentialForm mode="login" notice={notice} action={logIn} />
     </AuthPage>
   );

@@ -16,12 +16,12 @@ export default async function SignupPage() {
   if (viewer.status === "authenticated") redirect("/account");
 
   return (
-    <AuthPage title="Sign up" lede="Create an account with your email and a password.">
+    <AuthPage
+      title="Find your next thing."
+      lede="Save events, choose your interests, and get a campus digest that’s relevant to you."
+    >
       {viewer.status === "unconfigured" ? (
-        <p
-          role="alert"
-          className="mt-6 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
-        >
+        <p role="alert" className="notice notice-error">
           {viewer.message}
         </p>
       ) : null}

@@ -24,7 +24,7 @@ It does not use a machine-learning recommender.
 - Interested / Going / Not Interested on each occurrence for signed-in users
 - For You ranking from saved interests (signed-in users only)
 - Add to Google Calendar links on event cards
-- Personalized email digest (Resend) with duplicate-send protection
+- Personalized email digest (Resend): HTML message plus the plain-text fallback, with duplicate-send protection
 - Authenticated Vercel Cron for daily Webtools collection and the digest
 
 Collection discovers today through 180 days ahead in America/Chicago, using windows of at most 30 days and splitting 100-row lists to avoid truncation. Ambiguous schedules are skipped; failed list discovery or a blocked identity/data-quality comparison prevents upserts. Missing events are never deleted. Isolated detail failures produce a warning with exit 0; collection/integrity failures exit 1.
@@ -136,4 +136,6 @@ npm run build
 
 Production collection uses public HTML list/detail pages across seven Webtools calendars (Siebel, HireIllini Career Fairs, Research Park, LAS Career Services, ECE Student Events, AE Corporate Relations, Illinois Entrepreneurship Master). ICS parsers and fixtures remain for compatibility tests; automated production collection no longer fetches ICS.
 
-See [docs/engineering-log.md](docs/engineering-log.md) for the live cutover verification and the decisions behind the system.
+The browser is an editorial campus feed: warm paper, dark ink, Illinois orange, compact date markers, and a reading column with a desktop sidebar. Search windows, ranking, occurrence identity, and saved-state behavior are unchanged. There is no separate Saved tab; the public feed is still capped at 30 results.
+
+See [docs/engineering-log.md](docs/engineering-log.md) for the live cutover verification and the decisions behind the system. See [docs/design-system.md](docs/design-system.md) for the interface.

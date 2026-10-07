@@ -492,3 +492,24 @@ Confirm project Settings → Functions has Fluid Compute enabled and allows 300s
 `npm test`: 335 tests / 28 files passed, including 12 isolated route tests with mocked collector and forbidden live fetch. TypeScript, lint, production webpack build passed. Build manifest confirms the route's 300s duration. Local production-server smoke checks with empty cron/service secrets returned GET 401 and HEAD 405, without collection. `git diff --check` passed. To verify after an approved deployment, use Cron Jobs → View Logs and inspect HTTP status and the structured summary, including lease acquire/release, validation gate, occurrence results, and warnings. Confirm the first run completes below 300s. Use the existing read-only `supabase/verify-job-leases.sql` if a timeout leaves ownership uncertain.
 
 References: https://vercel.com/docs/cron-jobs/usage-and-pricing ; https://vercel.com/docs/functions/configuring-functions/duration ; https://vercel.com/docs/cron-jobs/manage-cron-jobs
+
+---
+
+## Editorial interface and HTML digest
+
+**When:** 2026-10-07
+
+**Problem**
+Every screen used the same zinc card treatment. Event cards did not give the date and title a clear hierarchy, source provenance was easy to miss, and the digest was plain text only. Account and auth controls still looked like a separate, generic form system after the first visual pass.
+
+**Decision**
+Keep discovery, ranking, the 30-result cap, occurrence identity, calendar instants, authentication, and digest send tracking. Do not add a Saved tab. Add an HTML digest beside the existing text body. Finish the interface as one editorial system: paper surfaces, ink type, Illinois orange, date markers, and shared form controls.
+
+**Why**
+Students scan a campus list by day and title. A Saved tab would misrepresent a feed that only loads the first 30 results. HTML mail can carry the same facts as the card without changing who receives a digest or whether a send is recorded. Shared controls stop account and auth from looking unfinished next to the feed.
+
+**Implementation**
+Event titles are `h3`. The marker shows the day; the visible line shows the time range; screen readers still get the full start and end. Description previews are visual only, and “About this event” is the control name. Source rows use a disclosure marker. Google Calendar underlines its label, not the gap before the arrow. Successful plan changes stay visible. Empty result lists do not also say “0 events.” Login, signup, recovery, account, and interests use the same fields, notices, and buttons. The header stays one line at 320px. The HTML digest is a 600px table with inline styles, bgcolor, a light color scheme, date markers, and only http(s) source and registration links. Plain text and delivery bookkeeping are unchanged.
+
+**Validation**
+`npm test`: 36 files, 404 passed, 1 skipped (the optional offline visual-fixture export). `npx tsc --noEmit` and `npm run lint` exited 0. `npm run build` (`next build --webpack`) compiled successfully. Responsive checks covered 320, 390, 768, 1024, and 1280 with no horizontal overflow. The live anonymous feed, empty search, login, signup, and the recovery holding page were rendered. Interested, Going, and Not Interested were checked by applying the real selected styles on live cards, not by writing user state. The HTML digest was opened locally from `scripts/preview-digest.ts` at about 700px and 390px. No production email was sent. Signed-in account and interests pages were not loaded in a session.

@@ -22,14 +22,9 @@ export default async function ConfirmEmailPage({
   if (model.kind === "notice") {
     return (
       <AuthPage title="Confirm email" lede={CONFIRMATION_NOTICES[model.notice]}>
-        <p className="mt-6 text-sm text-zinc-600 dark:text-zinc-400">
-          <Link href="/login" className="font-medium text-zinc-950 underline dark:text-zinc-50">
-            Log in
-          </Link>
-          {" · "}
-          <Link href="/signup" className="font-medium text-zinc-950 underline dark:text-zinc-50">
-            Sign up
-          </Link>
+        <p className="inline-links">
+          <Link href="/login">Log in</Link>
+          <Link href="/signup">Sign up</Link>
         </p>
       </AuthPage>
     );
@@ -42,9 +37,9 @@ export default async function ConfirmEmailPage({
   return (
     <AuthPage
       title="Confirm email"
-      lede="This page does not confirm your account by itself. Choose Confirm email to finish."
+      lede="One last step. Confirm your email to make CampusRadar yours."
     >
-      <form action={confirmEmail} className="mt-6">
+      <form action={confirmEmail} className="form-stack">
         {callback.kind === "otp" ? (
           <>
             <input type="hidden" name="token_hash" value={callback.tokenHash} />
@@ -53,12 +48,14 @@ export default async function ConfirmEmailPage({
         ) : (
           <>
             <input type="hidden" name="code" value={callback.code} />
-            {callback.flowId ? <input type="hidden" name="sb_flow_id" value={callback.flowId} /> : null}
+            {callback.flowId ? (
+              <input type="hidden" name="sb_flow_id" value={callback.flowId} />
+            ) : null}
           </>
         )}
         <button
           type="submit"
-          className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-zinc-950"
+          className="button"
         >
           Confirm email
         </button>

@@ -17,20 +17,30 @@ export default async function ResetPasswordPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = toSearchParams(await searchParams);
-  const hasCallback = params.has("code") || params.has("token_hash") || params.has("error")
-    || params.has("error_description") || params.has("notice");
+  const hasCallback =
+    params.has("code") ||
+    params.has("token_hash") ||
+    params.has("error") ||
+    params.has("error_description") ||
+    params.has("notice");
 
   if (hasCallback) {
     const model = recoveryPageModel(params);
     if (model.kind === "notice") {
       return (
-        <AuthPage title="Set new password" lede={CONFIRMATION_NOTICES[model.notice]}>
+        <AuthPage
+          title="Set new password"
+          lede={CONFIRMATION_NOTICES[model.notice]}
+        >
           <ResetLinks />
         </AuthPage>
       );
     }
     return (
-      <AuthPage title="Set new password" lede="Choose a new password for your CampusRadar account.">
+      <AuthPage
+        title="Set new password"
+        lede="Choose a new password for your CampusRadar account."
+      >
         <ResetPasswordForm callback={model.callback} />
       </AuthPage>
     );
@@ -39,11 +49,11 @@ export default async function ResetPasswordPage({
   const viewer = await getViewer();
   if (viewer.status === "unconfigured") {
     return (
-      <AuthPage title="Set new password" lede="Your password could not be updated.">
-        <p
-          role="alert"
-          className="mt-6 rounded-lg border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-950 dark:border-red-800 dark:bg-red-950 dark:text-red-100"
-        >
+      <AuthPage
+        title="Set new password"
+        lede="Your password could not be updated."
+      >
+        <p role="alert" className="notice notice-error">
           {viewer.message}
         </p>
         <ResetLinks />
@@ -52,14 +62,20 @@ export default async function ResetPasswordPage({
   }
   if (viewer.status !== "authenticated") {
     return (
-      <AuthPage title="Set new password" lede={CONFIRMATION_NOTICES.recovery_incomplete}>
+      <AuthPage
+        title="Set new password"
+        lede={CONFIRMATION_NOTICES.recovery_incomplete}
+      >
         <ResetLinks />
       </AuthPage>
     );
   }
 
   return (
-    <AuthPage title="Set new password" lede="Choose a new password for your CampusRadar account.">
+    <AuthPage
+      title="Set new password"
+      lede="Choose a new password for your CampusRadar account."
+    >
       <ResetPasswordForm callback={null} />
     </AuthPage>
   );
@@ -67,10 +83,8 @@ export default async function ResetPasswordPage({
 
 function ResetLinks() {
   return (
-    <p className="mt-6 text-sm text-zinc-600 dark:text-zinc-400">
-      <Link href="/login" className="font-medium text-zinc-950 underline dark:text-zinc-50">
-        Log in
-      </Link>
+    <p className="inline-links">
+      <Link href="/login">Log in</Link>
     </p>
   );
 }

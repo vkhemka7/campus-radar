@@ -8,10 +8,25 @@ export function AuthPage({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-1 justify-center bg-zinc-50 px-6 py-12 font-sans dark:bg-black">
-      <main className="w-full max-w-2xl">
-        <h1 className="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">{title}</h1>
-        <p className="mt-3 text-base leading-7 text-zinc-600 dark:text-zinc-400">{lede}</p>
+    <div className="auth-shell">
+      <aside className="auth-story">
+        <p className="eyebrow">YOUR CAMPUS, CONNECTED</p>
+        <h2>
+          A little curiosity.
+          <br />A lot of possibility.
+        </h2>
+        <p>
+          Find your next conversation, career move, or unexpected connection at
+          Illinois.
+        </p>
+        <span className="radar-art" aria-hidden="true">
+          <i />
+        </span>
+      </aside>
+      <main id="main-content" className="auth-panel">
+        <p className="eyebrow">CAMPUSRADAR / YOUR SPACE</p>
+        <h1>{title}</h1>
+        <p className="auth-lede">{lede}</p>
         {children}
       </main>
     </div>
